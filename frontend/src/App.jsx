@@ -8,6 +8,8 @@ import {
   QuotesForm,
   Documents,
   Settings,
+  Invoice,
+  Orders,
 } from "./pages/index";
 
 const App = () => {
@@ -25,6 +27,9 @@ const App = () => {
           <Route path="quote-form" element={<QuotesForm />} />
           <Route path="documents" element={<Documents />} />
         </Route>
+
+        <Route path="/accounting/invoice" element={<Invoice />} />
+        <Route path="/accounting/orders" element={<Orders />} />
 
         <Route path="/settings" element={<Settings />} />
       </Routes>

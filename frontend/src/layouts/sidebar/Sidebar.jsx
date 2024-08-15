@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+
+// COMPONENTS IMPORTS
 import Submenu from "./Submenu";
+import Tooltips from "../../components/Tooltip";
 
 // OTHER LIBRARY PACKAGES
 import { motion } from "framer-motion";
@@ -9,13 +12,12 @@ import { useMediaQuery } from "react-responsive";
 // REACT ICONS IMPORTS
 import { IoIosArrowBack } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
-import { LuUsers2, LuUserPlus, LuUserCheck } from "react-icons/lu";
-import { LuTextQuote } from "react-icons/lu";
+import { LuUsers2, LuUserPlus, LuUserCheck, LuTextQuote } from "react-icons/lu";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
-import { IoDocumentTextOutline } from "react-icons/io5";
+import { IoDocumentTextOutline, IoCartOutline } from "react-icons/io5";
 import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
-import Tooltips from "../../components/Tooltip";
+import { TbInvoice } from "react-icons/tb";
 
 const Sidebar = () => {
   let isTab = useMediaQuery({ query: "(max-width: 768px)" });
@@ -64,45 +66,6 @@ const Sidebar = () => {
     }
   }, [isTab]);
 
-  const subMenuList = [
-    {
-      category: "sales",
-      name: "clients",
-      icon: LuUsers2,
-      menus: ["new-clients", "manage-clients"],
-      menusIcons: [LuUserPlus, LuUserCheck],
-    },
-    {
-      category: "sales",
-      name: "quotes",
-      icon: LuTextQuote,
-      menus: ["quote-form", "documents"],
-      menusIcons: [LiaFileInvoiceDollarSolid, IoDocumentTextOutline],
-    },
-  ];
-
-  // const subMenuList = [
-  //   {
-  //     title: "Sales Department",
-  //     salesDept: [
-  //       {
-  //         category: "sales",
-  //         name: "clients",
-  //         icon: LuUsers2,
-  //         menus: ["new-clients", "manage-clients"],
-  //         menusIcons: [LuUserPlus, LuUserCheck],
-  //       },
-  //       {
-  //         category: "sales",
-  //         name: "quotes",
-  //         icon: LuTextQuote,
-  //         menus: ["quote-form", "documents"],
-  //         menusIcons: [LiaFileInvoiceDollarSolid, IoDocumentTextOutline],
-  //       },
-  //     ],
-  //   },
-  // ];
-
   const menuList = {
     salesDept: [
       { title: "sales department" },
@@ -125,18 +88,14 @@ const Sidebar = () => {
     accountingDept: [
       { title: "accounting department" },
       {
-        category: "sales",
-        name: "clients",
-        icon: LuUsers2,
-        menus: ["new-clients", "manage-clients"],
-        menusIcons: [LuUserPlus, LuUserCheck],
+        category: "accounting",
+        name: "invoice",
+        icon: IoCartOutline,
       },
       {
-        category: "sales",
-        name: "quotes",
-        icon: LuTextQuote,
-        menus: ["quote-form", "documents"],
-        menusIcons: [LiaFileInvoiceDollarSolid, IoDocumentTextOutline],
+        category: "accounting",
+        name: "orders",
+        icon: TbInvoice,
       },
     ],
   };
@@ -170,7 +129,7 @@ const Sidebar = () => {
           {/* First */}
           <ul
             className="whitespace-pre px-2.5 text-sm py-5 flex flex-col 
-            gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 md:h-[68%] h-[70%]"
+            gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[100%]"
           >
             <li id="dashboard">
               <NavLink to="/" className={"link"}>
@@ -187,11 +146,15 @@ const Sidebar = () => {
 
             <div className="border-y py-5 border-secondary-borders">
               {Object.keys(menuList).map((deptKey) => (
-                <div key={deptKey}>
+                <div key={deptKey} className={`${!isOpen ? "mb-10" : null}`}>
                   {menuList[deptKey].map((menu, index) => (
                     <Fragment key={index}>
                       {menu.title && (
-                        <small className="pl-3 text-secondary-txt text-xs capitalize">
+                        <small
+                          className={`pl-2 text-secondary-txt text-xs capitalize my-3 ${
+                            !isOpen ? "hidden" : "block"
+                          }`}
+                        >
                           {menu.title}
                         </small>
                       )}
@@ -199,7 +162,7 @@ const Sidebar = () => {
                       {/* Render the Submenu component for items with names */}
                       {menu.name && (
                         <div className="flex flex-col gap-1">
-                          <Submenu data={menu} isOpen={true} />
+                          <Submenu data={menu} isOpen={isOpen} />
                         </div>
                       )}
                     </Fragment>
@@ -207,18 +170,6 @@ const Sidebar = () => {
                 </div>
               ))}
             </div>
-
-            {/* <div className="border-y py-5 border-secondary-borders">
-              <small className="pl-3 text-secondary-txt text-xs">
-                Sales Department
-              </small>
-
-              {subMenuList?.map((menu) => (
-                <div key={menu.name} className="flex flex-col gap-1">
-                  <Submenu data={menu} isOpen={isOpen} />
-                </div>
-              ))}
-            </div> */}
 
             {/* SETTINGS */}
 
