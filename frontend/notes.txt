@@ -1,0 +1,37 @@
+COLOR PALETTE THAT I WILL USE
+
+DARK MODE
+
+# Backgrounds
+1. Primary Background - #0E1110
+2. Secondary Background - #151B19
+
+#Interactive Components
+1. Primary Component Color - #1D2A26
+2. Secondary Component Color - #233730
+3. Tertiary Component Color - #2D433B
+
+#Borders and Seperators
+1. Primary Seperator Color - #395148
+2. Secondary Seperator Color - #466258
+3. Tertiary Seperator Color - #54776A
+
+#Solid Colors
+1. Primary Solid Color - #6F9F8E
+2. Secondary Solid Color - #639382
+
+#Accesible Text
+1. Primary Text Color - #95C6B4
+2. Secondary Text Color - #95C6B4
+
+Icon Colors - #4C6545
+Icon Color With Background Primary - #6F9F8E
+Icon Color With Background Secondary - #151B19
+
+Main Background - #0E1110
+Secondary Background - #1B2320
+Text Color - #E8F0E6
+Secondary Text Color - #95C6B4
+
+Interactive Component - 1D2A26
+Interactive Component - 141B12
