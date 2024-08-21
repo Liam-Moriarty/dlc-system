@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 // COMPONENTS IMPORTS
 import Submenu from "./Submenu";
 import Tooltips from "../../components/Tooltip";
+import { menuList } from "./SidebarMenus";
 
 // OTHER LIBRARY PACKAGES
 import { motion } from "framer-motion";
@@ -12,12 +13,8 @@ import { useMediaQuery } from "react-responsive";
 // REACT ICONS IMPORTS
 import { IoIosArrowBack } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
-import { LuUsers2, LuUserPlus, LuUserCheck, LuTextQuote } from "react-icons/lu";
-import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
-import { IoDocumentTextOutline, IoCartOutline } from "react-icons/io5";
 import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
-import { TbInvoice } from "react-icons/tb";
 
 const Sidebar = () => {
   let isTab = useMediaQuery({ query: "(max-width: 768px)" });
@@ -66,40 +63,6 @@ const Sidebar = () => {
     }
   }, [isTab]);
 
-  const menuList = {
-    salesDept: [
-      { title: "sales department" },
-      {
-        category: "sales",
-        name: "clients",
-        icon: LuUsers2,
-        menus: ["new-clients", "manage-clients"],
-        menusIcons: [LuUserPlus, LuUserCheck],
-      },
-      {
-        category: "sales",
-        name: "quotes",
-        icon: LuTextQuote,
-        menus: ["quote-form", "documents"],
-        menusIcons: [LiaFileInvoiceDollarSolid, IoDocumentTextOutline],
-      },
-    ],
-
-    accountingDept: [
-      { title: "accounting department" },
-      {
-        category: "accounting",
-        name: "invoice",
-        icon: IoCartOutline,
-      },
-      {
-        category: "accounting",
-        name: "orders",
-        icon: TbInvoice,
-      },
-    ],
-  };
-
   return (
     <div>
       <div
@@ -111,27 +74,27 @@ const Sidebar = () => {
         variants={Sidebar_animation}
         initial={{ x: isTab ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className="bg-secondary-bg shadow-xl z-[999] w-[16rem] max-w-[16rem]
+        className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[16rem] max-w-[16rem]
         h-screen overflow-hidden md:relative fixed"
       >
         {/* LOGO */}
-        <div className="flex items-center gap-3 font-medium border-b border-primary-borders py-3 mx-3">
+        <div className="flex items-center gap-3 font-medium border-b border-primary-borders dark:border-primary-borders-dark py-3 mx-3">
           <img
             src="https://img.icons8.com/color/512/firebase.png"
             alt="logo-img"
             width={45}
           />
-          <span className="text-xl whitespace-pre">DLC Corporation</span>
+          <h1 className="whitespace-pre">DLC Corporation</h1>
         </div>
 
         {/* MENU'S */}
         <div className="flex flex-col h-full">
           {/* First */}
           <ul
-            className="whitespace-pre px-2.5 text-sm py-5 flex flex-col 
-            gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[100%]"
+            className="whitespace-pre px-2.5 text-sm flex flex-col 
+            gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[100%] text-primary-txt dark:text-primary-txt-dark"
           >
-            <li id="dashboard">
+            <li id="dashboard" className="py-2">
               <NavLink to="/" className={"link"}>
                 <RxDashboard size={23} className="min-w-max" />
                 Dashboard
@@ -144,14 +107,14 @@ const Sidebar = () => {
               />
             </li>
 
-            <div className="border-y py-5 border-secondary-borders">
+            <div className="border-y py-5 border-primary-borders dark:border-primary-borders-dark">
               {Object.keys(menuList).map((deptKey) => (
                 <div key={deptKey} className={`${!isOpen ? "mb-10" : null}`}>
                   {menuList[deptKey].map((menu, index) => (
                     <Fragment key={index}>
                       {menu.title && (
                         <small
-                          className={`pl-2 text-secondary-txt text-xs capitalize my-3 ${
+                          className={`pl-2 text-secondary-txt dark:text-secondary-txt-dark text-xs capitalize my-3 ${
                             !isOpen ? "hidden" : "block"
                           }`}
                         >

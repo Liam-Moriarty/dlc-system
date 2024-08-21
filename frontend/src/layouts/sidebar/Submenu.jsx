@@ -13,8 +13,11 @@ const Submenu = ({ data, isOpen }) => {
       {data.menus ? (
         <li
           id={`${data.name}`}
-          className={`link ${subMenuOpen ? "active-secondary" : ""}  
-              ${pathname.includes(!data.name) && "text-secondary-txt"}`}
+          className={`link ${subMenuOpen ? "active-secondary my-2" : ""}  
+              ${
+                pathname.includes(!data.name) &&
+                "text-secondary-txt dark:text-secondary-txt-dark"
+              }`}
           onClick={() => setSubMenuOpen(!subMenuOpen)}
         >
           <data.icon size={23} className="min-w-max" />

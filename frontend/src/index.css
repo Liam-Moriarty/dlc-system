@@ -10,15 +10,23 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: "Inter", sans-serif;
-  color: #e8f0e6;
 }
 
 @layer base {
   body {
-    background-color: #0e1110;
+    @apply dark:bg-primary-bg-dark bg-primary-bg text-primary-txt dark:text-primary-txt-dark;
   }
   h1 {
-    @apply text-xl font-medium capitalize;
+    @apply text-xl font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
+  }
+  p {
+    @apply text-base font-normal capitalize text-primary-txt dark:text-primary-txt-dark;
+  }
+}
+
+@layer components {
+  .search {
+    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md outline-none bg-transparent p-1 text-primary-txt dark:text-primary-txt-dark placeholder:text-secondary-txt dark:placeholder:text-secondary-txt-dark text-sm;
   }
 }
 
@@ -27,9 +35,9 @@
 }
 
 .active {
-  @apply bg-tertiary-accent text-secondary-txt;
+  @apply bg-primary-accent dark:bg-primary-accent-dark text-primary-overlay-txt dark:text-primary-txt-dark font-semibold;
 }
 
 .active-secondary {
-  @apply bg-secondary-accent text-secondary-txt;
+  @apply bg-secondary-accent dark:bg-secondary-accent-dark;
 }

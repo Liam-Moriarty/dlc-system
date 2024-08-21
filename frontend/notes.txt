@@ -28,7 +28,7 @@ Icon Colors - #4C6545
 Icon Color With Background Primary - #6F9F8E
 Icon Color With Background Secondary - #151B19
 
-Main Background - #0E1110
+Main Background - #151B19
 Secondary Background - #1B2320
 Text Color - #E8F0E6
 Secondary Text Color - #95C6B4
