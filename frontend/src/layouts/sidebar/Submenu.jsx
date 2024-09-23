@@ -36,7 +36,7 @@ const Submenu = ({ data, isOpen }) => {
         <>
           <NavLink
             id={`${data.name}`}
-            to={`${data.category}/${data.name}`}
+            to={`${data.category}/${data.url}`}
             className="link capitalize"
           >
             <data.icon size={23} className="min-w-max" />
@@ -68,7 +68,7 @@ const Submenu = ({ data, isOpen }) => {
           ? data.menus.map((menu, index) => (
               <li key={menu} id={`${menu}`}>
                 <NavLink
-                  to={`${data.category}/${data.name}/${menu}`}
+                  to={`${data.category}/${data.url}/${menu}`}
                   className="link capitalize"
                 >
                   {React.createElement(data.menusIcons[index], {

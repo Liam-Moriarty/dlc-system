@@ -1,38 +1,58 @@
-import { LuUsers2, LuUserPlus, LuUserCheck, LuTextQuote } from "react-icons/lu";
-import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
-import { IoDocumentTextOutline, IoCartOutline } from "react-icons/io5";
-import { TbInvoice } from "react-icons/tb";
+import { LuUsers } from "react-icons/lu";
+import { BsCart2, BsCreditCard2Front } from "react-icons/bs";
+import { MdOutlineToday } from "react-icons/md";
+import { BsCalendar4Week } from "react-icons/bs";
+import { IoCalendarNumberOutline } from "react-icons/io5";
+import { LuCalendarCheck } from "react-icons/lu";
 
 export const menuList = {
-  salesDept: [
-    { title: "sales department" },
+  general: [
+    { title: "General" },
     {
-      category: "sales",
-      name: "clients",
-      icon: LuUsers2,
-      menus: ["new-clients", "manage-clients"],
-      menusIcons: [LuUserPlus, LuUserCheck],
+      category: "general",
+      url: "paginatedClients",
+      name: "Clients",
+      icon: LuUsers,
     },
     {
-      category: "sales",
-      name: "quotes",
-      icon: LuTextQuote,
-      menus: ["quote-form", "documents"],
-      menusIcons: [LiaFileInvoiceDollarSolid, IoDocumentTextOutline],
+      category: "general",
+      url: "products",
+      name: "Products",
+      icon: BsCart2,
+    },
+    {
+      category: "general",
+      url: "transactions",
+      name: "Transactions",
+      icon: BsCreditCard2Front,
     },
   ],
 
-  accountingDept: [
-    { title: "accounting department" },
+  reports: [
+    { title: "Reports" },
     {
-      category: "accounting",
-      name: "invoice",
-      icon: IoCartOutline,
+      category: "reports",
+      url: "daily",
+      name: "Daily",
+      icon: MdOutlineToday,
     },
     {
-      category: "accounting",
-      name: "orders",
-      icon: TbInvoice,
+      category: "reports",
+      url: "weekly",
+      name: "Weekly",
+      icon: BsCalendar4Week,
+    },
+    {
+      category: "reports",
+      url: "monthly",
+      name: "Monthly",
+      icon: IoCalendarNumberOutline,
+    },
+    {
+      category: "reports",
+      url: "yearly",
+      name: "Yearly",
+      icon: LuCalendarCheck,
     },
   ],
 };

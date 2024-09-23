@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+module.exports = withMT({
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -42,10 +44,19 @@ export default {
         "secondary-icons": "#EF9E94",
         "primary-borders": "#EF9E94", //
       },
+      boxShadow: {
+        "3xl-dark":
+          "0 4px 6px rgba(255, 255, 255, 0.05), 0 1px 3px rgba(255, 255, 255, 0.1)",
+        "3xl": "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);",
+      },
+      screens: {
+        xxl: { max: "1500px" }, // large desktop, tv etc.
+        xl: { max: "1200px" }, // large desktop, tv etc.
+        lg: { max: "992px" }, // tablet(landscape), laptop, desktop
+        md: { max: "768px" }, // tablet(portrait),
+        sm: { max: "480px" }, // mobile(landscape) below is default
+      },
     },
   },
   plugins: [],
-};
-
-// FAF9F6;
-// FFFAFA;
+});

@@ -1,16 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
-import {
-  Dashboard,
-  ClientsForm,
-  Clients,
-  QuotesForm,
-  Documents,
-  Settings,
-  Invoice,
-  Orders,
-} from "./pages/index";
+import { Dashboard, Clients, Settings } from "./pages/index";
 
 const App = () => {
   return (
@@ -18,18 +9,14 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Dashboard />} />
 
-        <Route path="/sales/clients">
-          <Route path="new-clients" element={<ClientsForm />} />
-          <Route path="manage-clients" element={<Clients />} />
-        </Route>
+        <Route path="/general/paginatedClients" element={<Clients />} />
+        <Route path="/general/products" element={"<Products />"} />
+        <Route path="/general/transactions" element={"<Transactions />"} />
 
-        <Route path="/sales/quotes">
-          <Route path="quote-form" element={<QuotesForm />} />
-          <Route path="documents" element={<Documents />} />
-        </Route>
-
-        <Route path="/accounting/invoice" element={<Invoice />} />
-        <Route path="/accounting/orders" element={<Orders />} />
+        <Route path="/reports/daily" element={"<Daily />"} />
+        <Route path="/reports/weekly" element={"<Weekly />"} />
+        <Route path="/reports/monthly" element={"<Monthly />"} />
+        <Route path="/reports/yearly" element={"<Yearly />"} />
 
         <Route path="/settings" element={<Settings />} />
       </Routes>

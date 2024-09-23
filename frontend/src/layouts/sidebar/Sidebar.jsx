@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import dummyLogo from "/images/obanai.png";
 
 // COMPONENTS IMPORTS
 import Submenu from "./Submenu";
@@ -17,10 +18,11 @@ import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
 
 const Sidebar = () => {
-  let isTab = useMediaQuery({ query: "(max-width: 768px)" });
-  const [isOpen, setIsOpen] = useState(isTab ? false : true);
+  // const tabletView = useMediaQuery({ maxWidth: 768 });
+  const tabletAndMobileView = useMediaQuery({ maxWidth: 992 });
+  const [isOpen, setIsOpen] = useState(tabletAndMobileView ? false : true);
 
-  const Sidebar_animation = isTab
+  const Sidebar_animation = tabletAndMobileView
     ? {
         // mobile view
         open: {
@@ -56,33 +58,28 @@ const Sidebar = () => {
       };
 
   useEffect(() => {
-    if (isTab) {
+    if (tabletAndMobileView) {
       setIsOpen(false);
     } else {
       setIsOpen(true);
     }
-  }, [isTab]);
+  }, [tabletAndMobileView]);
 
   return (
     <div>
-      <div
-        onClick={() => setIsOpen(false)}
-        className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50
-          ${isOpen ? "block" : "hidden"}`}
-      ></div>
       <motion.div
         variants={Sidebar_animation}
-        initial={{ x: isTab ? -250 : 0 }}
+        initial={{ x: tabletAndMobileView ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
         className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[16rem] max-w-[16rem]
-        h-screen overflow-hidden md:relative fixed"
+        h-screen overflow-hidden relative lg:fixed"
       >
         {/* LOGO */}
         <div className="flex items-center gap-3 font-medium border-b border-primary-borders dark:border-primary-borders-dark py-3 mx-3">
           <img
-            src="https://img.icons8.com/color/512/firebase.png"
+            src={dummyLogo}
             alt="logo-img"
-            width={45}
+            className="w-10 h-10 object-cover rounded-full"
           />
           <h1 className="whitespace-pre">DLC Corporation</h1>
         </div>
@@ -167,14 +164,17 @@ const Sidebar = () => {
                 }
           }
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute w-fit h-fit z-50 right-2 bottom-5 cursor-pointer md:block hidden"
+          className="absolute w-fit h-fit z-50 right-2 bottom-5 cursor-pointer md:block"
         >
           <IoIosArrowBack size={25} />
         </motion.div>
       </motion.div>
 
       {/* MENU IN MOBILE VIEW */}
-      <div className="m-3 md:hidden" onClick={() => setIsOpen(true)}>
+      <div
+        className="m-5 lg:block hidden fixed top-0 left-0 z-50"
+        onClick={() => setIsOpen(true)}
+      >
         <MdMenu size={25} />
       </div>
     </div>

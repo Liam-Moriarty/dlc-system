@@ -19,25 +19,41 @@
   h1 {
     @apply text-xl font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
   }
+  h2 {
+    @apply text-lg font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
+  }
+  h3 {
+    @apply text-sm font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
+  }
   p {
     @apply text-base font-normal capitalize text-primary-txt dark:text-primary-txt-dark;
+  }
+  ::-webkit-scrollbar {
+    @apply w-[8px] h-[3px] bg-primary-bg dark:bg-primary-bg-dark;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-accent dark:bg-primary-accent-dark rounded-md;
   }
 }
 
 @layer components {
   .search {
-    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md outline-none bg-transparent p-1 text-primary-txt dark:text-primary-txt-dark placeholder:text-secondary-txt dark:placeholder:text-secondary-txt-dark text-sm;
+    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md outline-none bg-transparent p-1 text-primary-txt dark:text-primary-txt-dark placeholder:text-secondary-txt dark:placeholder:text-secondary-txt-dark text-sm lg:w-full;
   }
-}
+  .link {
+    @apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium;
+  }
 
-.link {
-  @apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium;
-}
+  .active {
+    @apply bg-primary-accent dark:bg-primary-accent-dark text-primary-overlay-txt dark:text-primary-txt-dark font-semibold;
+  }
 
-.active {
-  @apply bg-primary-accent dark:bg-primary-accent-dark text-primary-overlay-txt dark:text-primary-txt-dark font-semibold;
-}
+  .active-secondary {
+    @apply bg-secondary-accent dark:bg-secondary-accent-dark;
+  }
 
-.active-secondary {
-  @apply bg-secondary-accent dark:bg-secondary-accent-dark;
+  .input {
+    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md bg-transparent outline-none p-1
+    placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
+  }
 }

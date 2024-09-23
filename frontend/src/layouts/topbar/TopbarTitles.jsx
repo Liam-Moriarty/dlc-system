@@ -1,32 +1,40 @@
 export const routeConfig = {
   "/": { title: "Dashboard", description: "Welcome to your dashboard" },
 
-  "/sales/clients/new-clients": {
-    title: "Client Form",
-    description: "Create new clients",
+  "/general/paginatedClients": {
+    title: "Clients",
+    description: "Manage and Create your clients",
   },
 
-  "/sales/clients/manage-clients": {
-    title: "Client",
-    description: "Manage your clients",
+  "/general/products": {
+    title: "Products",
+    description: "Manage and Create your products",
   },
 
-  "/sales/quotes/quote-form": {
-    title: "Create Quote",
-    description: "Create new quotes",
+  "/general/transactions": {
+    title: "Transactions",
+    description: "Manage transactions",
   },
 
-  "/sales/quotes/documents": {
-    title: "Quotes",
-    description: "Manage your documents",
+  "/reports/daily": {
+    title: "Daily Sales",
+    description: "Daily BookSales",
   },
 
-  "/accounting/invoice": {
-    title: "Invoice",
-    description: "Manage your invoices",
+  "/reports/weekly": {
+    title: "Weekly Sales",
+    description: "Weekly BookSales",
   },
 
-  "/accounting/orders": { title: "Orders", description: "Manage your orders" },
+  "/reports/monthly": {
+    title: "Monthly Sales",
+    description: "Monthly BookSales",
+  },
+
+  "/reports/yearly": {
+    title: "Yearly Sales",
+    description: "Yearly BookSales",
+  },
 
   "/settings": { title: "Settings", description: "Manage your profile" },
 };

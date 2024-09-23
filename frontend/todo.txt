@@ -1,0 +1,4 @@
+* add sorting to the table
+* sort by company name
+* sort by city
+* push updates to github

@@ -3,25 +3,24 @@ import { routeConfig } from "./topbar/TopbarTitles";
 
 import Sidebar from "./sidebar/Sidebar";
 import Topbar from "./topbar/Topbar";
-import { useSelector } from "react-redux";
 
 const RootLayout = ({ children }) => {
   const { pathname } = useLocation();
-  const { theme } = useSelector((state) => state.theme);
 
   const { title, description } = routeConfig[pathname] || {
+    // default if there's no pathname found in routeConfig
     title: "DLC Corporation",
     description: "Welcome to DLC!!",
   };
 
   return (
-    <div className="flex gap-5">
+    <main className="w-full h-screen flex">
       <Sidebar />
-      <main className="w-full flex-1">
+      <div className="w-full h-screen flex-1 p-4 lg:pt-16 ">
         <Topbar title={title} description={description} />
         {children}
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 
