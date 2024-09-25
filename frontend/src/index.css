@@ -41,7 +41,7 @@
     @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md outline-none bg-transparent p-1 text-primary-txt dark:text-primary-txt-dark placeholder:text-secondary-txt dark:placeholder:text-secondary-txt-dark text-sm lg:w-full;
   }
   .link {
-    @apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium;
+    @apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer duration-300 font-medium cursor-pointer;
   }
 
   .active {

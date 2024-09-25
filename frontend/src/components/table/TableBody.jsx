@@ -1,7 +1,10 @@
 import { Typography } from "@material-tailwind/react";
 import dayjs from "dayjs";
+import { useMediaQuery } from "react-responsive";
 
 const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
+  const tabletView = useMediaQuery({ maxWidth: 992 });
+
   return (
     <tbody>
       {isLoading ? (
@@ -26,27 +29,31 @@ const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
         sortedData.map((items) => {
           return (
             <tr key={items._id}>
-              {clientsBody.map((column) => (
-                <td
-                  key={column}
-                  className="p-4 border-b dark:border-primary-borders-dark"
-                >
-                  <Typography
-                    variant="small"
-                    className={`font-normal text-primary-txt dark:text-primary-txt-dark ${
-                      column === "companyName" || column === "city"
-                        ? "capitalize"
-                        : ""
-                    } ${column === "email" ? "lowercase" : ""}`}
-                  >
-                    {column === "created_at" || column === "updated_at"
-                      ? dayjs(items[column]).format("YYYY-MM-DD")
-                      : items[column]}
-                  </Typography>
-                </td>
-              ))}
+              {clientsBody.map(
+                (column) =>
+                  (!tabletView ||
+                    (column !== "created_at" && column !== "updated_at")) && (
+                    <td
+                      key={column}
+                      className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
+                    >
+                      <Typography
+                        variant="small"
+                        className={`font-normal text-primary-txt dark:text-primary-txt-dark ${
+                          column === "companyName" || column === "city"
+                            ? "capitalize"
+                            : ""
+                        } ${column === "email" ? "lowercase" : ""}`}
+                      >
+                        {column === "created_at" || column === "updated_at"
+                          ? dayjs(items[column]).format("YYYY-MM-DD")
+                          : items[column]}
+                      </Typography>
+                    </td>
+                  )
+              )}
 
-              <td className="p-4 border-b dark:border-primary-borders-dark">
+              <td className="p-4 lg:p-2 border-b dark:border-primary-borders-dark">
                 <Typography
                   variant="small"
                   className="font-medium text-primary-txt dark:text-primary-txt-dark"

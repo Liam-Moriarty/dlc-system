@@ -35,10 +35,16 @@ const TableHead = ({ tableHead, requestSort }) => {
             <LuChevronsUpDown />
           );
 
+          const hiddenColumns =
+            accesor.toLowerCase() === "created" ||
+            accesor.toLowerCase() === "updated"
+              ? "lg:hidden lg:table-cell"
+              : "";
+
           return (
             <th
               key={title}
-              className="border-b border-blue-gray-100 dark:border-primary-borders-dark p-4 bg-secondary-bg dark:bg-secondary-bg-dark"
+              className={`border-b border-blue-gray-100 dark:border-primary-borders-dark p-4 lg:p-2 bg-secondary-bg dark:bg-secondary-bg-dark ${hiddenColumns}`}
             >
               <Typography
                 variant="small"

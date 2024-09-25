@@ -14,20 +14,21 @@ const Clients = () => {
   const limit = 10;
 
   return (
-    <Card className="w-full overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
-      <TableHeader
-        title="Clients"
-        description="Manage Clients"
-        btn1="View All"
-      />
-
-      {!tabletView && (
-        <>
+    <>
+      {!tabletView ? (
+        <Card className="w-full h-[47rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
+          <TableHeader
+            title="Clients"
+            description="Manage Clients"
+            btn1="View All"
+          />
           <Table page={page} limit={limit} />
           <Pagination setPage={setPage} page={page} />
-        </>
+        </Card>
+      ) : (
+        <p>Mobile View Here</p>
       )}
-    </Card>
+    </>
   );
 };
 

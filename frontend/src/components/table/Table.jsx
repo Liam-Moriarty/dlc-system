@@ -21,9 +21,9 @@ const Table = ({ page, limit }) => {
   const { data: sortedData, requestSort } = useSort(dataArray);
 
   return (
-    <>
+    <div className="w-full overflow-auto flex grow items-start">
       {data ? (
-        <table className="xxl:overflow-hidden max-h-[40rem] h-[40rem] w-full text-left">
+        <table className="w-full text-left">
           <TableHead tableHead={clientsHeader} requestSort={requestSort} />
 
           <TableBody
@@ -34,7 +34,7 @@ const Table = ({ page, limit }) => {
           />
         </table>
       ) : null}
-    </>
+    </div>
   );
 };
 

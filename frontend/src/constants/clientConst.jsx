@@ -1,16 +1,29 @@
 export const clientsHeader = [
-  { title: "ID", sortable: false, accesor: "_id" },
-  { title: "Company", sortable: true, accesor: "company" },
-  { title: "Contacts", sortable: false, accesor: "contacts" },
-  { title: "Email", sortable: false, accesor: "email" },
-  { title: "City", sortable: true, accesor: "city" },
-  { title: "Created At", sortable: true, accesor: "created" },
-  { title: "Updated At", sortable: true, accesor: "updated" },
-  { title: "", sortable: false, accesor: "" },
+  { title: "Company", sortable: true, accesor: "company", colsHidden: false },
+  {
+    title: "Contacts",
+    sortable: false,
+    accesor: "contacts",
+    colsHidden: false,
+  },
+  { title: "Email", sortable: false, accesor: "email", colsHidden: false },
+  { title: "City", sortable: true, accesor: "city", colsHidden: false },
+  {
+    title: "Create",
+    sortable: true,
+    accesor: "created",
+    colsHidden: true,
+  },
+  {
+    title: "Update",
+    sortable: true,
+    accesor: "updated",
+    colsHidden: true,
+  },
+  { title: "", sortable: false, accesor: "", colsHidden: false },
 ];
 
 export const clientsBody = [
-  "_id",
   "company",
   "contacts",
   "email",

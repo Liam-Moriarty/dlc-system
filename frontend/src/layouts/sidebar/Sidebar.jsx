@@ -18,8 +18,7 @@ import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
 
 const Sidebar = () => {
-  // const tabletView = useMediaQuery({ maxWidth: 768 });
-  const tabletAndMobileView = useMediaQuery({ maxWidth: 992 });
+  const tabletAndMobileView = useMediaQuery({ maxWidth: 1250 });
   const [isOpen, setIsOpen] = useState(tabletAndMobileView ? false : true);
 
   const Sidebar_animation = tabletAndMobileView
@@ -72,7 +71,7 @@ const Sidebar = () => {
         initial={{ x: tabletAndMobileView ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
         className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[16rem] max-w-[16rem]
-        h-screen overflow-hidden relative lg:fixed"
+        h-screen overflow-hidden relative xl:fixed"
       >
         {/* LOGO */}
         <div className="flex items-center gap-3 font-medium border-b border-primary-borders dark:border-primary-borders-dark py-3 mx-3">
@@ -159,7 +158,7 @@ const Sidebar = () => {
                 }
               : {
                   x: -10,
-                  y: -200,
+                  y: -50,
                   rotate: 180,
                 }
           }
@@ -172,7 +171,7 @@ const Sidebar = () => {
 
       {/* MENU IN MOBILE VIEW */}
       <div
-        className="m-5 lg:block hidden fixed top-0 left-0 z-50"
+        className="m-5 xl:block hidden fixed top-0 left-0 z-50"
         onClick={() => setIsOpen(true)}
       >
         <MdMenu size={25} />

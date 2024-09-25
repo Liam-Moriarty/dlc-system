@@ -1,4 +1,5 @@
-* add sorting to the table
-* sort by company name
-* sort by city
-* push updates to github
+* make the clients responsive (for large screen)
+* push it first on git before doing update and delete
+* add update and delete
+* after that do the tablet - mobile design 
+

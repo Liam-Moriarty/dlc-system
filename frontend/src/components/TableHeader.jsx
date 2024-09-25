@@ -9,9 +9,9 @@ const TableHeader = ({ title, description, btn1, btn2 }) => {
     <CardHeader
       floated={false}
       shadow={false}
-      className="rounded-none bg-primary-bg dark:bg-primary-bg-dark mb-2"
+      className="rounded-none bg-primary-bg dark:bg-primary-bg-dark m-0 p-4 md:py-8"
     >
-      <div className="flex items-center justify-between gap-8 lg:gap-4 md:flex-col md:items-start">
+      <div className="flex items-center justify-between lg:gap-4">
         <div className="w-full">
           <h1 className="text-primary-txt dark:text-primary-txt-dark font-semibold sm:text-base">
             {title}
@@ -20,7 +20,7 @@ const TableHeader = ({ title, description, btn1, btn2 }) => {
             {description}
           </p>
         </div>
-        <div className="flex shrink-0 gap-2 flex-row mb-2">
+        <div className="flex shrink-0 gap-2 flex-row mb-2 sm:flex sm:flex-col-reverse">
           <Button children={btn1} variant="outline" />
           {btn2 === undefined ? (
             <Modal />

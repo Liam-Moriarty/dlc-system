@@ -37,7 +37,7 @@ const Submenu = ({ data, isOpen }) => {
           <NavLink
             id={`${data.name}`}
             to={`${data.category}/${data.url}`}
-            className="link capitalize"
+            className="link capitalize cursor-pointer"
           >
             <data.icon size={23} className="min-w-max" />
             {data.name}

@@ -51,7 +51,7 @@ module.exports = withMT({
       },
       screens: {
         xxl: { max: "1500px" }, // large desktop, tv etc.
-        xl: { max: "1200px" }, // large desktop, tv etc.
+        xl: { max: "1250px" }, // large desktop, tv etc.
         lg: { max: "992px" }, // tablet(landscape), laptop, desktop
         md: { max: "768px" }, // tablet(portrait),
         sm: { max: "480px" }, // mobile(landscape) below is default
