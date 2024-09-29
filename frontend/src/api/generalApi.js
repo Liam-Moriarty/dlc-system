@@ -18,10 +18,30 @@ export const generalApi = createApi({
         headers: { "Content-Type": "application/json" },
         body: newClient,
       }),
-      invalidatesTags: ["Client"],
+      invalidatesTags: ["Clients"],
+    }),
+    deleteClient: builder.mutation({
+      query: (id) => ({
+        url: `paginatedClients/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Clients"],
+    }),
+    updateClient: builder.mutation({
+      query: ({ id, updatedClient }) => ({
+        url: `paginatedClients/${id}`,
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: updatedClient,
+      }),
+      invalidatesTags: ["Clients"],
     }),
   }),
 });
 
-export const { useCreateClientMutation, useGetPaginatedClientsQuery } =
-  generalApi;
+export const {
+  useCreateClientMutation,
+  useGetPaginatedClientsQuery,
+  useDeleteClientMutation,
+  useUpdateClientMutation,
+} = generalApi;

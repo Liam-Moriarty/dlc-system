@@ -1,7 +1,7 @@
 import { IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-const Pagination = ({ setPage, page }) => {
+const Pagination = ({ setPage, totalPages, currentPage }) => {
   // Function to handle page change
   const handleNextPage = () => setPage((prevPage) => prevPage + 1);
   const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -11,7 +11,7 @@ const Pagination = ({ setPage, page }) => {
       <IconButton
         size="sm"
         onClick={handlePrevPage}
-        disabled={page === 1}
+        disabled={currentPage === 1}
         className="dark:border-primary-borders-dark border-primary-borders border-2 bg-transparent"
       >
         <ArrowLeftIcon
@@ -23,18 +23,18 @@ const Pagination = ({ setPage, page }) => {
       <h3 color="gray" className="font-normal cursor-pointer">
         Page{" "}
         <strong className="dark:text-primary-txt-dark text-primary-txt">
-          {page}
+          {currentPage}
         </strong>{" "}
         of{" "}
         <strong className="dark:text-primary-txt-dark text-primary-txt">
-          50
+          {totalPages}
         </strong>
       </h3>
 
       <IconButton
         size="sm"
         onClick={handleNextPage}
-        disabled={page === 50}
+        disabled={currentPage === totalPages}
         className="dark:border-primary-borders-dark border-primary-borders border-2 bg-transparent"
       >
         <ArrowRightIcon

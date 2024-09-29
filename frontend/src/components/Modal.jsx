@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import Button from "./Button";
 import Form from "./Form";
+import Button from "./Button";
 
-const Modal = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(!open);
-
+const Modal = ({
+  open,
+  handleOpen,
+  label,
+  description,
+  items,
+  deleteModal,
+  handleDelete,
+}) => {
   return (
     <>
-      <Button
-        onClick={handleOpen}
-        variant="default"
-        children="Add Clients"
-        icon={
-          <IoMdInformationCircleOutline strokeWidth={2} className="h-4 w-4" />
-        }
-      />
-
       <Dialog
         size="xs"
         className="dark:bg-primary-bg-dark bg-primary-bg"
@@ -27,14 +21,29 @@ const Modal = () => {
         handler={handleOpen}
       >
         <DialogHeader className="flex flex-col gap-3 ">
-          <h1 className="w-full text-center">Client Application</h1>
+          <h1 className="w-full text-center">{label}</h1>
           <p className="w-full text-center text-sm dark:text-secondary-txt-dark text-secondary-txt">
-            Submit the form below to add new client
+            {description}
           </p>
         </DialogHeader>
 
         <DialogBody className="sm:p-0">
-          <Form handleOpen={handleOpen} />
+          {!deleteModal ? (
+            <Form handleOpen={handleOpen} items={items} />
+          ) : (
+            <div className="flex justify-center items-center gap-2">
+              <Button
+                onClick={handleOpen}
+                variant="default"
+                children="Cancel"
+              />
+              <Button
+                onClick={() => handleDelete(items._id)}
+                variant="delete"
+                children="Delete"
+              />
+            </div>
+          )}
         </DialogBody>
       </Dialog>
     </>

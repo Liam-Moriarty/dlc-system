@@ -27,22 +27,28 @@ module.exports = withMT({
         "primary-txt-dark": "#E8F0E6",
         "secondary-txt-dark": "#95C6B4",
         "primary-accent-dark": "#54776A",
-        "secondary-accent-dark": "#141B12",
+        "secondary-accent-dark": "#1E2F29",
         "primary-icons-dark": "#6F9F8E",
         "secondary-icons-dark": "#4C6545",
         "primary-borders-dark": "#466258",
+        "primary-hover-dark": "#436559",
 
         // LIGHT MODE
         "primary-bg": "#FAF9F6", //
         "secondary-bg": "#F2F2F4", //
         "primary-txt": "#1E1F24", //
-        "secondary-txt": "#CC0715", //
+        "secondary-txt": "#9300E7", //
         "primary-overlay-txt": "#F8F1F0", //
-        "primary-accent": "#DC2626", //
-        "secondary-accent": "#F8E3E0", //
+        "primary-accent": "#A208FC", //
+        "secondary-accent": "#F0E4FF", //
         "primary-icons": "#F8B3AA",
         "secondary-icons": "#EF9E94",
-        "primary-borders": "#EF9E94", //
+        "primary-borders": "#8700D8", //
+        "primary-hover": "#8700D8", //
+
+        // UTILITY COLORS
+        "delete-btn": "#ca0000",
+        "delete-btn-hover": "#ce0e00",
       },
       boxShadow: {
         "3xl-dark":

@@ -1,15 +1,22 @@
-import React from "react";
-import { UserPlusIcon } from "@heroicons/react/24/solid";
-import { CardHeader, Typography } from "@material-tailwind/react";
+import React, { useState } from "react";
+import { CardHeader } from "@material-tailwind/react";
 import Button from "./Button";
 import Modal from "./Modal";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
-const TableHeader = ({ title, description, btn1, btn2 }) => {
+const TableHeader = ({ title, description }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
+
   return (
     <CardHeader
       floated={false}
       shadow={false}
-      className="rounded-none bg-primary-bg dark:bg-primary-bg-dark m-0 p-4 md:py-8"
+      className="overflow-visible rounded-none bg-primary-bg dark:bg-primary-bg-dark m-0 p-4"
     >
       <div className="flex items-center justify-between lg:gap-4">
         <div className="w-full">
@@ -21,16 +28,24 @@ const TableHeader = ({ title, description, btn1, btn2 }) => {
           </p>
         </div>
         <div className="flex shrink-0 gap-2 flex-row mb-2 sm:flex sm:flex-col-reverse">
-          <Button children={btn1} variant="outline" />
-          {btn2 === undefined ? (
-            <Modal />
-          ) : (
-            <Button
-              children={btn2}
-              variant="default"
-              icon={<UserPlusIcon strokeWidth={2} className="h-4 w-4" />}
-            />
-          )}
+          <Button children="Download CSV" variant="outline" />
+          <Button
+            onClick={handleOpen}
+            variant="default"
+            children="Add Clients"
+            icon={
+              <IoMdInformationCircleOutline
+                strokeWidth={2}
+                className="h-4 w-4"
+              />
+            }
+          />
+          <Modal
+            open={open}
+            handleOpen={handleOpen}
+            label="Client Application"
+            description="Submit the form below to add new client"
+          />
         </div>
       </div>
     </CardHeader>

@@ -1,9 +1,15 @@
-import { Typography } from "@material-tailwind/react";
+import { useState } from "react";
+
+// PACKAGES
 import dayjs from "dayjs";
 import { useMediaQuery } from "react-responsive";
 
+// COMPONENTS
+import Dropdown from "../Dropdown";
+
 const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
   const tabletView = useMediaQuery({ maxWidth: 992 });
+  const [openDropdownId, setOpenDropdownId] = useState(null);
 
   return (
     <tbody>
@@ -37,29 +43,27 @@ const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
                       key={column}
                       className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
                     >
-                      <Typography
-                        variant="small"
-                        className={`font-normal text-primary-txt dark:text-primary-txt-dark ${
+                      <p
+                        className={`text-sm ${
                           column === "companyName" || column === "city"
                             ? "capitalize"
                             : ""
                         } ${column === "email" ? "lowercase" : ""}`}
                       >
                         {column === "created_at" || column === "updated_at"
-                          ? dayjs(items[column]).format("YYYY-MM-DD")
+                          ? dayjs(items[column]).format("MMM D, YYYY")
                           : items[column]}
-                      </Typography>
+                      </p>
                     </td>
                   )
               )}
 
-              <td className="p-4 lg:p-2 border-b dark:border-primary-borders-dark">
-                <Typography
-                  variant="small"
-                  className="font-medium text-primary-txt dark:text-primary-txt-dark"
-                >
-                  edit
-                </Typography>
+              <td className="p-2 border-b dark:border-primary-borders-dark">
+                <Dropdown
+                  items={items}
+                  openDropdownId={openDropdownId}
+                  setOpenDropdownId={setOpenDropdownId}
+                />
               </td>
             </tr>
           );
