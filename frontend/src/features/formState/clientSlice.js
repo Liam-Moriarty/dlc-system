@@ -14,16 +14,6 @@ export const clientSlice = createSlice({
     clientData: (state, action) => {
       return { ...state, ...action.payload };
     },
-    clientEditData: (state, action) => {
-      return {
-        ...state,
-        company: action.payload.company,
-        contacts: action.payload.contacts,
-        email: action.payload.email,
-        city: action.payload.city,
-        isEditMode: true,
-      };
-    },
     cleanData: (state) => {
       return initialState;
     },

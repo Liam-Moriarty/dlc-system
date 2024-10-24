@@ -10,7 +10,7 @@ import { CiMenuKebab } from "react-icons/ci";
 
 // API SLICE
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useDeleteClientMutation } from "../api/generalApi";
+import { useDeleteClientMutation } from "../api/generalApi/clientApi";
 
 const Dropdown = ({ items, openDropdownId, setOpenDropdownId }) => {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -85,6 +85,7 @@ const Dropdown = ({ items, openDropdownId, setOpenDropdownId }) => {
             label="Update Client Application"
             description="Submit the form below to update client application"
             items={items}
+            formType="clients"
           />
 
           <Button

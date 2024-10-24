@@ -7,7 +7,7 @@ import { useMediaQuery } from "react-responsive";
 // COMPONENTS
 import Dropdown from "../Dropdown";
 
-const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
+const TableBody = ({ tableBody, error, isLoading, sortedData }) => {
   const tabletView = useMediaQuery({ maxWidth: 992 });
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -16,7 +16,7 @@ const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
       {isLoading ? (
         <tr>
           <td
-            colSpan={clientsBody.length + 1}
+            colSpan={tableBody.length + 1}
             className="p-5 text-xl text-center font-semibold text-primary-txt dark:text-primary-txt-dark"
           >
             Loading...
@@ -25,7 +25,7 @@ const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
       ) : error ? (
         <tr>
           <td
-            colSpan={clientsBody.length + 1}
+            colSpan={tableBody.length + 1}
             className="p-5 text-xl text-center font-semibold text-primary-txt dark:text-primary-txt-dark"
           >
             Error getting the data, try again later...
@@ -35,24 +35,26 @@ const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
         sortedData.map((items) => {
           return (
             <tr key={items._id}>
-              {clientsBody.map(
+              {tableBody.map(
                 (column) =>
                   (!tabletView ||
-                    (column !== "created_at" && column !== "updated_at")) && (
+                    (column !== "createdAt" && column !== "updatedAt")) && (
                     <td
                       key={column}
                       className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
                     >
                       <p
-                        className={`text-sm ${
-                          column === "companyName" || column === "city"
-                            ? "capitalize"
-                            : ""
-                        } ${column === "email" ? "lowercase" : ""}`}
+                        className={`text-sm  ${
+                          column === "email" ? "lowercase" : "capitalize"
+                        }`}
                       >
-                        {column === "created_at" || column === "updated_at"
-                          ? dayjs(items[column]).format("MMM D, YYYY")
-                          : items[column]}
+                        {column === "createdAt" || column === "updatedAt" ? (
+                          dayjs(items[column]).format("MMM D, YYYY")
+                        ) : column === "price" ? (
+                          <span>₱{items[column]}</span>
+                        ) : (
+                          items[column]
+                        )}
                       </p>
                     </td>
                   )
@@ -71,7 +73,7 @@ const TableBody = ({ clientsBody, error, isLoading, sortedData }) => {
       ) : (
         <tr>
           <td
-            colSpan={clientsBody.length + 1}
+            colSpan={tableBody.length + 1}
             className="p-5 text-xl text-center font-semibold text-primary-txt dark:text-primary-txt-dark"
           >
             No data available

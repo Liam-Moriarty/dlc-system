@@ -8,23 +8,9 @@ const ProductsSchema = new mongoose.Schema(
       trim: true,
     },
     category: {
-      type: [String],
+      type: String,
       required: true,
-      enum: [
-        "Ice Cream Machines",
-        "Refrigeration Units",
-        "Food Warming Showcase",
-        "Blenders and Mixers",
-        "Food Heaters",
-        "Coffee Equipment",
-        "Beverage Equipment",
-        "Ice Makers",
-        "Sealing Equipment",
-        "Grilling Equipment",
-        "Steam Equipment",
-        "Frying Equipment",
-        "Cooking Equipment",
-      ],
+      trim: true,
     },
     description: {
       type: String,
@@ -37,14 +23,18 @@ const ProductsSchema = new mongoose.Schema(
       trim: true,
     },
     status: {
-      type: Boolean,
+      type: String,
       required: true,
       trim: true,
+    },
+    image: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const Products = mongoose.model("Products", ProductsSchema);
+const Products = mongoose.model("Products", ProductsSchema, "products");
 
 export default Products;

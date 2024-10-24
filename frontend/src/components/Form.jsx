@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+// PACKAGE
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+// COMPONENTS
 import Button from "./Button";
+
+// API SLICE
 import {
   useCreateClientMutation,
   useUpdateClientMutation,
-} from "../api/generalApi";
-import { useDispatch, useSelector } from "react-redux";
+} from "../api/generalApi/clientApi";
 import { clientData, cleanData } from "../features/formState/clientSlice";
-import { useEffect } from "react";
 
 const Form = ({ handleOpen, items }) => {
   const dispatch = useDispatch();
@@ -24,6 +28,7 @@ const Form = ({ handleOpen, items }) => {
   const [updateClient] = useUpdateClientMutation();
 
   // Sync form state with client data when client prop changes
+  // checks if the data is not empty and if its not give the corresponding items to the form
   useEffect(() => {
     if (items) {
       setClientForm({
@@ -44,28 +49,24 @@ const Form = ({ handleOpen, items }) => {
       !clientForm.email ||
       !clientForm.city
     ) {
-      setError("All fields are required!!");
-      return;
+      return setError("All fields are required!!");
     }
 
     try {
+      const payload = {
+        company: clientForm.company,
+        contacts: clientForm.contacts,
+        email: clientForm.email,
+        city: clientForm.city,
+      };
+
       if (items) {
         await updateClient({
           id: items._id,
-          updatedClient: {
-            company: clientForm.company,
-            contacts: clientForm.contacts,
-            email: clientForm.email,
-            city: clientForm.city,
-          },
+          updatedClient: payload,
         });
       } else {
-        await createClient({
-          company: clientForm.company,
-          contacts: clientForm.contacts,
-          email: clientForm.email,
-          city: clientForm.city,
-        });
+        await createClient(payload);
       }
 
       setClientForm({
@@ -76,17 +77,19 @@ const Form = ({ handleOpen, items }) => {
       });
 
       dispatch(cleanData());
+
       setError("");
     } catch (error) {
-      setError("Something went wrong!");
+      return setError("Something went wrong!");
     }
   };
 
   const handleChange = (e) => {
-    setClientForm({
-      ...clientForm,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setClientForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     dispatch(clientData({ [e.target.name]: e.target.value }));
   };
 

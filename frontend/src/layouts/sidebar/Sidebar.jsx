@@ -65,7 +65,7 @@ const Sidebar = () => {
   }, [tabletAndMobileView]);
 
   return (
-    <div>
+    <>
       <motion.div
         variants={Sidebar_animation}
         initial={{ x: tabletAndMobileView ? -250 : 0 }}
@@ -176,7 +176,7 @@ const Sidebar = () => {
       >
         <MdMenu size={25} />
       </div>
-    </div>
+    </>
   );
 };
 

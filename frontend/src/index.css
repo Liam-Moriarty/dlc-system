@@ -53,7 +53,19 @@
   }
 
   .input {
-    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md bg-transparent outline-none p-1
+    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md bg-transparent outline-none p-1 text-sm
     placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
   }
+
+  .option {
+    @apply bg-secondary-bg dark:bg-secondary-bg-dark capitalize text-sm font-normal;
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; /* Show only 2 lines */
 }

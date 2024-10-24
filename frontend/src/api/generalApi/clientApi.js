@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const generalApi = createApi({
-  reducerPath: "generalApi",
+export const clientApi = createApi({
+  reducerPath: "clientApi",
   tagTypes: ["Clients"],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/general/" }),
   endpoints: (builder) => ({
@@ -44,4 +44,4 @@ export const {
   useGetPaginatedClientsQuery,
   useDeleteClientMutation,
   useUpdateClientMutation,
-} = generalApi;
+} = clientApi;

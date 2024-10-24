@@ -4,7 +4,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // ROUTES
-
 import generalRoutes from "./rotues/generalRoutes.js";
 
 // CONFIGURATION

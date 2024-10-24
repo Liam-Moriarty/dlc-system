@@ -45,6 +45,7 @@ const TableHeader = ({ title, description }) => {
             handleOpen={handleOpen}
             label="Client Application"
             description="Submit the form below to add new client"
+            formType="clients"
           />
         </div>
       </div>

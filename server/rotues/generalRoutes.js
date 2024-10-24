@@ -1,4 +1,9 @@
+// PACKAGE IMPORTS
 import express from "express";
+import { body } from "express-validator";
+import multer from "multer";
+
+// CLIENT CONTROLLERS
 import {
   addClient,
   deleteClient,
@@ -6,9 +11,11 @@ import {
   getPaginatedClients,
   updateClient,
 } from "../controllers/generalControllers/clientsControllers.js";
-import { body } from "express-validator";
+
+// PRODUCTS CONTROLLERS
 import {
   addProducts,
+  deleteProduct,
   getProducts,
 } from "../controllers/generalControllers/productsControllers.js";
 
@@ -49,7 +56,7 @@ router.get("/products", getProducts);
 
 router.post("/products", addProducts);
 
-// router.delete("/products/:id", );
+router.delete("/products/:id", deleteProduct);
 
 // router.patch("/products/:id",);
 
