@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { Card } from "@material-tailwind/react";
 
 // COMPONENTS IMPORTS
-import { productsHeader, productsBody } from "../constants/clientConst";
+import { productsHeader, productsBody } from "../constants/productConst";
 import TableHeader from "../components/TableHeader";
 import Table from "../components/table/Table";
 import Pagination from "../components/Pagination";

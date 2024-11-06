@@ -13,7 +13,7 @@ import {
 
 const router = express();
 
-// Validation for adding and updating  products
+// Validation for adding products
 
 const productValidation = [
   body("product")

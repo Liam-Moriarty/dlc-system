@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // COMPONENTS
-import { productsCategory, productsStatus } from "../constants/clientConst";
+import { productsCategory, productsStatus } from "../constants/productConst";
 import { uploadImage } from "../utils/uploadImageCloudinary";
 import Button from "./Button";
 

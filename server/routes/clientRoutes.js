@@ -12,7 +12,7 @@ import {
 
 const router = express();
 
-// Validation for adding and updating clients
+// Validation for adding clients
 const clientValidation = [
   body("company")
     .exists()
@@ -47,6 +47,6 @@ router.post("/paginatedClients", clientValidation, addClient); // Validation app
 
 router.delete("/paginatedClients/:id", deleteClient);
 
-router.patch("/paginatedClients/:id", clientValidation, updateClient); // Validation applied here
+router.patch("/paginatedClients/:id", updateClient);
 
 export default router;
