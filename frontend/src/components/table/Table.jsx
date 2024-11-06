@@ -2,8 +2,6 @@
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 
-// CONSTANTS
-
 const Table = ({
   data,
   error,
@@ -11,6 +9,10 @@ const Table = ({
   requestSort,
   tableHead,
   tableBody,
+  deleteApi,
+  label,
+  modalDesc,
+  formtype,
 }) => {
   return (
     <div className="w-full overflow-auto flex grow items-start">
@@ -23,6 +25,10 @@ const Table = ({
             error={error}
             isLoading={isLoading}
             sortedData={data}
+            deleteApi={deleteApi}
+            label={label}
+            modalDesc={modalDesc}
+            formtype={formtype}
           />
         </table>
       ) : null}

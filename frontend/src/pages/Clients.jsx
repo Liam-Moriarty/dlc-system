@@ -8,10 +8,13 @@ import TableHeader from "../components/TableHeader";
 import Table from "../components/table/Table";
 import Pagination from "../components/Pagination";
 import useSort from "../utils/sortingUtils";
+import { clientsBody, clientsHeader } from "../constants/clientConst";
 
 // API SLICE
-import { useGetPaginatedClientsQuery } from "../api/generalApi/clientApi";
-import { clientsBody, clientsHeader } from "../constants/clientConst";
+import {
+  useDeleteClientMutation,
+  useGetPaginatedClientsQuery,
+} from "../api/generalApi/clientApi";
 
 // CONSTANTS
 
@@ -24,6 +27,7 @@ const Clients = () => {
     page,
     limit,
   });
+  const [deleteClient] = useDeleteClientMutation();
 
   // Extract the data array from the API response and sort it
   const dataArray = data ? data.client : [];
@@ -37,7 +41,14 @@ const Clients = () => {
     <>
       {!tabletView ? (
         <Card className="w-full h-[45rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
-          <TableHeader title="Clients" description="Manage Clients" />
+          <TableHeader
+            title="Clients"
+            description="Manage Clients"
+            btnChild="Add Client"
+            label="Client Application"
+            modalDesc="Submit the form below to add new client"
+            formtype="clients"
+          />
           <Table
             data={sortedData}
             error={error}
@@ -45,6 +56,10 @@ const Clients = () => {
             requestSort={requestSort}
             tableHead={clientsHeader}
             tableBody={clientsBody}
+            deleteApi={deleteClient}
+            label="Update Existing Client"
+            modalDesc="Submit the form below to update Client"
+            formtype="clients"
           />
           <Pagination
             setPage={setPage}

@@ -7,7 +7,16 @@ import { useMediaQuery } from "react-responsive";
 // COMPONENTS
 import Dropdown from "../Dropdown";
 
-const TableBody = ({ tableBody, error, isLoading, sortedData }) => {
+const TableBody = ({
+  tableBody,
+  error,
+  isLoading,
+  sortedData,
+  deleteApi,
+  label,
+  modalDesc,
+  formtype,
+}) => {
   const tabletView = useMediaQuery({ maxWidth: 992 });
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -43,15 +52,23 @@ const TableBody = ({ tableBody, error, isLoading, sortedData }) => {
                       key={column}
                       className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
                     >
+                      {column === "image" ? (
+                        <img
+                          src={items.image.replace(/\.(jpg|png|webp)/, ".jpg")}
+                          alt="product image"
+                          loading="lazy"
+                          className="h-10 w-10 rounded-full object-cover border dark:bg-secondary-bg-dark bg-secondary-bg dark:border-primary-borders-dark border-primary-borders"
+                        />
+                      ) : null}
                       <p
                         className={`text-sm  ${
                           column === "email" ? "lowercase" : "capitalize"
-                        }`}
+                        } ${column === "image" ? "hidden" : null} `}
                       >
                         {column === "createdAt" || column === "updatedAt" ? (
                           dayjs(items[column]).format("MMM D, YYYY")
                         ) : column === "price" ? (
-                          <span>₱{items[column]}</span>
+                          <span>₱{items[column].toLocaleString()}</span>
                         ) : (
                           items[column]
                         )}
@@ -65,6 +82,10 @@ const TableBody = ({ tableBody, error, isLoading, sortedData }) => {
                   items={items}
                   openDropdownId={openDropdownId}
                   setOpenDropdownId={setOpenDropdownId}
+                  deleteApi={deleteApi}
+                  label={label}
+                  modalDesc={modalDesc}
+                  formtype={formtype}
                 />
               </td>
             </tr>

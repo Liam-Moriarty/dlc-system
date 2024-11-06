@@ -10,19 +10,24 @@ import { CiMenuKebab } from "react-icons/ci";
 
 // API SLICE
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useDeleteClientMutation } from "../api/generalApi/clientApi";
 
-const Dropdown = ({ items, openDropdownId, setOpenDropdownId }) => {
+const Dropdown = ({
+  items,
+  openDropdownId,
+  setOpenDropdownId,
+  deleteApi,
+  label,
+  modalDesc,
+  formtype,
+}) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
 
   const isOpen = openDropdownId === items._id; // Check if this dropdown is currently open
 
-  const [deleteClient] = useDeleteClientMutation();
-
   const handleDelete = async (id) => {
     try {
-      const response = await deleteClient(id);
+      const response = await deleteApi(id);
       if (response.error) {
         console.error("Error deleting client:", response.error);
       } else {
@@ -82,10 +87,10 @@ const Dropdown = ({ items, openDropdownId, setOpenDropdownId }) => {
           <Modal
             open={updateModal}
             handleOpen={handleOpenUpdate}
-            label="Update Client Application"
-            description="Submit the form below to update client application"
+            label={label}
+            description={modalDesc}
             items={items}
-            formType="clients"
+            formType={formtype}
           />
 
           <Button
@@ -99,14 +104,14 @@ const Dropdown = ({ items, openDropdownId, setOpenDropdownId }) => {
             open={deleteModal}
             handleOpen={handleOpenDelete}
             handleDelete={handleDelete}
-            label={`Delete ${items.company} to your list?`}
+            label={`Delete Record Permanently?`}
             description={
               <>
                 This will permanently{" "}
                 <span className="text-delete-btn font-bold text-base">
                   delete
                 </span>{" "}
-                {items.company} to the database are you sure for this?
+                this record to the database are you sure for this?
               </>
             }
             deleteModal

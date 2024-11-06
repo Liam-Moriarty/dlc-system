@@ -34,6 +34,7 @@ export const clientsBody = [
 
 export const productsHeader = [
   { title: "Products", sortable: true, accesor: "product", colsHidden: false },
+  { title: "Image", sortable: false, accesor: "image", colsHidden: false },
   {
     title: "Category",
     sortable: true,
@@ -53,29 +54,30 @@ export const productsHeader = [
     accesor: "status",
     colsHidden: false,
   },
-  {
-    title: "Created",
-    sortable: true,
-    accesor: "created",
-    colsHidden: true,
-  },
-  {
-    title: "Update",
-    sortable: true,
-    accesor: "updated",
-    colsHidden: true,
-  },
+  // {
+  //   title: "Created",
+  //   sortable: true,
+  //   accesor: "created",
+  //   colsHidden: true,
+  // },
+  // {
+  //   title: "Update",
+  //   sortable: true,
+  //   accesor: "updated",
+  //   colsHidden: true,
+  // },
   { title: "", sortable: false, accesor: "", colsHidden: false },
 ];
 
 export const productsBody = [
   "product",
+  "image",
   "category",
   "description",
   "price",
   "status",
-  "created_at",
-  "updated_at",
+  // "createdAt",
+  // "updatedAt",
 ]; // The keys of our data body
 
 export const productsCategory = [

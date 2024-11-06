@@ -36,7 +36,7 @@ const Modal = ({
                 <Form handleOpen={handleOpen} items={items} />
               )}
               {formType === "products" && (
-                <ProductsForm handleOpen={handleOpen} />
+                <ProductsForm handleOpen={handleOpen} items={items} />
               )}
             </>
           ) : (

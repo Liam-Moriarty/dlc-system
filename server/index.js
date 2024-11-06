@@ -4,7 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // ROUTES
-import generalRoutes from "./rotues/generalRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import clientRoutes from "./routes/clientRoutes.js";
 
 // CONFIGURATION
 dotenv.config();
@@ -14,7 +15,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/general", generalRoutes);
+app.use("/general", clientRoutes);
+app.use("/general", productRoutes);
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;

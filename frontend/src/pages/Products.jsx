@@ -1,48 +1,68 @@
 // REACT PACKAGES
 import { useState } from "react";
-import { IoMdAdd } from "react-icons/io";
 import { useMediaQuery } from "react-responsive";
+import { Card } from "@material-tailwind/react";
 
 // COMPONENTS IMPORTS
-import ProductsCards from "../components/ProductsCards";
-import Button from "../components/Button";
-import Modal from "../components/Modal";
+import { productsHeader, productsBody } from "../constants/clientConst";
+import TableHeader from "../components/TableHeader";
+import Table from "../components/table/Table";
+import Pagination from "../components/Pagination";
+import useSort from "../utils/sortingUtils";
 
 // API IMPORTS
-import { useGetAllProductsQuery } from "../api/generalApi/productsApi";
+import {
+  useDeleteProductsMutation,
+  useGetPaginatedProductQuery,
+} from "../api/generalApi/productsApi";
 
 const Products = () => {
-  const [open, setIsOpen] = useState(false);
   const tabletView = useMediaQuery({ maxWidth: 768 });
+  const [page, setPage] = useState(1);
+  const limit = 10;
 
-  const { data, error, isLoading } = useGetAllProductsQuery();
+  const { data, error, isLoading } = useGetPaginatedProductQuery({
+    page,
+    limit,
+  });
+  const [deleteProducts] = useDeleteProductsMutation();
 
-  const handleOpen = (e) => {
-    e.preventDefault();
-    setIsOpen(!open);
-  };
+  const dataArray = data ? data.product : [];
+  const { data: sortedData, requestSort } = useSort(dataArray);
+
+  const totalPages = data ? data.totalPages : [];
+  const currentPage = data ? data.currentPage : [];
 
   return (
     <>
       {!tabletView ? (
-        <div className="relative w-full h-[47rem] md:h-full flex justify-between overflow-visible bg-primary-bg dark:bg-primary-bg-dark">
-          <ProductsCards data={data} error={error} isLoading={isLoading} />
-          <Button
-            icon={<IoMdAdd size={23} style={{ color: "#f8f1f0" }} />}
-            onClick={handleOpen}
-            variant="icon"
-            className="absolute w-12 h-12 rounded-full bottom-0 right-12 z-[999] dark:bg-primary-accent-dark 
-            bg-primary-accent"
-          ></Button>
-
-          <Modal
-            open={open}
-            handleOpen={handleOpen}
-            label="Add Products"
-            description="Enter submit to add products"
-            formType="products"
+        <Card className="w-full h-[45rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
+          <TableHeader
+            title="Products"
+            description="Manage Products"
+            btnChild="Add Products"
+            label="Create New Products"
+            modalDesc="Submit the form below to add new products"
+            formtype="products"
           />
-        </div>
+          <Table
+            data={sortedData}
+            error={error}
+            isLoading={isLoading}
+            requestSort={requestSort}
+            tableHead={productsHeader}
+            tableBody={productsBody}
+            deleteApi={deleteProducts}
+            label="Update Existing Product"
+            modalDesc="Submit the form below to update Product"
+            formtype="products"
+          />
+          <Pagination
+            setPage={setPage}
+            totalPages={totalPages}
+            currentPage={currentPage}
+          />
+        </Card>
       ) : (
         <p>Mobile View Here</p>
       )}

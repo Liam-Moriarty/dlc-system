@@ -22,12 +22,12 @@ export const deleteClient = async (req, res) => {
 
 // UPDATE CLIENT
 export const updateClient = async (req, res) => {
+  const { id } = req.params;
+
   const errors = validationResult(req); // check first for validation before updating
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array() });
   }
-
-  const { id } = req.params;
 
   try {
     // check if the id is valid
@@ -82,12 +82,12 @@ export const getPaginatedClients = async (req, res) => {
 
 // CREATE CLIENTS
 export const addClient = async (req, res) => {
+  const { company, contacts, email, city } = req.body;
+
   const errors = validationResult(req); // Check for validation errors
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
-  const { company, contacts, email, city } = req.body;
 
   try {
     const clients = await Client.create({ company, contacts, email, city });

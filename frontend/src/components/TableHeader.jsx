@@ -4,7 +4,14 @@ import Button from "./Button";
 import Modal from "./Modal";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 
-const TableHeader = ({ title, description }) => {
+const TableHeader = ({
+  title,
+  description,
+  formtype,
+  label,
+  modalDesc,
+  btnChild,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = (e) => {
@@ -32,7 +39,7 @@ const TableHeader = ({ title, description }) => {
           <Button
             onClick={handleOpen}
             variant="default"
-            children="Add Clients"
+            children={btnChild}
             icon={
               <IoMdInformationCircleOutline
                 strokeWidth={2}
@@ -43,9 +50,9 @@ const TableHeader = ({ title, description }) => {
           <Modal
             open={open}
             handleOpen={handleOpen}
-            label="Client Application"
-            description="Submit the form below to add new client"
-            formType="clients"
+            label={label}
+            description={modalDesc}
+            formType={formtype}
           />
         </div>
       </div>

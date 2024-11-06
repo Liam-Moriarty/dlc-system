@@ -1,41 +1,40 @@
 // PACKAGE IMPORTS
 import express from "express";
 import { body } from "express-validator";
-import multer from "multer";
 
 // CLIENT CONTROLLERS
 import {
   addClient,
   deleteClient,
-  getClients,
   getPaginatedClients,
   updateClient,
 } from "../controllers/generalControllers/clientsControllers.js";
-
-// PRODUCTS CONTROLLERS
-import {
-  addProducts,
-  deleteProduct,
-  getProducts,
-} from "../controllers/generalControllers/productsControllers.js";
 
 const router = express();
 
 // Validation for adding and updating clients
 const clientValidation = [
   body("company")
+    .exists()
+    .withMessage("Company is required")
     .isLength({ min: 2, max: 50 })
     .withMessage("Company name must be between 2 and 50 characters")
     .trim(),
   body("contacts")
+    .exists()
+    .withMessage("Contacts is required")
     .isLength({ min: 10, max: 10 })
     .withMessage("Contact number must be 10 valid numbers")
     .trim(),
   body("email")
+    .exists()
+    .withMessage("Email is required")
     .isEmail()
     .withMessage("Please provide a valid email address")
     .normalizeEmail(),
   body("city")
+    .exists()
+    .withMessage("City is required")
     .isLength({ min: 2, max: 50 })
     .withMessage("City name must be between 2 and 50 characters")
     .trim(),
@@ -49,19 +48,5 @@ router.post("/paginatedClients", clientValidation, addClient); // Validation app
 router.delete("/paginatedClients/:id", deleteClient);
 
 router.patch("/paginatedClients/:id", clientValidation, updateClient); // Validation applied here
-
-// PRODUCT ROUTES
-
-router.get("/products", getProducts);
-
-router.post("/products", addProducts);
-
-router.delete("/products/:id", deleteProduct);
-
-// router.patch("/products/:id",);
-
-//  EXTRAS
-
-router.get("/clients", getClients);
 
 export default router;

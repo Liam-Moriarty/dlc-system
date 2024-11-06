@@ -1,5 +1,5 @@
 // REACT PACKAGES
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // COMPONENTS
@@ -8,16 +8,25 @@ import { uploadImage } from "../utils/uploadImageCloudinary";
 import Button from "./Button";
 
 // API
-import { useAddProductsMutation } from "../api/generalApi/productsApi";
+import {
+  useAddProductsMutation,
+  useUpdateProductsMutation,
+} from "../api/generalApi/productsApi";
 import {
   productData,
   cleanProductData,
 } from "../features/formState/productSlice";
 
-const ProductsForm = ({ handleOpen }) => {
+const ProductsForm = ({ handleOpen, items }) => {
+  console.log("products", items);
+
+  const [imageFile, setImageFile] = useState(null);
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const productState = useSelector((state) => state.productForm);
+
   const [addProducts] = useAddProductsMutation();
+  const [updateProducts] = useUpdateProductsMutation();
 
   const [productForm, setProductForm] = useState({
     product: productState.product || "",
@@ -26,8 +35,19 @@ const ProductsForm = ({ handleOpen }) => {
     status: productState.status || "",
     description: productState.description || "",
   });
-  const [imageFile, setImageFile] = useState(null);
-  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (items) {
+      setProductForm({
+        product: items.product || "",
+        price: items.price || "",
+        category: items.category || "",
+        status: items.status || "",
+        description: items.description || "",
+        image: items.image || "",
+      });
+    }
+  }, [items]);
 
   const handleAddProduct = useCallback(
     async (e) => {
@@ -38,18 +58,31 @@ const ProductsForm = ({ handleOpen }) => {
         !productForm.price ||
         !productForm.category ||
         !productForm.status ||
-        !productForm.description ||
-        !imageFile
+        !productForm.description
       ) {
         return setError("All fields are required");
       }
 
       try {
         const uploadImageUrl = await uploadImage(imageFile);
-        await addProducts({
-          ...productForm,
+
+        const payload = {
+          product: productForm.product,
+          price: productForm.price,
+          category: productForm.category,
+          status: productForm.status,
+          description: productForm.description,
           image: uploadImageUrl,
-        });
+        };
+
+        if (items) {
+          await updateProducts({
+            id: items._id,
+            ...payload,
+          });
+        } else {
+          await addProducts(payload);
+        }
 
         setProductForm({
           product: "",
@@ -66,7 +99,7 @@ const ProductsForm = ({ handleOpen }) => {
         return setError("Error something went wrong");
       }
     },
-    [productForm, imageFile, addProducts, dispatch]
+    [productForm, imageFile, addProducts, dispatch, items]
   );
 
   const handleChange = (e) => {

@@ -6,11 +6,6 @@ const useSort = (data, config = null) => {
   // this state will store the key and direction of the config with a default values of null
   const [sortConfig, setSortConfig] = useState(config);
 
-  // Utility function to clean formatted numbers or digits
-  const parseFormattedNumbers = (digit) => {
-    return Number(digit.replace(/,/g, "")); // remove comas and convert to numbers
-  };
-
   // get the copy of the data and stored it in sortedData variable
   // then sort the copied data
   const sortedData = [...data].sort((a, b) => {
@@ -22,8 +17,8 @@ const useSort = (data, config = null) => {
       let bValue = b[key];
 
       if (key === "price") {
-        aValue = parseFormattedNumbers(aValue);
-        bValue = parseFormattedNumbers(bValue);
+        aValue = aValue;
+        bValue = bValue;
       }
 
       if (aValue > bValue) {

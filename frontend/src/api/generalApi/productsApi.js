@@ -5,6 +5,11 @@ export const productsApi = createApi({
   tagTypes: ["Products"],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/general/" }),
   endpoints: (builder) => ({
+    getPaginatedProduct: builder.query({
+      query: ({ page, limit }) =>
+        `paginatedProducts?page=${page}&limit=${limit}`,
+      providesTags: ["Products", "Product"],
+    }),
     getAllProducts: builder.query({
       query: () => "products",
       providesTags: ["Products"],
@@ -24,11 +29,22 @@ export const productsApi = createApi({
       }),
       invalidatesTags: ["Products"],
     }),
+    updateProducts: builder.mutation({
+      query: ({ id, ...updatedProduct }) => ({
+        url: `products/${id}`,
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: updatedProduct,
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
 export const {
+  useGetPaginatedProductQuery,
   useGetAllProductsQuery,
   useAddProductsMutation,
   useDeleteProductsMutation,
+  useUpdateProductsMutation,
 } = productsApi;
