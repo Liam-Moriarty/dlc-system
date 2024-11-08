@@ -15,7 +15,6 @@ export const getPaginatedProducts = async (req, res) => {
 
     const product = products.map((item) => ({
       ...item.toObject(),
-      // price: item.price.toLocaleString(),
     }));
 
     res.json({
