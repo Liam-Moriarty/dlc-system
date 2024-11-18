@@ -18,8 +18,6 @@ import {
 } from "../features/formState/productSlice";
 
 const ProductsForm = ({ handleOpen, items }) => {
-  console.log("products", items);
-
   const [imageFile, setImageFile] = useState(null);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -31,6 +29,8 @@ const ProductsForm = ({ handleOpen, items }) => {
   const [productForm, setProductForm] = useState({
     product: productState.product || "",
     price: productState.price || "",
+    quantityInStock: productState.quantityInStock || "",
+    reorderLevel: productState.reorderLevel || "",
     category: productState.category || "",
     status: productState.status || "",
     description: productState.description || "",
@@ -41,6 +41,8 @@ const ProductsForm = ({ handleOpen, items }) => {
       setProductForm({
         product: items.product || "",
         price: items.price || "",
+        quantityInStock: items.quantityInStock || "",
+        reorderLevel: items.reorderLevel || "",
         category: items.category || "",
         status: items.status || "",
         description: items.description || "",
@@ -56,6 +58,8 @@ const ProductsForm = ({ handleOpen, items }) => {
       if (
         !productForm.product ||
         !productForm.price ||
+        !productForm.quantityInStock ||
+        !productForm.reorderLevel ||
         !productForm.category ||
         !productForm.status ||
         !productForm.description
@@ -69,6 +73,8 @@ const ProductsForm = ({ handleOpen, items }) => {
         const payload = {
           product: productForm.product,
           price: productForm.price,
+          quantityInStock: productForm.quantityInStock,
+          reorderLevel: productForm.reorderLevel,
           category: productForm.category,
           status: productForm.status,
           description: productForm.description,
@@ -87,6 +93,8 @@ const ProductsForm = ({ handleOpen, items }) => {
         setProductForm({
           product: "",
           price: "",
+          quantityInStock: "",
+          reorderLevel: "",
           category: "",
           status: "",
           description: "",
@@ -138,6 +146,30 @@ const ProductsForm = ({ handleOpen, items }) => {
             className="input"
             name="price"
             value={productForm.price}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 mb-5">
+        <div className="flex flex-col gap-2">
+          <h3>Stock</h3>
+          <input
+            type="number"
+            className="input"
+            name="quantityInStock"
+            value={productForm.quantityInStock}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <h3>Restock Level</h3>
+          <input
+            type="number"
+            className="input"
+            name="reorderLevel"
+            value={productForm.reorderLevel}
             onChange={handleChange}
           />
         </div>

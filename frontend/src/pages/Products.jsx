@@ -4,11 +4,11 @@ import { useMediaQuery } from "react-responsive";
 import { Card } from "@material-tailwind/react";
 
 // COMPONENTS IMPORTS
-import { productsHeader, productsBody } from "../constants/productConst";
 import TableHeader from "../components/TableHeader";
 import Table from "../components/table/Table";
 import Pagination from "../components/Pagination";
 import useSort from "../utils/sortingUtils";
+import { productsHeader, productsBody } from "../constants/productConst";
 
 // API IMPORTS
 import {
@@ -19,7 +19,7 @@ import {
 const Products = () => {
   const tabletView = useMediaQuery({ maxWidth: 768 });
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 20;
 
   const { data, error, isLoading } = useGetPaginatedProductQuery({
     page,

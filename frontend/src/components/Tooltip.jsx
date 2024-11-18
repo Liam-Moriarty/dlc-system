@@ -22,6 +22,7 @@ const Tooltips = ({ anchorSelect, content, place, isOpen }) => {
             fontSize: "0.8rem",
             fontFamily: "Inter",
             fontWeight: "600",
+            maxWidth: "15rem",
           }}
         />
       )}

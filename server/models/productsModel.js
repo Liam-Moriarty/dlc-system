@@ -6,6 +6,7 @@ const ProductsSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     category: {
       type: String,
@@ -21,6 +22,15 @@ const ProductsSchema = new mongoose.Schema(
       type: Number,
       required: true,
       trim: true,
+    },
+    quantityInStock: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+    reorderLevel: {
+      type: Number,
+      default: 10,
     },
     status: {
       type: String,

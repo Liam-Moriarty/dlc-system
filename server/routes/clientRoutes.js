@@ -6,6 +6,7 @@ import { body } from "express-validator";
 import {
   addClient,
   deleteClient,
+  getClients,
   getPaginatedClients,
   updateClient,
 } from "../controllers/generalControllers/clientsControllers.js";
@@ -48,5 +49,7 @@ router.post("/paginatedClients", clientValidation, addClient); // Validation app
 router.delete("/paginatedClients/:id", deleteClient);
 
 router.patch("/paginatedClients/:id", updateClient);
+
+router.get("/clients", getClients);
 
 export default router;

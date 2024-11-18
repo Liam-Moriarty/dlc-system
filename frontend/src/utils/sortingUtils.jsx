@@ -1,61 +1,50 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
-// create a custom hook for sorting data in tables
-// this hooks accepts data as an argument
+// Create a custom hook for sorting data in tables
 const useSort = (data, config = null) => {
-  // this state will store the key and direction of the config with a default values of null
+  // State to store the sorting configuration
   const [sortConfig, setSortConfig] = useState(config);
 
-  // get the copy of the data and stored it in sortedData variable
-  // then sort the copied data
-  const sortedData = [...data].sort((a, b) => {
-    // if sortConfig is not null or not empty run the condition
-    if (sortConfig !== null) {
-      const { key, direction } = sortConfig; // destructure the key and direction that is in the config
+  // Memoized sorted data to avoid unnecessary sorting on re-renders
+  const sortedData = useMemo(() => {
+    if (!sortConfig) {
+      return data;
+    }
 
+    const { key, direction } = sortConfig;
+
+    return [...data].sort((a, b) => {
       let aValue = a[key];
       let bValue = b[key];
 
-      if (key === "price") {
-        aValue = aValue;
-        bValue = bValue;
-      }
-
       if (aValue > bValue) {
-        // if the condition is true return another conditon where if direction is = ascending return -1
-        return direction === "ascending" ? -1 : 1; // means a comes before b this is ascending a, b, c ...
+        return direction === "ascending" ? -1 : 1;
       }
 
       if (aValue < bValue) {
-        // if this condition is true return another conditon where if direction is = ascending return -1
-        return direction === "ascending" ? 1 : -1; // means b comes before a this is descending z, x, y ...
+        return direction === "ascending" ? 1 : -1;
       }
-    }
 
-    return 0; // if none of the condition is true return 0 or means the data is equal
-  });
+      return 0;
+    });
+  }, [data, sortConfig]);
 
-  // function when specific table click
-  // request a key to which column will be sorted
+  // Function to request sorting on a specific key
   const requestSort = (key) => {
-    // this assume the default value is ascending
     let direction = "ascending";
 
-    // this 3 conditions must be met to change to descending
     if (
-      sortConfig && // if you have sortConfig
-      sortConfig.key === key && // if the sortConfig key is equal to the key of the column
-      sortConfig.direction === "ascending" // if the direction = ascending
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
     ) {
-      // if all conditions are met change the direction to descending
       direction = "descending";
     }
 
-    // then updates the key and direction of the sortConfig function
     setSortConfig({ key, direction });
   };
 
-  // this returns the sorted data the requestSort function and the sortConfig key and direction
+  // Return sorted data, requestSort function, and current sort configuration
   return { data: sortedData, requestSort, sortConfig };
 };
 

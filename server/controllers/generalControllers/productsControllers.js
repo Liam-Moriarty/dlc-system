@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import Products from "../../models/productsModel.js";
 import { validationResult } from "express-validator";
+import Client from "../../models/clientsModel.js";
 
 // GET PAGINATED PRODUCTS
 export const getPaginatedProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 20;
 
     const startIndex = (page - 1) * limit;
     const totalItems = await Products.countDocuments();
@@ -32,13 +33,14 @@ export const getPaginatedProducts = async (req, res) => {
 export const getProducts = async (req, res) => {
   try {
     const products = await Products.find({});
+
     const product = products.map((item) => ({
       ...item.toObject(),
       product: item.product.toLowerCase(),
       category: item.category.toLowerCase(),
-      // price: item.price.toLocaleString(),
       status: item.status.toLowerCase(),
     }));
+
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -47,24 +49,19 @@ export const getProducts = async (req, res) => {
 
 // CREATE PRODUCTS
 export const addProducts = async (req, res) => {
-  const { product, category, description, price, status, image } = req.body;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
   try {
+    const { image, ...productData } = req.body;
     if (!image) {
       return res.status(400).json({ message: "No images uploaded!" });
     }
 
     const products = await Products.create({
-      product,
-      category,
-      description,
-      price,
-      status,
+      ...productData,
       image,
     });
     res.status(200).json(products);
@@ -112,6 +109,32 @@ export const updateProducts = async (req, res) => {
     }
 
     res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// GET UNIQUE PRODUCTS
+export const getUniqueProducts = async (req, res) => {
+  try {
+    const uniqueProducts = await Products.distinct("product");
+    const lowerCaseProducts = uniqueProducts.map((products) =>
+      products.toLowerCase()
+    );
+    res.status(200).json(uniqueProducts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// GET UNIQUE CLIENTS
+export const getUniqueClients = async (req, res) => {
+  try {
+    const uniqueClients = await Client.distinct("company");
+    const lowerCaseClients = uniqueClients.map((clients) =>
+      clients.toLowerCase()
+    );
+    res.status(200).json(lowerCaseClients);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

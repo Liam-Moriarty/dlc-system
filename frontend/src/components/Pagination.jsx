@@ -1,7 +1,8 @@
 import { IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { memo } from "react";
 
-const Pagination = ({ setPage, totalPages, currentPage }) => {
+const Pagination = memo(({ setPage, totalPages, currentPage }) => {
   // Function to handle page change
   const handleNextPage = () => setPage((prevPage) => prevPage + 1);
   const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -44,6 +45,6 @@ const Pagination = ({ setPage, totalPages, currentPage }) => {
       </IconButton>
     </div>
   );
-};
+});
 
 export default Pagination;

@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   product: "",
   price: "",
+  quantityInStock: "",
+  reorderLevel: "",
   category: "",
   status: "",
   description: "",

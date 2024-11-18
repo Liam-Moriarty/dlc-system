@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import dummyLogo from "/images/obanai.png";
 
@@ -19,9 +19,14 @@ import { MdMenu } from "react-icons/md";
 
 const Sidebar = () => {
   const tabletAndMobileView = useMediaQuery({ maxWidth: 1250 });
-  const [isOpen, setIsOpen] = useState(tabletAndMobileView ? false : true);
+  const memoizedView = useMemo(
+    () => tabletAndMobileView,
+    [tabletAndMobileView]
+  );
 
-  const Sidebar_animation = tabletAndMobileView
+  const [isOpen, setIsOpen] = useState(memoizedView ? false : true);
+
+  const Sidebar_animation = memoizedView
     ? {
         // mobile view
         open: {
@@ -57,18 +62,18 @@ const Sidebar = () => {
       };
 
   useEffect(() => {
-    if (tabletAndMobileView) {
+    if (memoizedView) {
       setIsOpen(false);
     } else {
       setIsOpen(true);
     }
-  }, [tabletAndMobileView]);
+  }, [memoizedView]);
 
   return (
     <>
       <motion.div
         variants={Sidebar_animation}
-        initial={{ x: tabletAndMobileView ? -250 : 0 }}
+        initial={{ x: memoizedView ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
         className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[16rem] max-w-[16rem]
         h-screen overflow-hidden relative xl:fixed"

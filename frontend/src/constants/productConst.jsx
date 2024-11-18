@@ -15,6 +15,18 @@ export const productsHeader = [
   },
   { title: "Price", sortable: true, accesor: "price", colsHidden: false },
   {
+    title: "Stock",
+    sortable: true,
+    accesor: "quantityInStock",
+    colsHidden: false,
+  },
+  {
+    title: "Restock",
+    sortable: true,
+    accesor: "reorderLevel",
+    colsHidden: false,
+  },
+  {
     title: "Status",
     sortable: true,
     accesor: "status",
@@ -29,6 +41,8 @@ export const productsBody = [
   "category",
   "description",
   "price",
+  "quantityInStock",
+  "reorderLevel",
   "status",
 ];
 
