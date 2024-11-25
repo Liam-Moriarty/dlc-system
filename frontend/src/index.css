@@ -17,16 +17,16 @@
     @apply dark:bg-primary-bg-dark bg-primary-bg text-primary-txt dark:text-primary-txt-dark;
   }
   h1 {
-    @apply text-xl font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
+    @apply text-base uppercase font-bold text-primary-txt dark:text-primary-txt-dark;
   }
   h2 {
-    @apply text-lg font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
+    @apply text-sm font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
   }
   h3 {
     @apply text-sm font-medium capitalize text-primary-txt dark:text-primary-txt-dark;
   }
   p {
-    @apply text-base font-normal capitalize text-primary-txt dark:text-primary-txt-dark;
+    @apply text-sm font-normal capitalize text-primary-txt dark:text-primary-txt-dark;
   }
   ::-webkit-scrollbar {
     @apply w-[8px] h-[3px] bg-primary-bg dark:bg-primary-bg-dark;
@@ -60,6 +60,14 @@
   .option {
     @apply bg-secondary-bg dark:bg-secondary-bg-dark capitalize text-sm font-normal;
   }
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1; /* Show only 2 lines */
 }
 
 .line-clamp-2 {

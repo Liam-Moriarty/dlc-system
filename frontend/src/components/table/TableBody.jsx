@@ -10,6 +10,8 @@ import {
   imageColumn,
   columnTextFormat,
   formatDate,
+  nestedColumn,
+  paymentAndStatusIndicator,
 } from "./BodyFunctions";
 import Dropdown from "../Dropdown";
 import Tooltips from "../Tooltip";
@@ -76,55 +78,63 @@ const TableBody = memo(
 
     return (
       <tbody>
-        {sortedData.map((items) => (
-          <tr key={items._id}>
-            {tableBody.map((column) => {
-              if (
-                !isTabletView ||
-                (column !== "createdAt" && column !== "updatedAt")
-              ) {
-                return (
-                  <td
-                    id={column === "description" ? "description" : null}
-                    key={column}
-                    className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
-                  >
-                    {/* <Tooltips
-                        anchorSelect="#description"
-                        content={items.description}
-                        place="bottom"
-                      /> */}
-                    {imageColumn(column, items)}
-                    <p
-                      className={`text-sm ${getIndicators(
-                        column,
-                        items
-                      )} ${columnTextFormat(column)} `}
+        {sortedData.map((items) => {
+          return (
+            <tr key={items._id}>
+              {tableBody.map((column) => {
+                if (
+                  !isTabletView ||
+                  (column !== "createdAt" && column !== "updatedAt")
+                ) {
+                  return (
+                    <td
+                      id={column === "description" ? "description" : null}
+                      key={`${column}-${items._id}`}
+                      className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
                     >
-                      {formatDate(column, items)}
-                    </p>
-                  </td>
-                );
-              }
-              return null;
-            })}
+                      {imageColumn(column, items)}
+                      {nestedColumn(column, items)}
+                      <p
+                        className={`text-sm ${getIndicators(
+                          column,
+                          items
+                        )} ${columnTextFormat(
+                          column
+                        )} ${paymentAndStatusIndicator(column, items)}`}
+                      >
+                        {formatDate(column, items)}
+                      </p>
+                    </td>
+                  );
+                }
+                return null;
+              })}
 
-            <td className="p-2 border-b dark:border-primary-borders-dark">
-              <Dropdown
-                items={items}
-                openDropdownId={openDropdownId}
-                setOpenDropdownId={setOpenDropdownId}
-                deleteApi={deleteApi}
-                label={label}
-                modalDesc={modalDesc}
-                formtype={formtype}
-              />
-            </td>
-          </tr>
-        ))}
+              <td className="p-2 border-b dark:border-primary-borders-dark">
+                <Dropdown
+                  items={items}
+                  openDropdownId={openDropdownId}
+                  setOpenDropdownId={setOpenDropdownId}
+                  deleteApi={deleteApi}
+                  label={label}
+                  modalDesc={modalDesc}
+                  formtype={formtype}
+                />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     );
   }
 );
 
 export default TableBody;
+
+{
+  /* <Tooltips
+      anchorSelect="#description"
+      content={items.description}
+      place="bottom"
+     /> */
+}

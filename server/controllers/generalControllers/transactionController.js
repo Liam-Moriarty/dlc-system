@@ -10,7 +10,12 @@ export const getPaginatedTransactions = async (req, res) => {
     const startIndex = (page - 1) * limit;
     const totalItems = await Transaction.countDocuments();
 
-    const transactions = await Transaction.find().skip(startIndex).limit(limit);
+    const transactions = await Transaction.find()
+      .populate("clientId", "company city")
+      .populate("productId.products", "product price")
+      .sort({ createdAt: -1 })
+      .skip(startIndex)
+      .limit(limit);
 
     const transaction = transactions.map((item) => ({
       ...item.toObject(),
@@ -90,7 +95,9 @@ export const updateTransaction = async (req, res) => {
 // ADD ONS
 export const getAllTransactions = async (req, res) => {
   try {
-    const transaction = await Transaction.find({});
+    const transaction = await Transaction.find({})
+      .populate("clientId")
+      .populate("productId.products");
     res.status(200).json(transaction);
   } catch (error) {
     res.status(500).json({ message: error.message });

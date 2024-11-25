@@ -18,20 +18,20 @@ import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
 
 const Sidebar = () => {
-  const tabletAndMobileView = useMediaQuery({ maxWidth: 1250 });
+  const tabletAndMobileView = useMediaQuery({ maxWidth: 1500 });
   const memoizedView = useMemo(
     () => tabletAndMobileView,
     [tabletAndMobileView]
   );
 
-  const [isOpen, setIsOpen] = useState(memoizedView ? false : true);
+  const [isOpen, setIsOpen] = useState(memoizedView ? true : false);
 
   const Sidebar_animation = memoizedView
     ? {
         // mobile view
         open: {
           x: 0,
-          width: "16rem",
+          width: "14rem",
           transition: {
             damping: 40,
           },
@@ -48,7 +48,7 @@ const Sidebar = () => {
     : {
         // System view
         open: {
-          width: "16rem",
+          width: "14rem",
           transition: {
             damping: 40,
           },
@@ -75,8 +75,8 @@ const Sidebar = () => {
         variants={Sidebar_animation}
         initial={{ x: memoizedView ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[16rem] max-w-[16rem]
-        h-screen overflow-hidden relative xl:fixed"
+        className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[14rem] max-w-[14rem]
+        h-screen overflow-hidden relative xxl:fixed"
       >
         {/* LOGO */}
         <div className="flex items-center gap-3 font-medium border-b border-primary-borders dark:border-primary-borders-dark py-3 mx-3">
@@ -176,7 +176,7 @@ const Sidebar = () => {
 
       {/* MENU IN MOBILE VIEW */}
       <div
-        className="m-5 xl:block hidden fixed top-0 left-0 z-50"
+        className="m-5 xxl:block hidden fixed top-0 left-0 z-50"
         onClick={() => setIsOpen(true)}
       >
         <MdMenu size={25} />

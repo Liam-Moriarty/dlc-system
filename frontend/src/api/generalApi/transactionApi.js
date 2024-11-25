@@ -7,7 +7,7 @@ export const transactionApi = createApi({
   endpoints: (builder) => ({
     getPaginatedTransaction: builder.query({
       query: ({ page, limit }) =>
-        `paginatedTransaction?page=${page}&limit${limit}`,
+        `paginatedTransaction?page=${page}&limit=${limit}`,
       providesTags: ["Transactions"],
     }),
     getAllTransactions: builder.query({

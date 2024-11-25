@@ -82,7 +82,7 @@ const TransactionDropdown = ({ transactionForm }) => {
 
       {/* CUSTOM CLIENTS DROPDOWN */}
       <div className="flex flex-col gap-2">
-        <h3>Clients</h3>
+        <h3>Company</h3>
         <div className="relative">
           <div
             className="input cursor-pointer flex justify-between items-center"

@@ -1,12 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  productName: "",
-  clientName: "",
-  unitPrice: "",
-  quantity: "",
-  totalPrice: "",
-  dateOfSale: "",
+  clientId: {
+    company: "",
+    city: "",
+  },
+  productId: [
+    {
+      products: {
+        product: "",
+        price: "",
+      },
+      quantity: "",
+      priceAtSale: "",
+      total: "",
+    },
+  ],
+  totalAmount: "",
+  paymentMethod: "",
+  statusOrder: "",
+  saleDate: "",
 };
 
 export const transactionSlice = createSlice({
@@ -16,13 +29,19 @@ export const transactionSlice = createSlice({
     transactionData: (state, action) => {
       return { ...state, ...action.payload };
     },
-    cleanTransactionData: (state) => {
+    cleanTransactionData: () => {
       return initialState;
+    },
+    updateTransactionData: (state, action) => {
+      const { index, productData } = action.payload;
+      if (state.productId[index]) {
+        state.productId[index] = { ...state.productId[index], ...productData };
+      }
     },
   },
 });
 
-export const { transactionData, cleanTransactionData } =
+export const { transactionData, cleanTransactionData, updateTransactionData } =
   transactionSlice.actions;
 
 export default transactionSlice.reducer;

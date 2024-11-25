@@ -2,34 +2,46 @@ import mongoose from "mongoose";
 
 export const TransactionSchema = new mongoose.Schema(
   {
-    productName: {
+    clientId: {
+      type: mongoose.Types.ObjectId,
+      ref: "Client",
+    },
+    productId: [
+      {
+        products: {
+          type: mongoose.Types.ObjectId,
+          ref: "Products",
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        priceAtSale: {
+          type: Number,
+          required: true,
+        },
+        total: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    totalAmount: {
+      type: Number,
+      required: true,
+    },
+    paymentMethod: {
       type: String,
-      required: true,
-      trim: true,
+      enum: ["cod", "g-cash", "card"],
+      min: 0,
     },
-    clientName: {
+    statusOrder: {
       type: String,
-      required: true,
-      trim: true,
+      enum: ["pending", "completed", "cancelled", "returned"],
     },
-    unitPrice: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    dateOfSale: {
+    saleDate: {
       type: Date,
-      // required: true,
+      default: Date.now,
     },
   },
   { timestamps: true }
