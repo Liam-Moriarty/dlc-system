@@ -60,7 +60,8 @@ export const getPaginatedClients = async (req, res) => {
     // get the clients based on the pagination
     const clients = await Client.find()
       .skip(startIndex) // Skip the items based on the start index
-      .limit(limit); // Limit the number of items to return
+      .limit(limit) // Limit the number of items to return
+      .sort({ company: 1 });
 
     // convert specific data into lowercase to sort it accordinly
     const client = clients.map((item) => ({
@@ -102,7 +103,7 @@ export const addClient = async (req, res) => {
 // GET ALL CLIENTS DATA
 export const getClients = async (req, res) => {
   try {
-    const clients = await Client.find({});
+    const clients = await Client.find({}).sort({ company: 1 });
     res.status(200).json(clients);
   } catch (error) {
     res.status(500).json({ message: error.message });

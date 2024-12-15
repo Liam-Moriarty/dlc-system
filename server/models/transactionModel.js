@@ -5,28 +5,25 @@ export const TransactionSchema = new mongoose.Schema(
     clientId: {
       type: mongoose.Types.ObjectId,
       ref: "Client",
+      required: true,
     },
-    productId: [
-      {
-        products: {
-          type: mongoose.Types.ObjectId,
-          ref: "Products",
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-        priceAtSale: {
-          type: Number,
-          required: true,
-        },
-        total: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
-    totalAmount: {
+    productId: {
+      type: mongoose.Types.ObjectId,
+      ref: "Products",
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    priceAtSale: {
+      type: String,
+    },
+    total: {
       type: Number,
       required: true,
     },
@@ -38,10 +35,6 @@ export const TransactionSchema = new mongoose.Schema(
     statusOrder: {
       type: String,
       enum: ["pending", "completed", "cancelled", "returned"],
-    },
-    saleDate: {
-      type: Date,
-      default: Date.now,
     },
   },
   { timestamps: true }

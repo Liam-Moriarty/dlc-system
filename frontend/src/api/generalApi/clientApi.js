@@ -36,6 +36,10 @@ export const clientApi = createApi({
       }),
       invalidatesTags: ["Clients"],
     }),
+    getAllClients: builder.query({
+      query: () => "clients",
+      providesTags: ["Clients"],
+    }),
   }),
 });
 
@@ -44,4 +48,5 @@ export const {
   useGetPaginatedClientsQuery,
   useDeleteClientMutation,
   useUpdateClientMutation,
+  useGetAllClientsQuery,
 } = clientApi;

@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
 
 const getIndicators = (column, items) => {
+  const defaultIndicatorStyle =
+    "p-2 rounded-xl flex justify-center items-center capitalize max-w-22 lg:p-1.5";
+
   if (column === "quantityInStock") {
     return items.reorderLevel > items.quantityInStock
       ? "dark:text-red-500 font-bold"
@@ -9,8 +12,32 @@ const getIndicators = (column, items) => {
 
   if (column === "status") {
     return items.status === "active"
-      ? "p-2 rounded-xl bg-green-500 flex justify-center items-center"
-      : "p-2 rounded-xl bg-red-500 flex justify-center items-center";
+      ? `${defaultIndicatorStyle} bg-green-500`
+      : `${defaultIndicatorStyle} bg-red-500`;
+  }
+
+  if (column === "statusOrder") {
+    switch (items.statusOrder) {
+      case "completed":
+        return `${defaultIndicatorStyle} bg-green-500`;
+      case "cancelled":
+        return `${defaultIndicatorStyle} bg-red-500`;
+      case "returned":
+        return `${defaultIndicatorStyle} bg-blue-500`;
+      case "pending":
+        return `${defaultIndicatorStyle} bg-gray-500`;
+    }
+  }
+
+  if (column === "paymentMethod") {
+    switch (items.paymentMethod) {
+      case "cod":
+        return `${defaultIndicatorStyle} bg-green-500`;
+      case "card":
+        return `${defaultIndicatorStyle} bg-red-500`;
+      case "g-cash":
+        return `${defaultIndicatorStyle} bg-blue-500`;
+    }
   }
 };
 
@@ -29,140 +56,54 @@ function imageColumn(column, items) {
   }
 }
 
-function nestedColumn(column, items) {
-  const products = items.productId || [];
-
-  const columnRenderers = {
-    company: (product, productIndex) =>
-      productIndex === 0 ? (
-        <p
-          key={`${items._id}-${productIndex}`}
-          className="text-sm line-clamp-1"
-        >
-          {items.clientId?.company || "N/A"}
-        </p>
-      ) : null,
-
-    product: (product, productIndex) => (
-      <p key={`${items._id}-${productIndex}`} className="text-sm line-clamp-1">
-        {product.products?.product || "N/A"}
-      </p>
-    ),
-
-    productPrice: (product, productIndex) => (
-      <p key={`${items._id}-${productIndex}`} className="text-sm">
-        ₱
-        {product.products?.price.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-        }) || "0.00"}
-      </p>
-    ),
-
-    quantity: (product, productIndex) => (
-      <p key={`${items._id}-${productIndex}`} className="text-sm">
-        {product.quantity || "N/A"}
-      </p>
-    ),
-    priceAtSale: (product, productIndex) => (
-      <p key={`${items._id}-${productIndex}`} className="text-sm">
-        ₱
-        {product.priceAtSale?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-        }) || "0.00"}
-      </p>
-    ),
-
-    total: (product, productIndex) => (
-      <p key={`${items._id}-${productIndex}`} className="text-sm">
-        ₱
-        {product.total?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-        }) || "0.00"}
-      </p>
-    ),
-
-    city: (product, productIndex) =>
-      productIndex === 0 ? (
-        <p key={`${items._id}-${productIndex}`} className="text-sm">
-          {items.clientId?.city || "N/A"}
-        </p>
-      ) : null,
-  };
-
-  // Render the column based on the provided key
-  return products.map(
-    (product, productIndex) =>
-      columnRenderers[column]?.(product, productIndex) || null
-  );
-}
-
 function columnTextFormat(column) {
   switch (column) {
     case "email":
-      return "lowercase";
+      return "lowercase line-clamp-1";
     case "product":
+    case "company":
+    case "clientId":
     case "productName":
-      return "uppercase";
+      return "uppercase line-clamp-1";
     case "image":
       return "hidden";
     case "description":
       return "line-clamp-2";
+    case "createdAt":
+    case "updatedAt":
+    case "dateOfSale":
+    case "saleDate":
+      return "line-clamp-1";
   }
 }
 
-function paymentAndStatusIndicator(column, items) {
-  const defaultStyle = "p-2 rounded-xl flex justify-center items-center xl:p-1";
-
-  if (column === "paymentMethod") {
-    if (items.paymentMethod === "g-cash") {
-      return `bg-blue-500 ${defaultStyle}`;
-    }
-
-    if (items.paymentMethod === "cod") {
-      return `bg-green-500 ${defaultStyle}`;
-    }
-
-    if (items.paymentMethod === "card") {
-      return `bg-red-500 ${defaultStyle}`;
-    }
-  }
-
-  if (column === "statusOrder") {
-    if (items.statusOrder === "pending") {
-      return `bg-gray-500 ${defaultStyle}`;
-    }
-
-    if (items.statusOrder === "completed") {
-      return `bg-green-500 ${defaultStyle}`;
-    }
-
-    if (items.statusOrder === "cancelled") {
-      return `bg-red-500 ${defaultStyle}`;
-    }
-
-    if (items.statusOrder === "returned") {
-      return `bg-blue-500 ${defaultStyle}`;
-    }
-  }
-}
-
-function formatDate(column, items) {
+function formats(column, items) {
   if (["createdAt", "updatedAt", "dateOfSale", "saleDate"].includes(column)) {
     return dayjs(items[column]).format("MMM D, YYYY");
   }
 
-  if (["price", "totalPrice", "unitPrice", "totalAmount"].includes(column)) {
-    return <span>₱{items[column].toLocaleString()}</span>;
+  if (["price", "total", "productPrice"].includes(column)) {
+    return `₱${items[column].toLocaleString()}`;
+  }
+
+  if (["priceAtSale"].includes(column)) {
+    if (items[column] === "no discount") {
+      return `${items[column].toLocaleString()}`;
+    } else {
+      return `${items[column].toLocaleString()}%`;
+    }
+  }
+
+  switch (column) {
+    case "clientId":
+      return items.clientId?.company || "N/A";
+    case "companyCity":
+      return items.clientId?.city || "N/A";
+    case "productName":
+      return items.productId?.product || "N/A";
   }
 
   return items[column];
 }
 
-export {
-  getIndicators,
-  imageColumn,
-  columnTextFormat,
-  formatDate,
-  nestedColumn,
-  paymentAndStatusIndicator,
-};
+export { getIndicators, imageColumn, columnTextFormat, formats };

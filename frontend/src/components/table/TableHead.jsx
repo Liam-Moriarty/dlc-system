@@ -37,19 +37,21 @@ const TableHead = ({ tableHead, requestSort }) => {
 
           const hiddenColumns =
             accesor.toLowerCase() === "created" ||
-            accesor.toLowerCase() === "updated"
+            accesor.toLowerCase() === "updated" ||
+            accesor == "saleDate" ||
+            accesor == "companyCity"
               ? "lg:hidden lg:table-cell"
               : "";
 
           return (
             <th
               key={title}
-              className={`border-b border-blue-gray-100 dark:border-primary-borders-dark p-4 lg:p-2 bg-secondary-bg dark:bg-secondary-bg-dark ${hiddenColumns}`}
+              className={`border-b border-blue-gray-100 dark:border-primary-borders-dark p-4 lg:p-1 bg-secondary-bg dark:bg-secondary-bg-dark ${hiddenColumns}`}
             >
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="font-normal leading-none opacity-80 flex"
+                className="font-light leading-none opacity-80 flex"
               >
                 {title}
                 {sortable && (

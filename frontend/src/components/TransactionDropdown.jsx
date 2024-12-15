@@ -1,121 +1,192 @@
 import React, { useState } from "react";
-import { HiChevronDown } from "react-icons/hi";
+import { useGetAllProductsQuery } from "../api/generalApi/productsApi";
 
+import { useGetAllClientsQuery } from "../api/generalApi/clientApi";
 import {
-  useGetUniqueClientsQuery,
-  useGetUniqueProductsQuery,
-} from "../api/generalApi/productsApi";
+  transactionDiscount,
+  transactionPaymentMethod,
+  transactionStatus,
+} from "../constants/transaction";
 
-const TransactionDropdown = ({ transactionForm }) => {
-  const { data: uniqueProducts } = useGetUniqueProductsQuery();
-  const { data: uniqueClients } = useGetUniqueClientsQuery();
+const TransactionDropdown = ({ transactionForm, handleChange }) => {
+  const { data: clients = [] } = useGetAllClientsQuery();
+  const { data: products = [] } = useGetAllProductsQuery();
 
-  const [isDropdownOpenProducts, setIsDropdownOpenProducts] = useState(false); // control of dropdown for products
-  const [isDropdownOpenClients, setIsDropdownOpenClients] = useState(false); // control of dropdown for clients
+  // Helper function to calculate total
+  const calculateTotal = () => {
+    const price = parseFloat(transactionForm.price || 0);
+    const quantity = parseFloat(transactionForm.quantity || 0);
+    const discount =
+      transactionForm.priceAtSale &&
+      transactionForm.priceAtSale !== "no discount"
+        ? parseFloat(transactionForm.priceAtSale) / 100
+        : 0; // Treat "No Discount" as 0%
 
-  const handleSelectProduct = (product) => {
-    transactionForm.productName = product;
-    setIsDropdownOpenProducts(false); // close after selecting product
+    const discountAmount = price * discount;
+    const discountedPrice = price - discountAmount;
+    const totalCost = discountedPrice * quantity;
+    transactionForm.total = totalCost.toFixed(2);
+    return totalCost.toFixed(2);
   };
 
-  const handleSelectClient = (client) => {
-    transactionForm.clientName = client;
-    setIsDropdownOpenClients(false);
+  const handleProductChange = (e) => {
+    const selectedProductId = e.target.value;
+    const selectedProduct = products.find(
+      (product) => product._id === selectedProductId
+    );
+    const price = selectedProduct?.price || "";
+
+    handleChange({
+      target: { name: "price", value: price },
+    });
+    handleChange(e);
   };
 
-  const handleOpenProducts = () => {
-    setIsDropdownOpenProducts(!isDropdownOpenProducts);
-
-    if (isDropdownOpenClients) {
-      setIsDropdownOpenClients(false);
-    }
-  };
-
-  const handleOpenClients = () => {
-    setIsDropdownOpenClients(!isDropdownOpenClients);
-
-    if (isDropdownOpenProducts) {
-      setIsDropdownOpenProducts(false);
-    }
-  };
+  const total = calculateTotal();
 
   return (
-    <div className="grid grid-cols-2 gap-2 mb-5">
-      <div className="flex flex-col gap-2">
-        <h3>Product</h3>
-        {/* CUSTOM DROPDOWN PRODUCTS */}
-        <div className="relative">
-          <div
-            className="input cursor-pointer flex justify-between items-center"
-            onClick={handleOpenProducts}
+    <>
+      <div className="grid grid-cols-2 gap-2 mb-5">
+        <div className="flex flex-col gap-2">
+          <h3>Company</h3>
+          <select
+            className="input"
+            name="clientId"
+            id="clientId"
+            value={transactionForm.clientId}
+            onChange={handleChange}
           >
-            {/* Default is Select Product when Clicked then the value of 
-          selected product will show  */}
-            {transactionForm.productName || "Select Product"}
-            <HiChevronDown size={20} />
-          </div>
+            <option value="" disabled hidden className="option">
+              Select Company
+            </option>
+            {clients.map((client, key) => (
+              <option key={key} value={client._id} className="option">
+                {client.company}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* DROPDOWN OPTIONS */}
-        {isDropdownOpenProducts && (
-          <div className="absolute z-10 top-24 -left-20 w-3/5 border-2 dark:border-primary-borders-dark border-primary-borders rounded shadow-lg max-h-[15rem] overflow-y-auto">
-            <ul>
-              {uniqueProducts?.length > 0 ? (
-                uniqueProducts.map((product, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSelectProduct(product)}
-                    className="px-4 py-2 bg-secondary-bg dark:bg-secondary-bg-dark capitalize text-sm font-normal cursor-pointer "
-                  >
-                    {product}
-                  </li>
-                ))
-              ) : (
-                <li className="px-4 py-2 text-gray-500">
-                  No products available
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
+        <div className="flex flex-col gap-2">
+          <h3>Products</h3>
+          <select
+            className="input"
+            name="productId"
+            id="productId"
+            value={transactionForm.productId}
+            onChange={handleProductChange}
+          >
+            <option value="" disabled hidden className="option">
+              Select product
+            </option>
+            {products.map((product, key) => (
+              <option key={key} value={product._id} className="option">
+                {product.product}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {/* CUSTOM CLIENTS DROPDOWN */}
-      <div className="flex flex-col gap-2">
-        <h3>Company</h3>
-        <div className="relative">
-          <div
-            className="input cursor-pointer flex justify-between items-center"
-            onClick={handleOpenClients}
-          >
-            {transactionForm.clientName || "Select Clients"}
-            <HiChevronDown size={20} />
-          </div>
+      <div className="grid grid-cols-2 gap-2 mb-5">
+        <div className="flex flex-col gap-2">
+          <h3>Price</h3>
+          <input
+            type="number"
+            className="input"
+            name="price"
+            value={transactionForm.price}
+            readOnly
+          />
         </div>
 
-        {isDropdownOpenClients && (
-          <div className="absolute z-10 top-24 -right-20 w-3/5 border-2 dark:border-primary-borders-dark border-primary-borders rounded shadow-lg max-h-[15rem] overflow-y-auto">
-            <ul>
-              {uniqueClients?.length > 0 ? (
-                uniqueClients.map((client, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSelectClient(client)}
-                    className="px-4 py-2 bg-secondary-bg dark:bg-secondary-bg-dark capitalize text-sm font-normal cursor-pointer "
-                  >
-                    {client}
-                  </li>
-                ))
-              ) : (
-                <li className="px-4 py-2 text-gray-500">
-                  No clients available
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
+        <div className="flex flex-col gap-2">
+          <h3>Quantity</h3>
+          <input
+            type="number"
+            className="input"
+            name="quantity"
+            value={transactionForm.quantity}
+            onChange={handleChange}
+          />
+        </div>
       </div>
-    </div>
+
+      <div className="grid grid-cols-2 gap-2 mb-5">
+        <div className="flex flex-col gap-2">
+          <h3>Discount</h3>
+          <select
+            className="input"
+            name="priceAtSale"
+            id="priceAtSale"
+            value={transactionForm.priceAtSale}
+            onChange={handleChange}
+          >
+            <option value="" disabled hidden className="option">
+              Select Status
+            </option>
+            {transactionDiscount.map((discount, key) => (
+              <option key={key} value={discount.value} className="option">
+                {discount.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <h3>Total</h3>
+          <input
+            type="number"
+            className="input"
+            name="total"
+            value={total}
+            readOnly
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 my-5">
+        <div className="flex flex-col gap-2">
+          <h3>Status</h3>
+          <select
+            className="input"
+            name="statusOrder"
+            id="statusOrder"
+            value={transactionForm.statusOrder}
+            onChange={handleChange}
+          >
+            <option value="" disabled hidden className="option">
+              Select Status
+            </option>
+            {transactionStatus.map((category, key) => (
+              <option key={key} value={category} className="option">
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <h3>Payment Method</h3>
+          <select
+            className="input"
+            name="paymentMethod"
+            id="paymentMethod"
+            value={transactionForm.paymentMethod}
+            onChange={handleChange}
+          >
+            <option value="" disabled hidden className="option">
+              Select Payment
+            </option>
+            {transactionPaymentMethod.map((status, key) => (
+              <option key={key} value={status} className="option">
+                {status}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </>
   );
 };
 

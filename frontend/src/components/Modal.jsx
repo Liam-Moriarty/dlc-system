@@ -20,7 +20,7 @@ const Modal = memo(
       <>
         <Dialog
           size="sm"
-          className="dark:bg-primary-bg-dark bg-primary-bg max-h-[40rem] overflow-auto"
+          className="dark:bg-primary-bg-dark bg-primary-bg max-h-[40rem]"
           open={open}
           handler={handleOpen}
         >

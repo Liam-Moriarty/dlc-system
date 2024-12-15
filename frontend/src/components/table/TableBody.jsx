@@ -1,7 +1,6 @@
 import { memo, useMemo, useState } from "react";
 
 // PACKAGES
-import dayjs from "dayjs";
 import { useMediaQuery } from "react-responsive";
 
 // COMPONENTS
@@ -9,12 +8,9 @@ import {
   getIndicators,
   imageColumn,
   columnTextFormat,
-  formatDate,
-  nestedColumn,
-  paymentAndStatusIndicator,
+  formats,
 } from "./BodyFunctions";
 import Dropdown from "../Dropdown";
-import Tooltips from "../Tooltip";
 
 const TableBody = memo(
   ({
@@ -84,25 +80,24 @@ const TableBody = memo(
               {tableBody.map((column) => {
                 if (
                   !isTabletView ||
-                  (column !== "createdAt" && column !== "updatedAt")
+                  (column !== "createdAt" &&
+                    column !== "updatedAt" &&
+                    column !== "saleDate" &&
+                    column !== "companyCity")
                 ) {
                   return (
                     <td
-                      id={column === "description" ? "description" : null}
                       key={`${column}-${items._id}`}
                       className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
                     >
                       {imageColumn(column, items)}
-                      {nestedColumn(column, items)}
                       <p
-                        className={`text-sm ${getIndicators(
+                        className={`text-sm lg:text-xs ${getIndicators(
                           column,
                           items
-                        )} ${columnTextFormat(
-                          column
-                        )} ${paymentAndStatusIndicator(column, items)}`}
+                        )} ${columnTextFormat(column)} `}
                       >
-                        {formatDate(column, items)}
+                        {formats(column, items)}
                       </p>
                     </td>
                   );

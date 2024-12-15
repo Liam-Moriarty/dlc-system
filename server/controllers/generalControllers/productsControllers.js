@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Products from "../../models/productsModel.js";
-import { validationResult } from "express-validator";
 import Client from "../../models/clientsModel.js";
+import { validationResult } from "express-validator";
 
 // GET PAGINATED PRODUCTS
 export const getPaginatedProducts = async (req, res) => {
@@ -12,7 +12,10 @@ export const getPaginatedProducts = async (req, res) => {
     const startIndex = (page - 1) * limit;
     const totalItems = await Products.countDocuments();
 
-    const products = await Products.find().skip(startIndex).limit(limit);
+    const products = await Products.find()
+      .skip(startIndex)
+      .limit(limit)
+      .sort({ product: 1 });
 
     const product = products.map((item) => ({
       ...item.toObject(),
@@ -32,7 +35,7 @@ export const getPaginatedProducts = async (req, res) => {
 // GET ALL PRODUCTS
 export const getProducts = async (req, res) => {
   try {
-    const products = await Products.find({});
+    const products = await Products.find({}).sort({ product: 1 });
 
     const product = products.map((item) => ({
       ...item.toObject(),
@@ -114,20 +117,18 @@ export const updateProducts = async (req, res) => {
   }
 };
 
-// GET UNIQUE PRODUCTS
 export const getUniqueProducts = async (req, res) => {
   try {
     const uniqueProducts = await Products.distinct("product");
     const lowerCaseProducts = uniqueProducts.map((products) =>
       products.toLowerCase()
     );
-    res.status(200).json(uniqueProducts);
+    res.status(200).json(lowerCaseProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// GET UNIQUE CLIENTS
 export const getUniqueClients = async (req, res) => {
   try {
     const uniqueClients = await Client.distinct("company");

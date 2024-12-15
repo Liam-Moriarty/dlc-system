@@ -13,7 +13,12 @@ export const productsHeader = [
     accesor: "description",
     colsHidden: true,
   },
-  { title: "Price", sortable: true, accesor: "price", colsHidden: false },
+  {
+    title: "Price",
+    sortable: true,
+    accesor: "price",
+    colsHidden: false,
+  },
   {
     title: "Stock",
     sortable: true,

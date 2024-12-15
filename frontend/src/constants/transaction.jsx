@@ -1,83 +1,115 @@
 export const transactionHeader = [
   {
-    title: "Company",
-    sortable: false,
-    accesor: "company",
+    title: "Client",
+    sortable: true,
+    accesor: "clientId",
     colsHidden: false,
   },
+
   {
-    title: "Products",
-    sortable: false,
-    accesor: "product",
-    colsHidden: false,
-  },
-  {
-    title: "Quantity",
-    sortable: false,
-    accesor: "quantity",
+    title: "Product",
+    sortable: true,
+    accesor: "productName",
     colsHidden: false,
   },
   {
     title: "Price",
-    sortable: false,
-    accesor: "productPrice",
+    sortable: true,
+    accesor: "price",
+    colsHidden: false,
+  },
+
+  {
+    title: "Quantity",
+    sortable: true,
+    accesor: "quantity",
     colsHidden: false,
   },
   {
     title: "Discount",
-    sortable: false,
+    sortable: true,
     accesor: "priceAtSale",
     colsHidden: false,
   },
   {
-    title: "Amount",
-    sortable: false,
-    accesor: "total",
-    colsHidden: true,
-  },
-  {
     title: "Total",
     sortable: true,
-    accesor: "totalAmount",
-    colsHidden: true,
+    accesor: "total",
+    colsHidden: false,
   },
+
   {
     title: "Payment",
     sortable: true,
     accesor: "paymentMethod",
-    colsHidden: true,
+    colsHidden: false,
   },
   {
     title: "City",
-    sortable: false,
-    accesor: "city",
+    sortable: true,
+    accesor: "companyCity",
     colsHidden: true,
   },
   {
     title: "Status",
     sortable: true,
     accesor: "statusOrder",
-    colsHidden: true,
+    colsHidden: false,
   },
   {
     title: "Date",
     sortable: true,
-    accesor: "saleDate",
+    accesor: "createdAt",
     colsHidden: true,
   },
   { title: "", sortable: false, accesor: "", colsHidden: false },
 ];
 
 export const transactionBody = [
-  "company",
-  "product",
+  "clientId",
+  "productName",
+  "price",
   "quantity",
-  "productPrice",
   "priceAtSale",
   "total",
-  "totalAmount",
   "paymentMethod",
-  "city",
+  "companyCity",
   "statusOrder",
-  "saleDate",
+  "createdAt",
+];
+
+export const transactionStatus = [
+  "pending",
+  "completed",
+  "cancelled",
+  "returned",
+];
+
+export const transactionPaymentMethod = ["cod", "g-cash", "card"];
+
+export const transactionDiscount = [
+  {
+    label: "No Discount",
+    value: "no discount",
+  },
+  {
+    label: "10%",
+    value: 10,
+  },
+  {
+    label: "20%",
+    value: 20,
+  },
+  {
+    label: "40%",
+    value: 40,
+  },
+  {
+    label: "50%",
+    value: 50,
+  },
+  {
+    label: "70%",
+    value: 70,
+  },
 ];

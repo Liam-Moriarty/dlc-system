@@ -23,10 +23,10 @@ router.delete("/paginatedTransaction/:id", deleteTransaction);
 
 router.patch("/paginatedTransaction/:id", updateTransaction);
 
-router.get("/transactions", getAllTransactions);
-
 router.get("/uniqueProducts", getUniqueProducts);
 
 router.get("/uniqueClients", getUniqueClients);
+
+router.get("/transactions", getAllTransactions);
 
 export default router;

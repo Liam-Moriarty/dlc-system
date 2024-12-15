@@ -1,13 +1,17 @@
+// PACKAGES
 import React, { useState } from "react";
+
+// COMPONENTS
 import Table from "./table/Table";
 import Pagination from "./Pagination";
+import useSort from "../utils/sortingUtils";
+import { transactionBody, transactionHeader } from "../constants/transaction";
+
+// API QUERY
 import {
   useDeleteTransactionMutation,
   useGetPaginatedTransactionQuery,
 } from "../api/generalApi/transactionApi";
-import useSort from "../utils/sortingUtils";
-import { transactionBody, transactionHeader } from "../constants/transaction";
-import { useGetUniqueProductsQuery } from "../api/generalApi/productsApi";
 
 const TransactionTable = () => {
   const [page, setPage] = useState(1);
@@ -25,8 +29,6 @@ const TransactionTable = () => {
 
   const totalPages = data ? data.totalPages : [];
   const currentPage = data ? data.currentPage : [];
-
-  const { data: uniqueProducts } = useGetUniqueProductsQuery();
 
   return (
     <>
