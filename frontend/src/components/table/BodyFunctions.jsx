@@ -2,12 +2,12 @@ import dayjs from "dayjs";
 
 const getIndicators = (column, items) => {
   const defaultIndicatorStyle =
-    "p-2 rounded-xl flex justify-center items-center capitalize max-w-22 lg:p-1.5";
+    "p-2 rounded-xl flex justify-center items-center capitalize max-w-22 lg:p-1.5 text-primary-txt-dark";
 
   if (column === "quantityInStock") {
     return items.reorderLevel > items.quantityInStock
-      ? "dark:text-red-500 font-bold"
-      : "dark:text-green-500 font-bold";
+      ? "text-red-500 dark:text-red-500 font-bold"
+      : "text-green-500 dark:text-green-500 font-bold";
   }
 
   if (column === "status") {

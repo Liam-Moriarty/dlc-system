@@ -35,7 +35,11 @@ export const updateClient = async (req, res) => {
       return res.status(404).json({ error: "No such client" });
     }
 
-    const clients = await Client.findByIdAndUpdate(id, { ...req.body });
+    const clients = await Client.findByIdAndUpdate(
+      id,
+      { ...req.body },
+      { new: true }
+    );
 
     // check if client exists
     if (!clients) {
@@ -59,16 +63,18 @@ export const getPaginatedClients = async (req, res) => {
 
     // get the clients based on the pagination
     const clients = await Client.find()
+      .sort({ company: 1 })
       .skip(startIndex) // Skip the items based on the start index
-      .limit(limit) // Limit the number of items to return
-      .sort({ company: 1 });
+      .limit(limit); // Limit the number of items to return
 
     // convert specific data into lowercase to sort it accordinly
-    const client = clients.map((item) => ({
-      ...item.toObject(), // Convert mongoose document to plain JS object
-      company: item.company.toLowerCase(), // Convert the field to lowercase
-      city: item.city.toLowerCase(),
-    }));
+    const client = clients
+      .map((item) => ({
+        ...item.toObject(), // Convert mongoose document to plain JS object
+        company: item.company.toLowerCase(),
+        city: item.city.toLowerCase(),
+      }))
+      .sort((a, b) => a.company.localeCompare(b.company)); // Case-insensitive sort
 
     res.json({
       totalItems, // Total number of items
@@ -104,7 +110,15 @@ export const addClient = async (req, res) => {
 export const getClients = async (req, res) => {
   try {
     const clients = await Client.find({}).sort({ company: 1 });
-    res.status(200).json(clients);
+
+    const client = clients
+      .map((item) => ({
+        ...item.toObject(),
+        company: item.company.toLowerCase(),
+      }))
+      .sort((a, b) => a.company.localeCompare(b.company)); // Case-insensitive sort
+
+    res.status(200).json(client);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

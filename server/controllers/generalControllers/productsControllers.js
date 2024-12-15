@@ -117,26 +117,26 @@ export const updateProducts = async (req, res) => {
   }
 };
 
-export const getUniqueProducts = async (req, res) => {
-  try {
-    const uniqueProducts = await Products.distinct("product");
-    const lowerCaseProducts = uniqueProducts.map((products) =>
-      products.toLowerCase()
-    );
-    res.status(200).json(lowerCaseProducts);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// export const getUniqueProducts = async (req, res) => {
+//   try {
+//     const uniqueProducts = await Products.distinct("product");
+//     const lowerCaseProducts = uniqueProducts.map((products) =>
+//       products.toLowerCase()
+//     );
+//     res.status(200).json(lowerCaseProducts);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
-export const getUniqueClients = async (req, res) => {
-  try {
-    const uniqueClients = await Client.distinct("company");
-    const lowerCaseClients = uniqueClients.map((clients) =>
-      clients.toLowerCase()
-    );
-    res.status(200).json(lowerCaseClients);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// export const getUniqueClients = async (req, res) => {
+//   try {
+//     const uniqueClients = await Client.distinct("company");
+//     const lowerCaseClients = uniqueClients.map((clients) =>
+//       clients.toLowerCase()
+//     );
+//     res.status(200).json(lowerCaseClients);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };

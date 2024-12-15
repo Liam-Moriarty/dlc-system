@@ -6,10 +6,10 @@ import {
   getPaginatedTransactions,
   updateTransaction,
 } from "../controllers/generalControllers/transactionController.js";
-import {
-  getUniqueClients,
-  getUniqueProducts,
-} from "../controllers/generalControllers/productsControllers.js";
+// import {
+//   getUniqueClients,
+//   getUniqueProducts,
+// } from "../controllers/generalControllers/productsControllers.js";
 
 const router = express();
 
@@ -23,9 +23,9 @@ router.delete("/paginatedTransaction/:id", deleteTransaction);
 
 router.patch("/paginatedTransaction/:id", updateTransaction);
 
-router.get("/uniqueProducts", getUniqueProducts);
+// router.get("/uniqueProducts", getUniqueProducts);
 
-router.get("/uniqueClients", getUniqueClients);
+// router.get("/uniqueClients", getUniqueClients);
 
 router.get("/transactions", getAllTransactions);
 

@@ -11,9 +11,9 @@ export const getPaginatedTransactions = async (req, res) => {
     const totalItems = await Transaction.countDocuments();
 
     const transactions = await Transaction.find()
+      .sort({ createdAt: -1 })
       .populate("clientId", "company city")
       .populate("productId", "product price")
-      .sort({ createdAt: -1 })
       .skip(startIndex)
       .limit(limit);
 

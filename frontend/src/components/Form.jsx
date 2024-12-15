@@ -63,7 +63,7 @@ const Form = ({ handleOpen, items }) => {
       if (items) {
         await updateClient({
           id: items._id,
-          updatedClient: payload,
+          ...payload,
         });
       } else {
         await createClient(payload);

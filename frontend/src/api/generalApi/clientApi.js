@@ -28,7 +28,7 @@ export const clientApi = createApi({
       invalidatesTags: ["Clients"],
     }),
     updateClient: builder.mutation({
-      query: ({ id, updatedClient }) => ({
+      query: ({ id, ...updatedClient }) => ({
         url: `paginatedClients/${id}`,
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
