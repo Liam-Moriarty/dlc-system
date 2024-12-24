@@ -9,6 +9,7 @@ const initialState = {
   total: "",
   paymentMethod: "",
   statusOrder: "",
+  saleDate: "",
 };
 
 export const transactionSlice = createSlice({

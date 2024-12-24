@@ -35,6 +35,7 @@ const TransactionForm = ({ handleOpen, items }) => {
     priceAtSale: transactionState.priceAtSale || "",
     statusOrder: transactionState.statusOrder || "",
     quantity: transactionState.quantity || "",
+    saleDate: transactionState.saleDate || "",
   });
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const TransactionForm = ({ handleOpen, items }) => {
         priceAtSale: items.priceAtSale || "",
         statusOrder: items.statusOrder || "",
         quantity: items.quantity || "",
+        saleDate: items.saleDate || "",
       };
       setTransactionForm(updatedTransactionForm);
     }
@@ -65,6 +67,7 @@ const TransactionForm = ({ handleOpen, items }) => {
       priceAtSale,
       statusOrder,
       quantity,
+      saleDate,
     } = transactionForm;
 
     console.log("Form Data:", transactionForm);
@@ -77,7 +80,8 @@ const TransactionForm = ({ handleOpen, items }) => {
       !paymentMethod ||
       !priceAtSale ||
       !statusOrder ||
-      !quantity
+      !quantity ||
+      !saleDate
     ) {
       console.log("Missing Field Detected");
       return setError("All fields are required");
@@ -93,6 +97,7 @@ const TransactionForm = ({ handleOpen, items }) => {
         priceAtSale,
         statusOrder,
         quantity,
+        saleDate,
       };
 
       if (items) {
@@ -115,6 +120,7 @@ const TransactionForm = ({ handleOpen, items }) => {
         priceAtSale: "",
         statusOrder: "",
         quantity: "",
+        saleDate: "",
       });
       dispatch(cleanTransactionData());
       setError("");

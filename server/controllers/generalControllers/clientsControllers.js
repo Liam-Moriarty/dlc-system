@@ -2,6 +2,41 @@ import mongoose from "mongoose";
 import Client from "../../models/clientsModel.js";
 import { validationResult } from "express-validator";
 
+// SERVER PAGINATE CLIENTS
+export const getPaginatedClients = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1; // default 1 if page is not provided
+    const limit = parseInt(req.query.limit) || 20; // default 10 if the limit of the clients in the page is not provided
+
+    const startIndex = (page - 1) * limit; // Calculate the start index
+    const totalItems = await Client.countDocuments();
+
+    // get the clients based on the pagination
+    const clients = await Client.find()
+      .sort({ company: 1 })
+      .skip(startIndex) // Skip the items based on the start index
+      .limit(limit); // Limit the number of items to return
+
+    // convert specific data into lowercase to sort it accordinly
+    const client = clients
+      .map((item) => ({
+        ...item.toObject(), // Convert mongoose document to plain JS object
+        company: item.company.toLowerCase(),
+        city: item.city.toLowerCase(),
+      }))
+      .sort((a, b) => a.company.localeCompare(b.company)); // Case-insensitive sort
+
+    res.json({
+      totalItems, // Total number of items
+      currentPage: page, // Current page number
+      totalPages: Math.ceil(totalItems / limit), // Total number of pages
+      client, // Items for the current page
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // DELETE CLIENT
 export const deleteClient = async (req, res) => {
   const { id } = req.params;
@@ -47,41 +82,6 @@ export const updateClient = async (req, res) => {
     }
 
     return res.status(200).json(clients);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// SERVER PAGINATE CLIENTS
-export const getPaginatedClients = async (req, res) => {
-  try {
-    const page = parseInt(req.query.page) || 1; // default 1 if page is not provided
-    const limit = parseInt(req.query.limit) || 50; // default 10 if the limit of the clients in the page is not provided
-
-    const startIndex = (page - 1) * limit; // Calculate the start index
-    const totalItems = await Client.countDocuments();
-
-    // get the clients based on the pagination
-    const clients = await Client.find()
-      .sort({ company: 1 })
-      .skip(startIndex) // Skip the items based on the start index
-      .limit(limit); // Limit the number of items to return
-
-    // convert specific data into lowercase to sort it accordinly
-    const client = clients
-      .map((item) => ({
-        ...item.toObject(), // Convert mongoose document to plain JS object
-        company: item.company.toLowerCase(),
-        city: item.city.toLowerCase(),
-      }))
-      .sort((a, b) => a.company.localeCompare(b.company)); // Case-insensitive sort
-
-    res.json({
-      totalItems, // Total number of items
-      currentPage: page, // Current page number
-      totalPages: Math.ceil(totalItems / limit), // Total number of pages
-      client, // Items for the current page
-    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

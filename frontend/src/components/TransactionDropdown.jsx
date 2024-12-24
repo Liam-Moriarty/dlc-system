@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useGetAllProductsQuery } from "../api/generalApi/productsApi";
-
 import { useGetAllClientsQuery } from "../api/generalApi/clientApi";
 import {
   transactionDiscount,
   transactionPaymentMethod,
   transactionStatus,
 } from "../constants/transaction";
+import dayjs from "dayjs";
 
 const TransactionDropdown = ({ transactionForm, handleChange }) => {
   const { data: clients = [] } = useGetAllClientsQuery();
@@ -25,6 +25,7 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
     const discountAmount = price * discount;
     const discountedPrice = price - discountAmount;
     const totalCost = discountedPrice * quantity;
+
     transactionForm.total = totalCost.toFixed(2);
     return totalCost.toFixed(2);
   };
@@ -184,6 +185,23 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
               </option>
             ))}
           </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 my-5">
+        <div className="flex flex-col gap-2">
+          <h3>Date of Sale</h3>
+          <input
+            type="date"
+            className="input"
+            name="saleDate"
+            value={
+              transactionForm.saleDate
+                ? dayjs(transactionForm.saleDate).format("YYYY-MM-DD")
+                : ""
+            }
+            onChange={handleChange}
+          />
         </div>
       </div>
     </>

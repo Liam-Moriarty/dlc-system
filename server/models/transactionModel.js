@@ -36,6 +36,10 @@ export const TransactionSchema = new mongoose.Schema(
       type: String,
       enum: ["pending", "completed", "cancelled", "returned"],
     },
+    saleDate: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   { timestamps: true }
 );

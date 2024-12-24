@@ -13,9 +13,9 @@ export const getPaginatedProducts = async (req, res) => {
     const totalItems = await Products.countDocuments();
 
     const products = await Products.find()
+      .sort({ product: 1 })
       .skip(startIndex)
-      .limit(limit)
-      .sort({ product: 1 });
+      .limit(limit);
 
     const product = products.map((item) => ({
       ...item.toObject(),

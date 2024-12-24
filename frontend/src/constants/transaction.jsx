@@ -59,7 +59,7 @@ export const transactionHeader = [
   {
     title: "Date",
     sortable: true,
-    accesor: "createdAt",
+    accesor: "saleDate",
     colsHidden: true,
   },
   { title: "", sortable: false, accesor: "", colsHidden: false },
@@ -75,7 +75,7 @@ export const transactionBody = [
   "paymentMethod",
   "companyCity",
   "statusOrder",
-  "createdAt",
+  "saleDate",
 ];
 
 export const transactionStatus = [

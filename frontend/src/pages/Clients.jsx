@@ -21,7 +21,7 @@ import {
 const Clients = () => {
   const tabletView = useMediaQuery({ maxWidth: 768 });
   const [page, setPage] = useState(1);
-  const limit = 50;
+  const limit = 20;
 
   const { data, error, isLoading } = useGetPaginatedClientsQuery({
     page,
