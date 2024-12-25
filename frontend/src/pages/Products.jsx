@@ -19,7 +19,7 @@ import {
 const Products = () => {
   const tabletView = useMediaQuery({ maxWidth: 768 });
   const [page, setPage] = useState(1);
-  const limit = 20;
+  const limit = 10;
 
   const { data, error, isLoading } = useGetPaginatedProductQuery({
     page,
@@ -34,9 +34,9 @@ const Products = () => {
   const currentPage = data ? data.currentPage : [];
 
   return (
-    <>
+    <div className="overflow-auto w-full flex-1">
       {!tabletView ? (
-        <Card className="w-full h-[45rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
+        <Card className="w-full h-[50rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
           <TableHeader
             title="Products"
             description="Manage Products"
@@ -66,7 +66,7 @@ const Products = () => {
       ) : (
         <p>Mobile View Here</p>
       )}
-    </>
+    </div>
   );
 };
 

@@ -21,7 +21,7 @@ const Pagination = memo(({ setPage, totalPages, currentPage }) => {
         />
       </IconButton>
 
-      <h3 color="gray" className="font-normal cursor-pointer">
+      <h3 color="gray" className="font-normal cursor-pointer lg:text-sm">
         Page{" "}
         <strong className="dark:text-primary-txt-dark text-primary-txt">
           {currentPage}

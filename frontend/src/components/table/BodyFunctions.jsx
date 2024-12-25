@@ -45,7 +45,7 @@ function imageColumn(column, items) {
   if (column === "image") {
     return (
       <img
-        src={items.image.replace(/\.(jpg|png|webp)/, ".jpg")}
+        src={items.image.replace(/\.(jpg|png|webp)/, ".webp")}
         alt="product image"
         loading="lazy"
         className="h-10 w-10 rounded-full object-cover border dark:bg-secondary-bg-dark bg-secondary-bg dark:border-primary-borders-dark border-primary-borders"

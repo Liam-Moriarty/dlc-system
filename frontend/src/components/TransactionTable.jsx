@@ -15,7 +15,7 @@ import {
 
 const TransactionTable = () => {
   const [page, setPage] = useState(1);
-  const limit = 50;
+  const limit = 30;
 
   const { data, error, isLoading } = useGetPaginatedTransactionQuery({
     page,

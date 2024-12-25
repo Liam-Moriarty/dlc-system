@@ -14,9 +14,9 @@ const RootLayout = ({ children }) => {
   };
 
   return (
-    <main className="w-full h-auto lg:overflow-visible flex">
+    <main className="w-full h-screen overflow-hidden gap-2 flex">
       <Sidebar />
-      <div className="w-full h-full flex-1 p-4 xxl:pt-16 ">
+      <div className="relative overflow-hidden w-full h-full flex flex-col xxl:pt-10 p-2">
         <Topbar title={title} description={description} />
         {children}
       </div>

@@ -9,9 +9,9 @@ const Transactions = () => {
   const tabletView = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <>
+    <div className="overflow-auto w-full flex-1">
       {!tabletView ? (
-        <Card className="w-full h-[45rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
+        <Card className="w-full h-[50rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
           <TableHeader
             title="Transactions"
             description="Manage Transactions"
@@ -26,7 +26,7 @@ const Transactions = () => {
       ) : (
         <p>Mobile View Here</p>
       )}
-    </>
+    </div>
   );
 };
 

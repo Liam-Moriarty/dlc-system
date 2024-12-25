@@ -38,9 +38,9 @@ const Clients = () => {
   const currentPage = data ? data.currentPage : [];
 
   return (
-    <>
+    <div className="overflow-auto w-full flex-1">
       {!tabletView ? (
-        <Card className="w-full h-[45rem] md:h-full flex justify-between overflow-hidden bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark">
+        <Card className="w-full h-[50rem] flex-1 md:h-full flex justify-between bg-primary-bg dark:bg-primary-bg-dark shadow-3xl dark:shadow-3xl-dark overflow-auto">
           <TableHeader
             title="Clients"
             description="Manage Clients"
@@ -70,7 +70,7 @@ const Clients = () => {
       ) : (
         <p>Mobile View Here</p>
       )}
-    </>
+    </div>
   );
 };
 

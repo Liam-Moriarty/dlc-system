@@ -4,6 +4,7 @@ import { MdOutlineToday } from "react-icons/md";
 import { BsCalendar4Week } from "react-icons/bs";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { LuCalendarCheck } from "react-icons/lu";
+import { RiAdminLine } from "react-icons/ri";
 
 export const menuList = {
   general: [
@@ -26,32 +27,44 @@ export const menuList = {
       name: "Transactions",
       icon: BsCreditCard2Front,
     },
+    {
+      category: "general",
+      url: "admin",
+      name: "Admin",
+      icon: RiAdminLine,
+    },
   ],
 
   reports: [
-    { title: "Reports" },
+    { title: "Analytics" },
     {
-      category: "reports",
+      category: "analytics",
+      url: "performance",
+      name: "Performance",
+      icon: MdOutlineToday,
+    },
+    {
+      category: "analytics",
       url: "daily",
       name: "Daily",
       icon: MdOutlineToday,
     },
     {
-      category: "reports",
-      url: "weekly",
-      name: "Weekly",
+      category: "analytics",
+      url: "weeks",
+      name: "Weeks",
       icon: BsCalendar4Week,
     },
     {
-      category: "reports",
-      url: "monthly",
-      name: "Monthly",
+      category: "analytics",
+      url: "months",
+      name: "Months",
       icon: IoCalendarNumberOutline,
     },
     {
-      category: "reports",
-      url: "yearly",
-      name: "Yearly",
+      category: "analytics",
+      url: "year",
+      name: "Year",
       icon: LuCalendarCheck,
     },
   ],

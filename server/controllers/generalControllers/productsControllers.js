@@ -7,7 +7,7 @@ import { validationResult } from "express-validator";
 export const getPaginatedProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 20;
+    const limit = parseInt(req.query.limit) || 10;
 
     const startIndex = (page - 1) * limit;
     const totalItems = await Products.countDocuments();

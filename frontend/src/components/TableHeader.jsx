@@ -23,14 +23,14 @@ const TableHeader = ({
     <CardHeader
       floated={false}
       shadow={false}
-      className="overflow-visible rounded-none bg-primary-bg dark:bg-primary-bg-dark m-0 p-4"
+      className="overflow-visible rounded-none bg-primary-bg dark:bg-primary-bg-dark m-0 p-4 lg:p-2"
     >
       <div className="flex items-center justify-between lg:gap-4">
         <div className="w-full">
-          <h1 className="text-primary-txt dark:text-primary-txt-dark font-semibold sm:text-base">
+          <h1 className="text-primary-txt dark:text-primary-txt-dark font-semibold lg:text-sm">
             {title}
           </h1>
-          <p className="sm:text-sm text-primary-txt dark:text-primary-txt-dark">
+          <p className="lg:text-xs text-primary-txt dark:text-primary-txt-dark">
             {description}
           </p>
         </div>

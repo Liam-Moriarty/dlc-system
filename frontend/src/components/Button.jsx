@@ -2,7 +2,7 @@ import React from "react";
 
 const Button = ({ children, icon, variant, className, onClick, submit }) => {
   const baseStyle =
-    "font-medium text-sm inline-flex justify-center items-center whitespace-nowrap gap-1 lg:px-2 sm:text-xs px-4 py-2 dark:text-primary-txt-dark";
+    "font-medium text-sm inline-flex justify-center items-center whitespace-nowrap gap-1 lg:px-2 lg:text-xs px-4 py-2 dark:text-primary-txt-dark";
 
   const variants = {
     default:

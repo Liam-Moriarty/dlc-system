@@ -6,11 +6,11 @@ import ToggleTheme from "../../components/ToggleTheme";
 
 const Topbar = ({ title, description }) => {
   return (
-    <div className="w-full h-[5rem] md:h-[3rem] flex items-center justify-between p-3 mb-2 sm:mb-4 lg:p-0">
+    <div className="sticky z-50 w-full h-[5rem] md:h-[3rem] flex items-center justify-between p-3 mb-2 sm:mb-4">
       {/* Left Side */}
       <div className="w-full">
-        <h1 className="font-semibold sm:text-base">{title}</h1>
-        <p className="text-secondary-txt dark:text-secondary-txt-dark font-medium capitalize sm:text-sm md:hidden">
+        <h1 className="font-semibold lg:text-sm">{title}</h1>
+        <p className="text-secondary-txt dark:text-secondary-txt-dark font-medium capitalize lg:text-xs md:hidden">
           {description}
         </p>
       </div>

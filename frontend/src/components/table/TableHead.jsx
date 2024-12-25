@@ -46,12 +46,11 @@ const TableHead = ({ tableHead, requestSort }) => {
           return (
             <th
               key={title}
-              className={`border-b border-blue-gray-100 dark:border-primary-borders-dark p-4 lg:p-1 bg-secondary-bg dark:bg-secondary-bg-dark ${hiddenColumns}`}
+              className={`border-b border-blue-gray-100 dark:border-primary-borders-dark p-4 lg:p-2 bg-secondary-bg dark:bg-secondary-bg-dark ${hiddenColumns}`}
             >
               <Typography
-                variant="small"
                 color="blue-gray"
-                className="font-light leading-none opacity-80 flex"
+                className="font-light leading-none opacity-80 flex lg:text-sm"
               >
                 {title}
                 {sortable && (

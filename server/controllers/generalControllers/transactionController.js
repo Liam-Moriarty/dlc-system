@@ -5,7 +5,7 @@ import Transaction from "../../models/transactionModel.js";
 export const getPaginatedTransactions = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 50;
+    const limit = parseInt(req.query.limit) || 30;
 
     const startIndex = (page - 1) * limit;
     const totalItems = await Transaction.countDocuments();

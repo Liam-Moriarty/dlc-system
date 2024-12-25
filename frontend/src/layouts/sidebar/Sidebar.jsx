@@ -31,7 +31,7 @@ const Sidebar = () => {
         // mobile view
         open: {
           x: 0,
-          width: "14rem",
+          width: "16rem",
           transition: {
             damping: 40,
           },
@@ -48,13 +48,13 @@ const Sidebar = () => {
     : {
         // System view
         open: {
-          width: "14rem",
+          width: "16rem",
           transition: {
             damping: 40,
           },
         },
         closed: {
-          width: "4rem",
+          width: "3.8rem",
           transition: {
             damping: 40,
           },
@@ -75,11 +75,10 @@ const Sidebar = () => {
         variants={Sidebar_animation}
         initial={{ x: memoizedView ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className="dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] w-[14rem] max-w-[14rem]
-        h-screen overflow-hidden relative xxl:fixed"
+        className="relative dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] h-full overflow-y-auto p-2 overflow-x-hidden w-[16rem] max-w-[16rem] lg:fixed"
       >
         {/* LOGO */}
-        <div className="flex items-center gap-3 font-medium border-b border-primary-borders dark:border-primary-borders-dark py-3 mx-3">
+        <div className="flex items-center gap-3 font-medium border-b pb-2 border-primary-borders dark:border-primary-borders-dark">
           <img
             src={dummyLogo}
             alt="logo-img"
@@ -89,11 +88,11 @@ const Sidebar = () => {
         </div>
 
         {/* MENU'S */}
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-auto">
           {/* First */}
           <ul
-            className="whitespace-pre px-2.5 text-sm flex flex-col 
-            gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100 h-[100%] text-primary-txt dark:text-primary-txt-dark"
+            className="whitespace-pre text-sm flex flex-col 
+            font-medium h-auto text-primary-txt dark:text-primary-txt-dark"
           >
             <li id="dashboard" className="py-2">
               <NavLink to="/" className={"link"}>
@@ -108,14 +107,14 @@ const Sidebar = () => {
               />
             </li>
 
-            <div className="border-y py-5 border-primary-borders dark:border-primary-borders-dark">
+            <div className="border-y py-2 border-primary-borders dark:border-primary-borders-dark">
               {Object.keys(menuList).map((deptKey) => (
                 <div key={deptKey} className={`${!isOpen ? "mb-10" : null}`}>
                   {menuList[deptKey].map((menu, index) => (
                     <Fragment key={index}>
                       {menu.title && (
                         <small
-                          className={`pl-2 text-secondary-txt dark:text-secondary-txt-dark text-xs capitalize my-3 ${
+                          className={`ml-2 text-secondary-txt dark:text-secondary-txt-dark text-xs capitalize my-3 ${
                             !isOpen ? "hidden" : "block"
                           }`}
                         >
@@ -138,7 +137,7 @@ const Sidebar = () => {
             {/* SETTINGS */}
 
             <li id="settings">
-              <NavLink to="/settings" className={"link"}>
+              <NavLink to="/settings" className="link">
                 <SlSettings size={23} className="min-w-max" />
                 Settings
               </NavLink>
@@ -168,7 +167,7 @@ const Sidebar = () => {
                 }
           }
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute w-fit h-fit z-50 right-2 bottom-5 cursor-pointer md:block"
+          className="absolute z-50 right-2 bottom-40 cursor-pointer"
         >
           <IoIosArrowBack size={25} />
         </motion.div>

@@ -16,24 +16,34 @@ export const routeConfig = {
     description: "Manage transactions",
   },
 
-  "/reports/daily": {
+  "/general/admin": {
+    title: "Admin",
+    description: "Manage admins",
+  },
+
+  "/analytics/performance": {
+    title: "Product Performance",
+    description: "Performance overview of products",
+  },
+
+  "/analytics/daily": {
     title: "Daily Sales",
-    description: "Daily BookSales",
+    description: "Daily Sales",
   },
 
-  "/reports/weekly": {
-    title: "Weekly Sales",
-    description: "Weekly BookSales",
+  "/analytics/weeks": {
+    title: "Weeks Sales",
+    description: "Sales in past 7 Weeks",
   },
 
-  "/reports/monthly": {
-    title: "Monthly Sales",
-    description: "Monthly BookSales",
+  "/analytics/months": {
+    title: "Months Sales",
+    description: "Sales of the Months",
   },
 
-  "/reports/yearly": {
-    title: "Yearly Sales",
-    description: "Yearly BookSales",
+  "/analytics/year": {
+    title: "Year Sales",
+    description: "Sales of every Year",
   },
 
   "/settings": { title: "Settings", description: "Manage your profile" },
