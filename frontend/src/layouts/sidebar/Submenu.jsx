@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IoIosArrowDown } from "react-icons/io";
 import Tooltips from "../../components/Tooltip";
 
-const Submenu = ({ data, isOpen }) => {
+const Submenu = React.memo(({ data, isOpen }) => {
   const { pathname } = useLocation();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
+
+  const handleSubMenuToggle = useCallback(
+    () => setSubMenuOpen((prev) => !prev),
+    []
+  );
 
   return (
     <>
@@ -18,7 +23,7 @@ const Submenu = ({ data, isOpen }) => {
                 pathname.includes(!data.name) &&
                 "text-secondary-txt dark:text-secondary-txt-dark"
               }`}
-          onClick={() => setSubMenuOpen(!subMenuOpen)}
+          onClick={handleSubMenuToggle}
         >
           <data.icon size={23} className="min-w-max" />
           <p className="capitalize flex-1 ">{data.name}</p>
@@ -89,6 +94,6 @@ const Submenu = ({ data, isOpen }) => {
       </motion.ul>
     </>
   );
-};
+});
 
 export default Submenu;

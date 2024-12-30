@@ -41,10 +41,10 @@ export const routeConfig = {
     description: "Sales of the Months",
   },
 
-  "/analytics/year": {
-    title: "Year Sales",
-    description: "Sales of every Year",
-  },
+  // "/analytics/year": {
+  //   title: "Year Sales",
+  //   description: "Sales of every Year",
+  // },
 
   "/settings": { title: "Settings", description: "Manage your profile" },
 };

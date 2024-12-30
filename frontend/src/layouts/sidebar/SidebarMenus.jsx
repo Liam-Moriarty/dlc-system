@@ -61,11 +61,11 @@ export const menuList = {
       name: "Months",
       icon: IoCalendarNumberOutline,
     },
-    {
-      category: "analytics",
-      url: "year",
-      name: "Year",
-      icon: LuCalendarCheck,
-    },
+    // {
+    //   category: "analytics",
+    //   url: "year",
+    //   name: "Year",
+    //   icon: LuCalendarCheck,
+    // },
   ],
 };

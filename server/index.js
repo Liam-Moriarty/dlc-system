@@ -6,7 +6,8 @@ import dotenv from "dotenv";
 // ROUTES
 import productRoutes from "./routes/productRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
-import transactionRoutes from "./routes/transaction.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
+import visualizationRoutes from "./routes/visualizationRoutes.js";
 
 // CONFIGURATION
 dotenv.config();
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use("/general", clientRoutes);
 app.use("/general", productRoutes);
 app.use("/general", transactionRoutes);
+
+app.use("/analytics", visualizationRoutes);
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;

@@ -11,6 +11,7 @@ import {
   Monthly,
   Yearly,
   Products,
+  Performance,
 } from "./pages/index";
 
 const App = () => {
@@ -23,10 +24,11 @@ const App = () => {
         <Route path="/general/products" element={<Products />} />
         <Route path="/general/transactions" element={<Transactions />} />
 
-        <Route path="/reports/daily" element={<Daily />} />
-        <Route path="/reports/weekly" element={<Weekly />} />
-        <Route path="/reports/monthly" element={<Monthly />} />
-        <Route path="/reports/yearly" element={<Yearly />} />
+        <Route path="/analytics/performance" element={<Performance />} />
+        <Route path="/analytics/daily" element={<Daily />} />
+        <Route path="/analytics/weeks" element={<Weekly />} />
+        <Route path="/analytics/months" element={<Monthly />} />
+        <Route path="/analytics/year" element={<Yearly />} />
 
         <Route path="/settings" element={<Settings />} />
       </Routes>

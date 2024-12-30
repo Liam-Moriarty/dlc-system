@@ -7,6 +7,7 @@ import Daily from "./Daily";
 import Weekly from "./Weekly";
 import Monthly from "./Monthly";
 import Yearly from "./Yearly";
+import Performance from "./Performance";
 
 export {
   Dashboard,
@@ -18,4 +19,5 @@ export {
   Weekly,
   Monthly,
   Yearly,
+  Performance,
 };

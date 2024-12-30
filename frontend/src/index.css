@@ -60,6 +60,41 @@
   .option {
     @apply bg-secondary-bg dark:bg-secondary-bg-dark capitalize text-sm font-normal;
   }
+
+  .dark .react-datepicker__header {
+    @apply dark:bg-secondary-bg-dark border-primary-borders-dark;
+  }
+
+  .dark .react-datepicker__current-month,
+  .dark .react-datepicker__header__dropdown {
+    @apply dark:bg-secondary-bg-dark font-medium dark:text-secondary-txt-dark;
+  }
+
+  .dark .react-datepicker__day-names {
+    @apply dark:bg-secondary-bg-dark font-medium;
+  }
+
+  .dark .react-datepicker__day-name {
+    @apply dark:text-secondary-txt-dark font-medium;
+  }
+
+  .dark .react-datepicker__day--selected,
+  .dark .react-datepicker__day--keyboard-selected {
+    @apply dark:bg-primary-accent-dark dark:text-primary-txt-dark;
+  }
+
+  .dark .react-datepicker__day {
+    @apply hover:bg-primary-bg-dark dark:text-secondary-txt-dark;
+  }
+
+  .dark .react-datepicker__day--in-range,
+  .dark .react-datepicker__day--in-selecting-range {
+    @apply dark:bg-primary-bg-dark dark:text-primary-txt-dark;
+  }
+
+  .datepicker {
+    @apply bg-secondary-bg p-2 rounded-md border border-primary-borders outline-none text-primary-txt text-sm font-medium placeholder:text-primary-txt placeholder:font-normal placeholder:text-sm dark:bg-secondary-bg-dark dark:border-primary-borders-dark dark:text-primary-txt-dark dark:placeholder:text-primary-txt-dark cursor-pointer;
+  }
 }
 
 .line-clamp-1 {
@@ -88,4 +123,11 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+/* REACT DATEPICKER STYLES */
+.react-datepicker__current-month,
+.react-datepicker__header__dropdown {
+  font-weight: 500;
+  color: #1e1f24;
 }

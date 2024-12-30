@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { NavLink } from "react-router-dom";
 import dummyLogo from "/images/obanai.png";
 
@@ -17,14 +23,14 @@ import { RxDashboard } from "react-icons/rx";
 import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
 
-const Sidebar = () => {
-  const tabletAndMobileView = useMediaQuery({ maxWidth: 1500 });
+const Sidebar = React.memo(() => {
+  const tabletAndMobileView = useMediaQuery({ maxWidth: 1250 });
   const memoizedView = useMemo(
     () => tabletAndMobileView,
     [tabletAndMobileView]
   );
 
-  const [isOpen, setIsOpen] = useState(memoizedView ? true : false);
+  const [isOpen, setIsOpen] = useState(!memoizedView);
 
   const Sidebar_animation = memoizedView
     ? {
@@ -32,42 +38,23 @@ const Sidebar = () => {
         open: {
           x: 0,
           width: "16rem",
-          transition: {
-            damping: 40,
-          },
         },
         closed: {
           x: -250,
           width: 0,
-          transition: {
-            damping: 40,
-            delay: 0.15,
-          },
         },
       }
     : {
         // System view
         open: {
           width: "16rem",
-          transition: {
-            damping: 40,
-          },
         },
         closed: {
           width: "3.8rem",
-          transition: {
-            damping: 40,
-          },
         },
       };
 
-  useEffect(() => {
-    if (memoizedView) {
-      setIsOpen(false);
-    } else {
-      setIsOpen(true);
-    }
-  }, [memoizedView]);
+  const toggleSidebar = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
     <>
@@ -75,7 +62,7 @@ const Sidebar = () => {
         variants={Sidebar_animation}
         initial={{ x: memoizedView ? -250 : 0 }}
         animate={isOpen ? "open" : "closed"}
-        className="relative dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] h-full overflow-y-auto p-2 overflow-x-hidden w-[16rem] max-w-[16rem] lg:fixed"
+        className="relative dark:bg-secondary-bg-dark bg-secondary-bg shadow-xl z-[999] h-full overflow-y-auto p-2 overflow-x-hidden w-[16rem] max-w-[16rem] xl:fixed"
       >
         {/* LOGO */}
         <div className="flex items-center gap-3 font-medium border-b pb-2 border-primary-borders dark:border-primary-borders-dark">
@@ -166,8 +153,8 @@ const Sidebar = () => {
                   rotate: 180,
                 }
           }
-          onClick={() => setIsOpen(!isOpen)}
-          className="absolute z-50 right-2 bottom-40 cursor-pointer"
+          onClick={toggleSidebar}
+          className="absolute z-50 right-2 bottom-20 cursor-pointer"
         >
           <IoIosArrowBack size={25} />
         </motion.div>
@@ -175,13 +162,13 @@ const Sidebar = () => {
 
       {/* MENU IN MOBILE VIEW */}
       <div
-        className="m-5 xxl:block hidden fixed top-0 left-0 z-50"
+        className="m-5 xl:block hidden fixed top-0 left-0 z-50"
         onClick={() => setIsOpen(true)}
       >
         <MdMenu size={25} />
       </div>
     </>
   );
-};
+});
 
 export default Sidebar;
