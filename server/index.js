@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import visualizationRoutes from "./routes/visualizationRoutes.js";
 
 // CONFIGURATION
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/general", clientRoutes);
 app.use("/general", productRoutes);
 app.use("/general", transactionRoutes);
+app.use("/general", adminRoutes);
 
 app.use("/analytics", visualizationRoutes);
 

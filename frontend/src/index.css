@@ -57,6 +57,18 @@
     placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
   }
 
+  .input-signup-login {
+    @apply border-none bg-transparent w-full outline-none font-medium text-base placeholder:font-medium placeholder:text-sm placeholder:text-primary-txt dark:placeholder:text-primary-txt-dark;
+  }
+
+  .icon-signup-login {
+    @apply placeholder:text-primary-txt dark:placeholder:text-primary-txt-dark;
+  }
+
+  .container-signup-login {
+    @apply w-full h-full flex gap-2 justify-start items-center p-2;
+  }
+
   .option {
     @apply bg-secondary-bg dark:bg-secondary-bg-dark capitalize text-sm font-normal;
   }
@@ -130,4 +142,10 @@ input[type="number"] {
 .react-datepicker__header__dropdown {
   font-weight: 500;
   color: #1e1f24;
+}
+
+/* Errors */
+
+div.error {
+  border-bottom: 1px solid #f44336;
 }

@@ -35,9 +35,9 @@ const ToggleTheme = () => {
     <>
       <button id="mode" onClick={handleThemeToggle} className="cursor-pointer">
         {theme === "light" ? (
-          <LuMoonStar size={23} className="lg:h-5" />
+          <LuMoonStar size={25} className="lg:h-5" />
         ) : (
-          <LuSunMedium size={23} className="lg:h-5" />
+          <LuSunMedium size={25} className="lg:h-5" />
         )}
       </button>
 

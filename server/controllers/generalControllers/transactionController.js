@@ -36,9 +36,7 @@ export const getPaginatedTransactions = async (req, res) => {
 export const createTransaction = async (req, res) => {
   try {
     const { ...productData } = req.body;
-    const transaction = await Transaction.create({
-      ...productData,
-    });
+    const transaction = await Transaction.create({ ...productData });
 
     res.status(200).json(transaction);
   } catch (error) {

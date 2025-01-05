@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import {
   Dashboard,
@@ -12,17 +12,40 @@ import {
   Yearly,
   Products,
   Performance,
+  Admin,
+  Signup,
+  Login,
 } from "./pages/index";
+import ProtectedRoutes from "./layouts/ProtectedRoutes";
 
 const App = () => {
-  return (
-    <RootLayout>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
+  const isLoggedIn = window.localStorage.getItem("token");
 
+  return (
+    <Routes>
+      {!isLoggedIn && (
+        <>
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+        </>
+      )}
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoutes>
+            <RootLayout />
+          </ProtectedRoutes>
+        }
+      >
+        <Route path="/sign-up" element={<Navigate to="/" />} />
+        <Route path="/login" element={<Navigate to="/" />} />
+
+        <Route index element={<Dashboard />} />
         <Route path="/general/paginatedClients" element={<Clients />} />
         <Route path="/general/products" element={<Products />} />
         <Route path="/general/transactions" element={<Transactions />} />
+        <Route path="/general/admin" element={<Admin />} />
 
         <Route path="/analytics/performance" element={<Performance />} />
         <Route path="/analytics/daily" element={<Daily />} />
@@ -31,8 +54,8 @@ const App = () => {
         <Route path="/analytics/year" element={<Yearly />} />
 
         <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </RootLayout>
+      </Route>
+    </Routes>
   );
 };
 

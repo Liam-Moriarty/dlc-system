@@ -1,10 +1,10 @@
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { routeConfig } from "./topbar/TopbarTitles";
 
 import Sidebar from "./sidebar/Sidebar";
 import Topbar from "./topbar/Topbar";
 
-const RootLayout = ({ children }) => {
+const RootLayout = () => {
   const { pathname } = useLocation();
 
   const { title, description } = routeConfig[pathname] || {
@@ -18,7 +18,9 @@ const RootLayout = ({ children }) => {
       <Sidebar />
       <div className="relative overflow-hidden w-full h-full flex flex-col xxl:pt-10 p-2">
         <Topbar title={title} description={description} />
-        {children}
+
+        {/* Outlet is to render the child of the rootlayout */}
+        <Outlet />
       </div>
     </main>
   );

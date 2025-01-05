@@ -8,6 +8,9 @@ import Weekly from "./Weekly";
 import Monthly from "./Monthly";
 import Yearly from "./Yearly";
 import Performance from "./Performance";
+import Admin from "./Admin";
+import Signup from "./Signup";
+import Login from "./Login";
 
 export {
   Dashboard,
@@ -20,4 +23,7 @@ export {
   Monthly,
   Yearly,
   Performance,
+  Signup,
+  Login,
+  Admin,
 };

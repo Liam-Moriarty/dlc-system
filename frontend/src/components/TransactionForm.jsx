@@ -70,8 +70,6 @@ const TransactionForm = ({ handleOpen, items }) => {
       saleDate,
     } = transactionForm;
 
-    console.log("Form Data:", transactionForm);
-
     if (
       !clientId ||
       !productId ||
