@@ -20,6 +20,6 @@ export const clientSlice = createSlice({
   },
 });
 
-export const { clientData, cleanData, clientEditData } = clientSlice.actions;
+export const { clientData, cleanData } = clientSlice.actions;
 
 export default clientSlice.reducer;

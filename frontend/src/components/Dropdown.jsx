@@ -77,21 +77,25 @@ const Dropdown = ({
         } rounded-md p-2 bg-secondary-bg dark:bg-secondary-bg-dark dark:text-primary-txt-dark text-primary-txt text-sm font-medium`}
       >
         <div className="flex flex-col gap-2">
-          <Button
-            onClick={handleOpenUpdate}
-            variant="outline"
-            children="Update"
-            icon={<CiEdit />}
-            className="w-full h-auto"
-          />
-          <Modal
-            open={updateModal}
-            handleOpen={handleOpenUpdate}
-            label={label}
-            description={modalDesc}
-            items={items}
-            formType={formtype}
-          />
+          {label || modalDesc || formtype ? (
+            <>
+              <Button
+                onClick={handleOpenUpdate}
+                variant="outline"
+                children="Update"
+                icon={<CiEdit />}
+                className="w-full h-auto"
+              />
+              <Modal
+                open={updateModal}
+                handleOpen={handleOpenUpdate}
+                label={label}
+                description={modalDesc}
+                items={items}
+                formType={formtype}
+              />
+            </>
+          ) : null}
 
           <Button
             variant="outline"

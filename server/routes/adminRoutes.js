@@ -1,17 +1,13 @@
 import express from "express";
 import {
-  signUp,
-  getAdmins,
-  login,
-  protectData,
-} from "../controllers/generalControllers/authController.js";
+  deleteAdmin,
+  paginatedAdmin,
+} from "../controllers/adminControllers/adminControllers.js";
 
 const router = express();
 
-router.get("/admins", protectData, getAdmins);
+router.get("/admins", paginatedAdmin);
 
-router.post("/admin-signup", signUp);
-
-router.post("/admin-login", login);
+router.delete("/admin/:id", deleteAdmin);
 
 export default router;

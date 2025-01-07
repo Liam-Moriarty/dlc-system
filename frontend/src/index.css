@@ -58,11 +58,11 @@
   }
 
   .input-signup-login {
-    @apply border-none bg-transparent w-full outline-none font-medium text-base placeholder:font-medium placeholder:text-sm placeholder:text-primary-txt dark:placeholder:text-primary-txt-dark;
+    @apply border-none bg-transparent w-full outline-none font-medium text-base placeholder:font-medium placeholder:text-sm placeholder:text-primary-txt dark:placeholder:text-primary-txt-dark text-primary-txt dark:text-primary-txt-dark;
   }
 
   .icon-signup-login {
-    @apply placeholder:text-primary-txt dark:placeholder:text-primary-txt-dark;
+    @apply text-primary-txt dark:text-primary-txt-dark;
   }
 
   .container-signup-login {

@@ -125,11 +125,3 @@ const TableBody = memo(
 );
 
 export default TableBody;
-
-{
-  /* <Tooltips
-      anchorSelect="#description"
-      content={items.description}
-      place="bottom"
-     /> */
-}

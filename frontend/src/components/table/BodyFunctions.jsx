@@ -1,8 +1,16 @@
 import dayjs from "dayjs";
+import { FaLaptopCode, FaRegChartBar } from "react-icons/fa";
+import {
+  AiOutlineDollarCircle,
+  AiOutlineLineChart,
+  AiOutlineUsergroupAdd,
+  AiOutlineQuestionCircle,
+} from "react-icons/ai";
+import { LiaUserTieSolid } from "react-icons/lia";
 
 const getIndicators = (column, items) => {
   const defaultIndicatorStyle =
-    "p-2 rounded-xl flex justify-center items-center capitalize max-w-22 lg:p-1.5 text-primary-txt-dark";
+    "p-2 rounded-xl flex justify-center items-center capitalize max-w-22 lg:p-1.5 text-primary-txt-dark text-center ";
 
   if (column === "quantityInStock") {
     return items.reorderLevel > items.quantityInStock
@@ -101,6 +109,47 @@ function formats(column, items) {
       return items.clientId?.city || "N/A";
     case "productName":
       return items.productId?.product || "N/A";
+  }
+
+  if (column === "role") {
+    switch (items.role) {
+      case "software engineer":
+        return (
+          <span className="flex gap-2 justify-start items-center">
+            <FaLaptopCode /> software engineer
+          </span>
+        );
+      case "finance manager":
+        return (
+          <span className="flex gap-2 justify-start items-center">
+            <AiOutlineDollarCircle /> finance manager
+          </span>
+        );
+      case "data analyst":
+        return (
+          <span className="flex gap-2 justify-start items-center">
+            <AiOutlineLineChart /> data analyst
+          </span>
+        );
+      case "ceo":
+        return (
+          <span className="flex gap-2 justify-start items-center">
+            <LiaUserTieSolid /> ceo
+          </span>
+        );
+      case "hr manager":
+        return (
+          <span className="flex gap-2 justify-start items-center">
+            <AiOutlineUsergroupAdd /> hr manager
+          </span>
+        );
+      case "others":
+        return (
+          <span className="flex gap-2 justify-start items-center">
+            <AiOutlineQuestionCircle /> others
+          </span>
+        );
+    }
   }
 
   return items[column];

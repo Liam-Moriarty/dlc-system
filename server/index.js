@@ -8,6 +8,8 @@ import productRoutes from "./routes/productRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+
+import authRoutes from "./routes/authRoutes.js";
 import visualizationRoutes from "./routes/visualizationRoutes.js";
 
 // CONFIGURATION
@@ -23,6 +25,7 @@ app.use("/general", productRoutes);
 app.use("/general", transactionRoutes);
 app.use("/general", adminRoutes);
 
+app.use("/", authRoutes);
 app.use("/analytics", visualizationRoutes);
 
 const PORT = process.env.PORT || 3000;

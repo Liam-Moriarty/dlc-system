@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/general/",
+  baseUrl: "http://localhost:5000/",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token; // Access token from Redux state
     if (token) {
@@ -29,11 +29,7 @@ export const authApi = createApi({
         body: userData,
       }),
     }),
-    getProfile: builder.query({
-      query: () => "admins",
-    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation, useGetProfileQuery } =
-  authApi;
+export const { useLoginMutation, useSignupMutation } = authApi;

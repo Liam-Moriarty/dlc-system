@@ -154,13 +154,3 @@ export const protectData = async (req, res, next) => {
     return res.status(401).json({ status: "Failed", message: "Unauthorized" });
   }
 };
-
-// Get All Admins
-export const getAdmins = async (req, res) => {
-  try {
-    const admin = await Admin.find({});
-    res.status(200).json(admin);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
