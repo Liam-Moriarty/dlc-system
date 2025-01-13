@@ -33,6 +33,9 @@ const LoginForm = () => {
 
       localStorage.setItem("token", result.result);
       localStorage.setItem("username", result.username);
+      localStorage.setItem("profile", result.profilePic);
+      localStorage.setItem("role", result.role);
+      localStorage.setItem("name", result.name);
 
       setLoginForm({
         username: "",

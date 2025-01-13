@@ -30,7 +30,6 @@ const Dashboard = () => {
     isLoading: loadingLatestSale,
     error: errorLatestSale,
   } = useGetSalesTodayQuery();
-
   const {
     data: client,
     isLoading: loadingClient,
@@ -74,6 +73,8 @@ const Dashboard = () => {
                     {label.status} Sales:
                   </p>
                   <p>₱{label.statusRevenue.toLocaleString()}</p>
+                  {loadingRevenue && <p>Loading...</p>}
+                  {errorRevenue && <p>{errorRevenue}</p>}
                 </div>
               ))}
           </div>
@@ -95,6 +96,8 @@ const Dashboard = () => {
                     {label.status} Sales:
                   </p>
                   <p>{label.countOfAllStatus}</p>
+                  {loadingCount && <p>Loading...</p>}
+                  {errorCount && <p>{errorCount}</p>}
                 </div>
               ))}
           </div>
@@ -120,6 +123,8 @@ const Dashboard = () => {
                     {label.dateToday} Sales:
                   </p>
                   <p>₱{label.totalSalesToday.toLocaleString()}</p>
+                  {loadingLatestSale && <p>Loading...</p>}
+                  {errorLatestSale && <p>{errorLatestSale}</p>}
                 </div>
               ))
             )}
@@ -136,6 +141,8 @@ const Dashboard = () => {
                     Number of Clients :
                   </p>
                   <p>{label.totalNumberOfClients}</p>
+                  {loadingClient && <p>Loading...</p>}
+                  {errorClient && <p>{errorClient}</p>}
                 </div>
               ))}
           </div>

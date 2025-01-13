@@ -29,23 +29,26 @@ const DashboardAnalytics = () => {
 
   return (
     <>
-      <div className="rounded-lg h-auto col-span-2 lg:col-span-1 flex justify-center">
-        <div className="h-[20rem] w-[60rem] ">
+      <div className="rounded-lg h-auto col-span-2 lg:col-span-1 flex justify-center default-container">
+        <div className="h-[20rem] w-[60rem] xxl:w-[40rem] xxl:h-[15rem]">
           <AreaVisual data={data} isLoading={isLoading} error={error} />
         </div>
       </div>
-      <div className="rounded-lg h-[20rem] col-span-1 flex justify-center">
-        <div className="h-[20rem] w-[30rem] ">
+
+      <div className="rounded-lg col-span-1 flex justify-center default-container">
+        <div className="h-[20rem] w-[30rem] xxl:w-[20rem] xxl:h-[15rem]">
           <TopPerformingProducts />
         </div>
       </div>
-      <div className="rounded-lg h-auto col-span-2 lg:col-span-1 flex justify-center">
-        <div className="h-[20rem] w-[60rem] ">
+
+      <div className="rounded-lg h-auto col-span-2 lg:col-span-1 flex justify-center default-container">
+        <div className="h-[20rem] w-[60rem] xxl:w-[40rem] xxl:h-[15rem]">
           <ComposedVisual />
         </div>
       </div>
-      <div className="rounded-lg h-[20rem] col-span-1 flex justify-center">
-        <div className="h-[20rem] w-[30rem] ">
+
+      <div className="rounded-lg h-auto col-span-1 flex justify-center default-container">
+        <div className="h-[20rem] w-[30rem] xxl:w-[20rem] xxl:h-[15rem]">
           <PieVisual />
         </div>
       </div>

@@ -53,8 +53,23 @@ function imageColumn(column, items) {
   if (column === "image") {
     return (
       <img
-        src={items.image.replace(/\.(jpg|png|webp)/, ".webp")}
-        alt="product image"
+        src={items.image.replace(/\.(jpg|png|webp)/, ".jpg")}
+        alt="image"
+        loading="lazy"
+        className="h-10 w-10 rounded-full object-cover border dark:bg-secondary-bg-dark bg-secondary-bg dark:border-primary-borders-dark border-primary-borders"
+      />
+    );
+  } else {
+    return null;
+  }
+}
+
+function pfpColumn(column, items) {
+  if (column === "profilePic") {
+    return (
+      <img
+        src={items.profilePic}
+        alt="image"
         loading="lazy"
         className="h-10 w-10 rounded-full object-cover border dark:bg-secondary-bg-dark bg-secondary-bg dark:border-primary-borders-dark border-primary-borders"
       />
@@ -74,6 +89,7 @@ function columnTextFormat(column) {
     case "productName":
       return "uppercase line-clamp-1";
     case "image":
+    case "profilePic":
       return "hidden";
     case "description":
       return "line-clamp-2";
@@ -155,4 +171,4 @@ function formats(column, items) {
   return items[column];
 }
 
-export { getIndicators, imageColumn, columnTextFormat, formats };
+export { getIndicators, imageColumn, columnTextFormat, formats, pfpColumn };

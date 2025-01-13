@@ -1,6 +1,6 @@
 import Dashboard from "./Dashboard";
 import Clients from "./Clients";
-import Settings from "./Settings";
+import Profile from "./Profile";
 import Products from "./Products";
 import Transactions from "./Transactions";
 import Daily from "./Daily";
@@ -16,7 +16,7 @@ export {
   Dashboard,
   Clients,
   Products,
-  Settings,
+  Profile,
   Transactions,
   Daily,
   Weekly,

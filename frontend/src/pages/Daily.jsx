@@ -41,9 +41,9 @@ const Daily = () => {
 
       {/* Content */}
       <div className="w-full h-auto p-2 flex justify-center xl:items-center">
-        <div className="w-auto h-auto xl:w-full xl:h-[20rem]">
+        <div className="w-auto h-auto xl:w-full xl:h-[20rem] ">
           <SectionHeader title="Daily Sales" />
-          <div className="w-[70rem] h-[35rem] xl:w-full xl:h-[30rem]">
+          <div className="w-[70rem] h-[35rem] xl:w-full xl:h-[30rem] p-5 default-container">
             <AreaVisual data={data} isLoading={isLoading} error={error} />
           </div>
         </div>

@@ -23,7 +23,7 @@ const ProductsForm = ({ handleOpen, items }) => {
   const dispatch = useDispatch();
   const productState = useSelector((state) => state.productForm);
 
-  const [addProducts] = useAddProductsMutation();
+  const [addProducts, { isLoading }] = useAddProductsMutation();
   const [updateProducts] = useUpdateProductsMutation();
 
   const [productForm, setProductForm] = useState({
@@ -62,7 +62,8 @@ const ProductsForm = ({ handleOpen, items }) => {
         !productForm.reorderLevel ||
         !productForm.category ||
         !productForm.status ||
-        !productForm.description
+        !productForm.description ||
+        !imageFile
       ) {
         return setError("All fields are required");
       }
@@ -127,6 +128,15 @@ const ProductsForm = ({ handleOpen, items }) => {
 
   return (
     <form className="w-full text-primary-txt dark:text-primary-txt-dark p-3">
+      {items && (
+        <div className="flex justify-center items-center mb-5">
+          <img
+            src={items.image.replace(/\.(jpg|png|webp)/, ".jpg")}
+            alt="products image"
+            className="w-20 h-20 object-cover rounded-full border-2 dark:border-primary-borders-dark border-primary-borders"
+          />
+        </div>
+      )}
       <div className="grid grid-cols-2 gap-2 mb-5">
         <div className="flex flex-col gap-2">
           <h3>Product</h3>
@@ -247,7 +257,7 @@ const ProductsForm = ({ handleOpen, items }) => {
         <Button
           variant="default"
           className="w-full"
-          children="Submit"
+          children={`${isLoading ? "Adding..." : "Submit"}`}
           submit
           onClick={handleAddProduct}
         />

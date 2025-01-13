@@ -1,11 +1,5 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { NavLink } from "react-router-dom";
+import React, { Fragment, useCallback, useMemo, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import dummyLogo from "/images/obanai.png";
 
 // COMPONENTS IMPORTS
@@ -20,11 +14,28 @@ import { useMediaQuery } from "react-responsive";
 // REACT ICONS IMPORTS
 import { IoIosArrowBack } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
-import { SlSettings } from "react-icons/sl";
 import { MdMenu } from "react-icons/md";
+import { FaRegUserCircle } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/auth/authSlice";
 
 const Sidebar = React.memo(() => {
   const tabletAndMobileView = useMediaQuery({ maxWidth: 1250 });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const username = window.localStorage.getItem("username");
+
+  console.log(username);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   const memoizedView = useMemo(
     () => tabletAndMobileView,
     [tabletAndMobileView]
@@ -123,14 +134,27 @@ const Sidebar = React.memo(() => {
 
             {/* SETTINGS */}
 
-            <li id="settings">
-              <NavLink to="/settings" className="link">
-                <SlSettings size={23} className="min-w-max" />
-                Settings
+            <li id="profile">
+              <NavLink to="/profile" className="link">
+                <FaRegUserCircle size={23} className="min-w-max" />
+                Profile
               </NavLink>
               <Tooltips
-                anchorSelect="#settings"
-                content="Settings"
+                anchorSelect="#profile"
+                content="Profile"
+                place="right"
+                isOpen={isOpen}
+              />
+            </li>
+
+            <li id="logout">
+              <NavLink to="/login" className="link" onClick={handleLogout}>
+                <MdLogout size={23} className="min-w-max" />
+                Logout
+              </NavLink>
+              <Tooltips
+                anchorSelect="#logout"
+                content="Logout"
                 place="right"
                 isOpen={isOpen}
               />

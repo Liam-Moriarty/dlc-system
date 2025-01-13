@@ -43,6 +43,9 @@ const AdminSchema = new mongoose.Schema(
       trim: true,
     },
     passwordChangeDate: Date,
+    profilePic: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -1,9 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const baseQuery = fetchBaseQuery({
+  baseUrl: "http://localhost:5000/general/",
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.token; // Access token from Redux state
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
 export const adminApi = createApi({
   reducerPath: "admin",
   tagTypes: ["Admins"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/general/" }),
+  baseQuery,
   endpoints: (builder) => ({
     paginatedAdmins: builder.query({
       query: ({ page, limit }) => `admins?page=${page}&limit=${limit}`,
@@ -16,7 +27,26 @@ export const adminApi = createApi({
       }),
       invalidatesTags: ["Admins"],
     }),
+    updateProfile: builder.mutation({
+      query: (updatedProfile) => ({
+        url: "updateProfile",
+        method: "PUT",
+        body: updatedProfile,
+      }),
+    }),
+    changePassword: builder.mutation({
+      query: (updatedPassword) => ({
+        url: "changePassword",
+        method: "PUT",
+        body: updatedPassword,
+      }),
+    }),
   }),
 });
 
-export const { usePaginatedAdminsQuery, useDeleteAdminMutation } = adminApi;
+export const {
+  usePaginatedAdminsQuery,
+  useDeleteAdminMutation,
+  useUpdateProfileMutation,
+  useChangePasswordMutation,
+} = adminApi;

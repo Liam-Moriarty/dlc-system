@@ -5,7 +5,15 @@ import bcrypt from "bcryptjs";
 // Sign Up Admin
 export const signUp = async (req, res) => {
   try {
-    const { name, username, email, password, confirmPassword, role } = req.body;
+    const {
+      name,
+      username,
+      email,
+      password,
+      confirmPassword,
+      role,
+      profilePic,
+    } = req.body;
 
     const emptyFields = [];
 
@@ -27,11 +35,18 @@ export const signUp = async (req, res) => {
     if (!role) {
       emptyFields.push("role");
     }
+    if (!profilePic) {
+      emptyFields.push("profilePic");
+    }
 
     if (emptyFields.length > 0) {
       return res
         .status(400)
         .json({ message: "Please fill in all the fields", emptyFields });
+    }
+
+    if (!profilePic) {
+      return res.status(400).json({ message: "No images uploaded!" });
     }
 
     const admin = await Admin.create({
@@ -41,6 +56,7 @@ export const signUp = async (req, res) => {
       password,
       confirmPassword,
       role,
+      profilePic,
     });
 
     // Implement jwt to the header and payload
@@ -100,7 +116,14 @@ export const login = async (req, res) => {
       expiresIn: "30d",
     });
 
-    res.status(200).json({ username: admin.username, result: jwtToken });
+    res.status(200).json({
+      username: admin.username,
+      result: jwtToken,
+      profilePic: admin.profilePic,
+      name: admin.name,
+      role: admin.role,
+      name: admin.name,
+    });
   } catch (error) {
     res.status(500).json({ status: "Failed", message: error.message });
   }

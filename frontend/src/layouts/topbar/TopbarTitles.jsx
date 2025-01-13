@@ -46,5 +46,5 @@ export const routeConfig = {
   //   description: "Sales of every Year",
   // },
 
-  "/settings": { title: "Settings", description: "Manage your profile" },
+  "/profile": { title: "Profile", description: "Manage your profile" },
 };

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Products from "../../models/productsModel.js";
-import Client from "../../models/clientsModel.js";
 import { validationResult } from "express-validator";
 
 // GET PAGINATED PRODUCTS
@@ -27,24 +26,6 @@ export const getPaginatedProducts = async (req, res) => {
       totalPages: Math.ceil(totalItems / limit),
       product,
     });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// GET ALL PRODUCTS
-export const getProducts = async (req, res) => {
-  try {
-    const products = await Products.find({}).sort({ product: 1 });
-
-    const product = products.map((item) => ({
-      ...item.toObject(),
-      product: item.product.toLowerCase(),
-      category: item.category.toLowerCase(),
-      status: item.status.toLowerCase(),
-    }));
-
-    res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -112,6 +93,24 @@ export const updateProducts = async (req, res) => {
     }
 
     res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// GET ALL PRODUCTS
+export const getProducts = async (req, res) => {
+  try {
+    const products = await Products.find({}).sort({ product: 1 });
+
+    const product = products.map((item) => ({
+      ...item.toObject(),
+      product: item.product.toLowerCase(),
+      category: item.category.toLowerCase(),
+      status: item.status.toLowerCase(),
+    }));
+
+    res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

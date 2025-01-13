@@ -53,8 +53,7 @@
   }
 
   .input {
-    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md bg-transparent outline-none p-1 text-sm
-    placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
+    @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md bg-transparent outline-none p-1 text-sm placeholder:dark:text-gray-400 placeholder:text-gray-800 placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
   }
 
   .input-signup-login {
@@ -67,6 +66,14 @@
 
   .container-signup-login {
     @apply w-full h-full flex gap-2 justify-start items-center p-2;
+  }
+
+  .profile-container {
+    @apply p-4 flex flex-col dark:bg-secondary-bg-dark bg-secondary-bg rounded-xl;
+  }
+
+  .default-container {
+    @apply dark:bg-secondary-bg-dark bg-secondary-bg rounded-xl;
   }
 
   .option {
@@ -148,4 +155,28 @@ input[type="number"] {
 
 div.error {
   border-bottom: 1px solid #f44336;
+}
+
+/* gradients */
+
+.gradient-dark {
+  background-image: linear-gradient(
+    to top,
+    #265141,
+    #24483b,
+    #224035,
+    #20372f,
+    #1e2f29
+  );
+}
+
+.gradient {
+  background-image: linear-gradient(
+    to top,
+    #cfbbe9,
+    #c39bf1,
+    #b879f7,
+    #ad52fb,
+    #a208fc
+  );
 }

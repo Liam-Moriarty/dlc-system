@@ -1,6 +1,12 @@
 export const adminHeader = [
   { title: "Name", sortable: true, accesor: "name", colsHidden: false },
   {
+    title: "Profile",
+    sortable: false,
+    accesor: "profilePic",
+    colsHidden: false,
+  },
+  {
     title: "Username",
     sortable: true,
     accesor: "username",
@@ -17,7 +23,14 @@ export const adminHeader = [
   { title: "", sortable: false, accesor: "", colsHidden: false },
 ];
 
-export const adminBody = ["name", "username", "email", "role", "createdAt"];
+export const adminBody = [
+  "name",
+  "profilePic",
+  "username",
+  "email",
+  "role",
+  "createdAt",
+];
 
 export const roles = [
   { role: "software engineer" },

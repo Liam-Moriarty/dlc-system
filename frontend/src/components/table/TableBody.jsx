@@ -8,6 +8,7 @@ import {
   getIndicators,
   imageColumn,
   columnTextFormat,
+  pfpColumn,
   formats,
 } from "./BodyFunctions";
 import Dropdown from "../Dropdown";
@@ -91,6 +92,8 @@ const TableBody = memo(
                       className="p-4 lg:p-2 border-b dark:border-primary-borders-dark"
                     >
                       {imageColumn(column, items)}
+                      {pfpColumn(column, items)}
+
                       <p
                         className={`text-sm lg:text-xs ${getIndicators(
                           column,

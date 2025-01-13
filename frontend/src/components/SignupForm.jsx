@@ -14,8 +14,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { cleanSignUp, createSignup } from "../features/auth/signUpSlice";
 import { roles } from "../constants/othersConst";
+import { uploadImage } from "../utils/uploadImageCloudinary";
+import pfp from "/images/pfp-1.jfif";
 
 const SignupForm = () => {
+  const [imageFile, setImageFile] = useState(null);
+  const [previewPic, setPreviewPic] = useState(null);
   const signUpState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,6 +42,15 @@ const SignupForm = () => {
     setSignUpForm((prev) => ({ ...prev, passwordChangeDate: new Date() }));
   }, []);
 
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewPic(previewUrl);
+      setImageFile(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,6 +58,8 @@ const SignupForm = () => {
       signUpForm;
 
     try {
+      const uploadImageUrl = await uploadImage(imageFile);
+
       const payload = {
         name,
         username,
@@ -53,6 +68,7 @@ const SignupForm = () => {
         confirmPassword,
         role,
         passwordChangeDate: new Date(),
+        profilePic: uploadImageUrl,
       };
 
       const result = await signup(payload).unwrap();
@@ -73,6 +89,8 @@ const SignupForm = () => {
       dispatch(cleanSignUp());
       setError("");
       setEmptyFields([]);
+      setPreviewPic(null);
+      setImageFile(null);
 
       navigate("/login");
     } catch (error) {
@@ -100,6 +118,7 @@ const SignupForm = () => {
 
     dispatch(createSignup({ [name]: value }));
   };
+
   return (
     <form
       className="w-full h-full p-4 md:p-2 flex flex-col items-center justify-center"
@@ -112,6 +131,27 @@ const SignupForm = () => {
         <p className="text-base font-medium md:text-sm">
           Your admin journey starts here!
         </p>
+      </div>
+
+      {/* Profile Picture Section */}
+      <div className="flex justify-center items-center">
+        <img
+          src={previewPic ? previewPic : pfp}
+          alt="profile picture"
+          className={`w-20 h-20 object-cover rounded-full border-2 cursor-pointer ${
+            emptyFields.includes("profilePic")
+              ? "border-red-500"
+              : "border-primary-borders dark:border-primary-borders-dark"
+          }`}
+          onClick={() => document.getElementById("fileInput").click()}
+        />
+        <input
+          type="file"
+          id="fileInput"
+          style={{ display: "none" }}
+          accept="image/*"
+          onChange={handleFileChange}
+        />
       </div>
 
       {/* INPUTS */}

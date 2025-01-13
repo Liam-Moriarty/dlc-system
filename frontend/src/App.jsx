@@ -4,7 +4,7 @@ import RootLayout from "./layouts/RootLayout";
 import {
   Dashboard,
   Clients,
-  Settings,
+  Profile,
   Transactions,
   Daily,
   Weekly,
@@ -53,7 +53,7 @@ const App = () => {
         <Route path="/analytics/months" element={<Monthly />} />
         <Route path="/analytics/year" element={<Yearly />} />
 
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );
