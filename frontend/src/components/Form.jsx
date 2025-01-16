@@ -23,6 +23,7 @@ const Form = ({ handleOpen, items }) => {
     city: clientState.city || "",
   });
   const [error, setError] = useState("");
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const [createClient] = useCreateClientMutation();
   const [updateClient] = useUpdateClientMutation();
@@ -43,15 +44,6 @@ const Form = ({ handleOpen, items }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !clientForm.company ||
-      !clientForm.contacts ||
-      !clientForm.email ||
-      !clientForm.city
-    ) {
-      return setError("All fields are required!!");
-    }
-
     try {
       const payload = {
         company: clientForm.company,
@@ -60,13 +52,18 @@ const Form = ({ handleOpen, items }) => {
         city: clientForm.city,
       };
 
+      let result;
       if (items) {
-        await updateClient({
+        result = await updateClient({
           id: items._id,
           ...payload,
         });
       } else {
-        await createClient(payload);
+        result = await createClient(payload).unwrap();
+      }
+
+      if (result.error) {
+        throw result.error; // Throw the error if it exists
       }
 
       setClientForm({
@@ -80,7 +77,15 @@ const Form = ({ handleOpen, items }) => {
 
       setError("");
     } catch (error) {
-      return setError("Something went wrong!");
+      const errorMessage = error?.data?.message || "Something went wrong";
+      const emptyFieldsMessage =
+        error?.data?.emptyFields || "Something went wrong";
+
+      setError(errorMessage);
+      setEmptyFields(emptyFieldsMessage);
+
+      console.log("errorMessage details:", errorMessage); // Log for debugging
+      console.log("emptyFieldsMessage details:", emptyFieldsMessage); // Log for debugging
     }
   };
 
@@ -95,47 +100,79 @@ const Form = ({ handleOpen, items }) => {
 
   return (
     <>
-      <form className="w-full text-primary-txt dark:text-primary-txt-dark p-3">
+      <form
+        className="w-full text-primary-txt dark:text-primary-txt-dark p-3"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col gap-3 mb-5">
           <h3>Company Name</h3>
           <input
             type="text"
-            className="input"
+            className={`input ${
+              emptyFields.includes("company")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark"
+            }`}
             name="company"
             value={clientForm.company}
             onChange={handleChange}
+            placeholder="Enter Company name"
           />
 
           <h3>Contacts</h3>
           <input
             type="text"
-            className="input"
+            className={`input ${
+              emptyFields.includes("contacts") ||
+              error === "Contacts must be a 10-digit number starting with 9"
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="contacts"
+            maxLength="10" // Limit the input to 10 characters
             value={clientForm.contacts}
-            onChange={handleChange}
+            onChange={(e) => {
+              const value = e.target.value;
+              // Allow only digits and ensure the length doesn't exceed 10
+              if (/^\d{0,10}$/.test(value)) {
+                handleChange(e); // Call the existing handleChange function
+              }
+            }}
+            placeholder="Enter 10-digit contact"
           />
 
           <h3>Email</h3>
           <input
             type="email"
-            className="input"
+            className={`input ${
+              emptyFields.includes("email") ||
+              error === "Please enter a valid email!!"
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="email"
             value={clientForm.email}
             onChange={handleChange}
+            placeholder="How should we message you?"
           />
 
           <h3>City</h3>
           <input
             type="text"
-            className="input"
+            className={`input ${
+              emptyFields.includes("city")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="city"
             value={clientForm.city}
             onChange={handleChange}
+            placeholder="Where you from?"
           />
         </div>
         {error && (
           <p className="!text-red-500 font-semibold text-center normal-case mb-2 ">
-            All fields are required!!
+            {error}
           </p>
         )}
 

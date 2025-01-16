@@ -8,7 +8,11 @@ import {
 } from "../constants/transaction";
 import dayjs from "dayjs";
 
-const TransactionDropdown = ({ transactionForm, handleChange }) => {
+const TransactionDropdown = ({
+  transactionForm,
+  handleChange,
+  emptyFields,
+}) => {
   const { data: clients = [] } = useGetAllClientsQuery();
   const { data: products = [] } = useGetAllProductsQuery();
 
@@ -51,7 +55,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
         <div className="flex flex-col gap-2">
           <h3>Company</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("clientId")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="clientId"
             id="clientId"
             value={transactionForm.clientId}
@@ -71,7 +79,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
         <div className="flex flex-col gap-2">
           <h3>Products</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("productId")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="productId"
             id="productId"
             value={transactionForm.productId}
@@ -94,7 +106,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
           <h3>Price</h3>
           <input
             type="number"
-            className="input"
+            className={`input ${
+              emptyFields.includes("price")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="price"
             value={transactionForm.price}
             readOnly
@@ -105,7 +121,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
           <h3>Quantity</h3>
           <input
             type="number"
-            className="input"
+            className={`input ${
+              emptyFields.includes("quantity")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="quantity"
             value={transactionForm.quantity}
             onChange={handleChange}
@@ -117,7 +137,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
         <div className="flex flex-col gap-2">
           <h3>Discount</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("priceAtSale")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="priceAtSale"
             id="priceAtSale"
             value={transactionForm.priceAtSale}
@@ -138,7 +162,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
           <h3>Total</h3>
           <input
             type="number"
-            className="input"
+            className={`input ${
+              emptyFields.includes("total")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="total"
             value={total}
             readOnly
@@ -150,7 +178,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
         <div className="flex flex-col gap-2">
           <h3>Status</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("statusOrder")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="statusOrder"
             id="statusOrder"
             value={transactionForm.statusOrder}
@@ -170,7 +202,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
         <div className="flex flex-col gap-2">
           <h3>Payment Method</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("paymentMethod")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="paymentMethod"
             id="paymentMethod"
             value={transactionForm.paymentMethod}
@@ -193,7 +229,11 @@ const TransactionDropdown = ({ transactionForm, handleChange }) => {
           <h3>Date of Sale</h3>
           <input
             type="date"
-            className="input"
+            className={`input ${
+              emptyFields.includes("saleDate")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="saleDate"
             value={
               transactionForm.saleDate

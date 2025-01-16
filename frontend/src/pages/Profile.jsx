@@ -152,7 +152,7 @@ const Settings = () => {
                 <input
                   type="text"
                   placeholder="Change of name?"
-                  className="input"
+                  className="profile-input"
                   name="name"
                   onChange={profileChange}
                   value={profile.name.toLowerCase()}
@@ -164,7 +164,7 @@ const Settings = () => {
                 <input
                   type="text"
                   placeholder="How should we call you then?"
-                  className="input"
+                  className="profile-input"
                   name="username"
                   onChange={profileChange}
                   value={profile.username.toLowerCase()}
@@ -176,7 +176,7 @@ const Settings = () => {
                 <input
                   type="email"
                   placeholder="How should we contact you?"
-                  className="input"
+                  className="profile-input"
                   name="email"
                   onChange={profileChange}
                   value={profile.email}
@@ -208,7 +208,7 @@ const Settings = () => {
                 <input
                   type="file"
                   id="fileInput"
-                  className="input cursor-pointer"
+                  className="profile-input cursor-pointer"
                   accept="image/*"
                   onChange={handleFileChange}
                 />
@@ -253,7 +253,7 @@ const Settings = () => {
                 <input
                   type="text"
                   placeholder="Your old password"
-                  className="input"
+                  className="profile-input"
                   name="currentPassword"
                   onChange={passworHandledChange}
                   value={passwordChange.currentPassword}
@@ -265,7 +265,7 @@ const Settings = () => {
                 <input
                   type="password"
                   placeholder="Your new password"
-                  className="input"
+                  className="profile-input"
                   name="password"
                   onChange={passworHandledChange}
                   value={passwordChange.password}
@@ -277,7 +277,7 @@ const Settings = () => {
                 <input
                   type="password"
                   placeholder="Confirm new password"
-                  className="input"
+                  className="profile-input"
                   name="confirmPassword"
                   onChange={passworHandledChange}
                   value={passwordChange.confirmPassword}

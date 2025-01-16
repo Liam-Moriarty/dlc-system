@@ -22,6 +22,7 @@ const TransactionForm = ({ handleOpen, items }) => {
   const dispatch = useDispatch();
   const transactionState = useSelector((state) => state.transactionForm);
   const [error, setError] = useState("");
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const [createTransaction] = useCreateTransactionMutation();
   const [updateTransaction] = useUpdateTransactionMutation();
@@ -70,21 +71,6 @@ const TransactionForm = ({ handleOpen, items }) => {
       saleDate,
     } = transactionForm;
 
-    if (
-      !clientId ||
-      !productId ||
-      !price ||
-      !total ||
-      !paymentMethod ||
-      !priceAtSale ||
-      !statusOrder ||
-      !quantity ||
-      !saleDate
-    ) {
-      console.log("Missing Field Detected");
-      return setError("All fields are required");
-    }
-
     try {
       const payload = {
         clientId,
@@ -98,13 +84,18 @@ const TransactionForm = ({ handleOpen, items }) => {
         saleDate,
       };
 
+      let result;
       if (items) {
-        await updateTransaction({
+        result = await updateTransaction({
           id: items._id,
           ...payload,
         });
       } else {
-        await createTransaction(payload);
+        result = await createTransaction(payload);
+      }
+
+      if (result.error) {
+        throw result.error; // Throw the error if it exists
       }
 
       console.log(payload);
@@ -122,8 +113,17 @@ const TransactionForm = ({ handleOpen, items }) => {
       });
       dispatch(cleanTransactionData());
       setError("");
+      setEmptyFields([]);
     } catch (error) {
-      setError("An error occurred while processing your transaction.");
+      const errorMessage = error?.data?.message || "Something went wrong";
+      const emptyFieldsMessage =
+        error?.data?.emptyFields || "Something went wrong";
+
+      setError(errorMessage);
+      setEmptyFields(emptyFieldsMessage);
+
+      console.log("errorMessage details:", errorMessage); // Log for debugging
+      console.log("emptyFieldsMessage details:", emptyFieldsMessage); // Log for debugging
     }
   };
 
@@ -147,11 +147,12 @@ const TransactionForm = ({ handleOpen, items }) => {
         transactionForm={transactionForm}
         setTransactionForm={setTransactionForm}
         handleChange={handleChange}
+        emptyFields={emptyFields}
       />
 
       {error && (
         <p className="!text-red-500 font-semibold text-center normal-case mb-2 ">
-          All fields are required!!
+          {error}
         </p>
       )}
 

@@ -89,18 +89,47 @@ export const updateClient = async (req, res) => {
 
 // CREATE CLIENTS
 export const addClient = async (req, res) => {
-  const { company, contacts, email, city } = req.body;
-
-  const errors = validationResult(req); // Check for validation errors
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   try {
+    const { company, contacts, email, city } = req.body;
+
+    // Email validation
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ message: "Please enter a valid email!!" });
+    }
+
+    // Contacts validation: Ensure it is 10 digits and starts with 9
+    if (!/^9\d{9}$/.test(contacts)) {
+      return res.status(400).json({
+        message: "Contacts must be a 10-digit number starting with 9",
+      });
+    }
+
+    const emptyFields = [];
+    const fields = ["company", "contacts", "email", "city"];
+
+    fields.forEach((field) => {
+      if (!req.body[field]) {
+        emptyFields.push(field);
+      }
+    });
+
+    if (emptyFields.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "Please fill in all the fields", emptyFields });
+    }
+
     const clients = await Client.create({ company, contacts, email, city });
     res.status(200).json(clients);
   } catch (error) {
-    res.status(404).json({ message: error });
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyPattern)[0];
+      const value = error.keyValue[field];
+      return res.status(400).json({
+        message: `The ${field} "${value}" is already in use. Please use a different ${field}.`,
+      });
+    }
+    res.status(500).json({ message: error.message });
   }
 };
 

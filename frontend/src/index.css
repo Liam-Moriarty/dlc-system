@@ -53,6 +53,10 @@
   }
 
   .input {
+    @apply border-2 rounded-md bg-transparent outline-none p-1 text-sm placeholder:dark:text-gray-400 placeholder:text-gray-800 placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
+  }
+
+  .profile-input {
     @apply border-2 border-primary-borders dark:border-primary-borders-dark rounded-md bg-transparent outline-none p-1 text-sm placeholder:dark:text-gray-400 placeholder:text-gray-800 placeholder:text-sm text-primary-txt dark:text-primary-txt-dark font-medium;
   }
 

@@ -35,8 +35,54 @@ export const getPaginatedTransactions = async (req, res) => {
 // CREATE TRANSACTION
 export const createTransaction = async (req, res) => {
   try {
-    const { ...productData } = req.body;
-    const transaction = await Transaction.create({ ...productData });
+    const {
+      clientId,
+      productId,
+      price,
+      quantity,
+      priceAtSale,
+      total,
+      paymentMethod,
+      statusOrder,
+      saleDate,
+    } = req.body;
+
+    const emptyFields = [];
+    const fields = [
+      "clientId",
+      "productId",
+      "price",
+      "quantity",
+      "priceAtSale",
+      "total",
+      "paymentMethod",
+      "statusOrder",
+      "saleDate",
+    ];
+
+    fields.forEach((field) => {
+      if (!req.body[field]) {
+        emptyFields.push(field);
+      }
+    });
+
+    if (emptyFields.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "All fields required", emptyFields });
+    }
+
+    const transaction = await Transaction.create({
+      clientId,
+      productId,
+      price,
+      quantity,
+      priceAtSale,
+      total,
+      paymentMethod,
+      statusOrder,
+      saleDate,
+    });
 
     res.status(200).json(transaction);
   } catch (error) {

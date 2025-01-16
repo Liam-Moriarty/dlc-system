@@ -33,19 +33,50 @@ export const getPaginatedProducts = async (req, res) => {
 
 // CREATE PRODUCTS
 export const addProducts = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   try {
-    const { image, ...productData } = req.body;
-    if (!image) {
-      return res.status(400).json({ message: "No images uploaded!" });
+    const {
+      product,
+      category,
+      description,
+      price,
+      quantityInStock,
+      reorderLevel,
+      status,
+      image,
+    } = req.body;
+
+    const emptyFields = [];
+    const fields = [
+      "product",
+      "category",
+      "description",
+      "price",
+      "quantityInStock",
+      "reorderLevel",
+      "status",
+      "image",
+    ];
+
+    fields.forEach((field) => {
+      if (!req.body[field]) {
+        emptyFields.push(field);
+      }
+    });
+
+    if (emptyFields.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "All fields required!!", emptyFields });
     }
 
     const products = await Products.create({
-      ...productData,
+      product,
+      category,
+      description,
+      price,
+      quantityInStock,
+      reorderLevel,
+      status,
       image,
     });
     res.status(200).json(products);
@@ -115,27 +146,3 @@ export const getProducts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-// export const getUniqueProducts = async (req, res) => {
-//   try {
-//     const uniqueProducts = await Products.distinct("product");
-//     const lowerCaseProducts = uniqueProducts.map((products) =>
-//       products.toLowerCase()
-//     );
-//     res.status(200).json(lowerCaseProducts);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
-// export const getUniqueClients = async (req, res) => {
-//   try {
-//     const uniqueClients = await Client.distinct("company");
-//     const lowerCaseClients = uniqueClients.map((clients) =>
-//       clients.toLowerCase()
-//     );
-//     res.status(200).json(lowerCaseClients);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };

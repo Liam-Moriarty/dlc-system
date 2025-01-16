@@ -20,6 +20,7 @@ import {
 const ProductsForm = ({ handleOpen, items }) => {
   const [imageFile, setImageFile] = useState(null);
   const [error, setError] = useState("");
+  const [emptyFields, setEmptyFields] = useState([]);
   const dispatch = useDispatch();
   const productState = useSelector((state) => state.productForm);
 
@@ -55,19 +56,6 @@ const ProductsForm = ({ handleOpen, items }) => {
     async (e) => {
       e.preventDefault();
 
-      if (
-        !productForm.product ||
-        !productForm.price ||
-        !productForm.quantityInStock ||
-        !productForm.reorderLevel ||
-        !productForm.category ||
-        !productForm.status ||
-        !productForm.description ||
-        !imageFile
-      ) {
-        return setError("All fields are required");
-      }
-
       try {
         const uploadImageUrl = await uploadImage(imageFile);
 
@@ -82,13 +70,18 @@ const ProductsForm = ({ handleOpen, items }) => {
           image: uploadImageUrl,
         };
 
+        let result;
         if (items) {
-          await updateProducts({
+          result = await updateProducts({
             id: items._id,
             ...payload,
           });
         } else {
-          await addProducts(payload);
+          result = await addProducts(payload);
+        }
+
+        if (result.error) {
+          throw result.error; // Throw the error if it exists
         }
 
         setProductForm({
@@ -104,8 +97,17 @@ const ProductsForm = ({ handleOpen, items }) => {
         dispatch(cleanProductData());
         setImageFile(null); // Reset image file
         setError("");
+        setEmptyFields([]);
       } catch (error) {
-        return setError("Error something went wrong");
+        const errorMessage = error?.data?.message || "Something went wrong";
+        const emptyFieldsMessage =
+          error?.data?.emptyFields || "Something went wrong";
+
+        setError(errorMessage);
+        setEmptyFields(emptyFieldsMessage);
+
+        console.log("errorMessage details:", errorMessage); // Log for debugging
+        console.log("emptyFieldsMessage details:", emptyFieldsMessage); // Log for debugging
       }
     },
     [productForm, imageFile, addProducts, dispatch, items]
@@ -142,7 +144,11 @@ const ProductsForm = ({ handleOpen, items }) => {
           <h3>Product</h3>
           <input
             type="text"
-            className="input"
+            className={`input ${
+              emptyFields.includes("product")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="product"
             value={productForm.product}
             onChange={handleChange}
@@ -153,7 +159,11 @@ const ProductsForm = ({ handleOpen, items }) => {
           <h3>Price</h3>
           <input
             type="number"
-            className="input"
+            className={`input ${
+              emptyFields.includes("price")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="price"
             value={productForm.price}
             onChange={handleChange}
@@ -166,7 +176,11 @@ const ProductsForm = ({ handleOpen, items }) => {
           <h3>Stock</h3>
           <input
             type="number"
-            className="input"
+            className={`input ${
+              emptyFields.includes("quantityInStock")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="quantityInStock"
             value={productForm.quantityInStock}
             onChange={handleChange}
@@ -177,7 +191,11 @@ const ProductsForm = ({ handleOpen, items }) => {
           <h3>Restock Level</h3>
           <input
             type="number"
-            className="input"
+            className={`input ${
+              emptyFields.includes("reorderLevel")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="reorderLevel"
             value={productForm.reorderLevel}
             onChange={handleChange}
@@ -189,7 +207,11 @@ const ProductsForm = ({ handleOpen, items }) => {
         <div className="flex flex-col gap-2">
           <h3>Category</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("category")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="category"
             id="category"
             value={productForm.category}
@@ -209,7 +231,11 @@ const ProductsForm = ({ handleOpen, items }) => {
         <div className="flex flex-col gap-2">
           <h3>Status</h3>
           <select
-            className="input"
+            className={`input ${
+              emptyFields.includes("status")
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
             name="status"
             id="status"
             value={productForm.status}
@@ -230,7 +256,11 @@ const ProductsForm = ({ handleOpen, items }) => {
       <div className="flex flex-col gap-2 mb-5">
         <h3>Description</h3>
         <textarea
-          className="input w-full h-40"
+          className={`input w-full h-40 ${
+            emptyFields.includes("description")
+              ? "border-red-500"
+              : "border-primary-borders dark:border-primary-borders-dark "
+          }`}
           name="description"
           id="description"
           value={productForm.description}
@@ -242,14 +272,18 @@ const ProductsForm = ({ handleOpen, items }) => {
         <h3>Image</h3>
         <input
           type="file"
-          className="input w-full"
+          className={`input w-full ${
+            emptyFields.includes("image")
+              ? "border-red-500"
+              : "border-primary-borders dark:border-primary-borders-dark "
+          }`}
           name="image"
           onChange={handleChange}
         />
       </div>
       {error && (
         <p className="!text-red-500 font-semibold text-center normal-case mb-2 ">
-          All fields are required!!
+          {error}
         </p>
       )}
 
