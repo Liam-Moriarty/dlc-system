@@ -19,12 +19,6 @@ export const menuList = {
     },
     {
       category: "general",
-      url: "products",
-      name: "Products",
-      icon: BsCart2,
-    },
-    {
-      category: "general",
       url: "transactions",
       name: "Transactions",
       icon: BsCreditCard2Front,
@@ -52,11 +46,17 @@ export const menuList = {
       icon: CiExport,
     },
     {
-      category: "inventory",
-      url: "inventory",
-      name: "Inventory",
-      icon: LuWarehouse,
+      category: "general",
+      url: "products",
+      name: "Products",
+      icon: BsCart2,
     },
+    // {
+    //   category: "inventory",
+    //   url: "inventory",
+    //   name: "Inventory",
+    //   icon: LuWarehouse,
+    // },
   ],
 
   reports: [

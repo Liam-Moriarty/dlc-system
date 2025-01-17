@@ -36,7 +36,6 @@ const TableHeader = ({
         </div>
         {formtype || label || modalDesc || btnChild ? (
           <div className="flex shrink-0 gap-2 flex-row mb-2 sm:flex sm:flex-col-reverse">
-            <Button children="Download CSV" variant="outline" />
             <Button
               onClick={handleOpen}
               variant="default"
