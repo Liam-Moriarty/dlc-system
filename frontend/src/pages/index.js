@@ -9,6 +9,9 @@ import Monthly from "./Monthly";
 import Yearly from "./Yearly";
 import Performance from "./Performance";
 import Admin from "./Admin";
+import Supplier from "./Supplier";
+import Movement from "./Movement";
+import Inventory from "./Inventory";
 import Signup from "./Signup";
 import Login from "./Login";
 
@@ -23,6 +26,9 @@ export {
   Monthly,
   Yearly,
   Performance,
+  Supplier,
+  Movement,
+  Inventory,
   Signup,
   Login,
   Admin,

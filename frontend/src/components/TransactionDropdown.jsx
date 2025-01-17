@@ -16,6 +16,8 @@ const TransactionDropdown = ({
   const { data: clients = [] } = useGetAllClientsQuery();
   const { data: products = [] } = useGetAllProductsQuery();
 
+  console.log("all clients", products);
+
   // Helper function to calculate total
   const calculateTotal = () => {
     const price = parseFloat(transactionForm.price || 0);

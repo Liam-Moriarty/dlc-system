@@ -10,14 +10,6 @@ export const productsApi = createApi({
         `paginatedProducts?page=${page}&limit=${limit}`,
       providesTags: ["Products", "Product"],
     }),
-    getUniqueProducts: builder.query({
-      query: () => "uniqueProducts",
-      providesTags: ["Unique Products"],
-    }),
-    getUniqueClients: builder.query({
-      query: () => "uniqueClients",
-      providesTags: ["Unique Clients"],
-    }),
     getAllProducts: builder.query({
       query: () => "products",
       providesTags: ["Products"],
@@ -51,8 +43,6 @@ export const productsApi = createApi({
 
 export const {
   useGetPaginatedProductQuery,
-  useGetUniqueProductsQuery,
-  useGetUniqueClientsQuery,
   useGetAllProductsQuery,
   useAddProductsMutation,
   useDeleteProductsMutation,

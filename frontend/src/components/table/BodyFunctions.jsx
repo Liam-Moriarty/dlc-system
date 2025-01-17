@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { FaLaptopCode, FaRegChartBar } from "react-icons/fa";
+import { FaLaptopCode } from "react-icons/fa";
 import {
   AiOutlineDollarCircle,
   AiOutlineLineChart,
@@ -18,10 +18,33 @@ const getIndicators = (column, items) => {
       : "text-green-500 dark:text-green-500 font-bold";
   }
 
+  if (column === "currentStock") {
+    return items.lowStockThreshold > items.currentStock
+      ? "text-red-500 dark:text-red-500 font-bold"
+      : "text-green-500 dark:text-green-500 font-bold";
+  }
+
   if (column === "status") {
     return items.status === "active"
       ? `${defaultIndicatorStyle} bg-green-500`
       : `${defaultIndicatorStyle} bg-red-500`;
+  }
+
+  if (column === "type") {
+    return items.type === "ingoing"
+      ? `${defaultIndicatorStyle} bg-green-500`
+      : `${defaultIndicatorStyle} bg-red-500`;
+  }
+
+  if (column === "movementStatus") {
+    switch (items.movementStatus) {
+      case "purchase":
+        return `${defaultIndicatorStyle} bg-green-500`;
+      case "return":
+        return `${defaultIndicatorStyle} bg-red-500`;
+      case "transfer":
+        return `${defaultIndicatorStyle} bg-blue-500`;
+    }
   }
 
   if (column === "statusOrder") {
@@ -87,6 +110,9 @@ function columnTextFormat(column) {
     case "company":
     case "clientId":
     case "productName":
+    case "productDetails":
+    case "suppliers":
+    case "suppliersId":
       return "uppercase line-clamp-1";
     case "image":
     case "profilePic":
@@ -125,6 +151,10 @@ function formats(column, items) {
       return items.clientId?.city || "N/A";
     case "productName":
       return items.productId?.product || "N/A";
+    case "productDetails":
+      return items.productDetails?.product || "N/A";
+    case "suppliersId":
+      return items.suppliersId?.suppliers || "N/A";
   }
 
   if (column === "role") {

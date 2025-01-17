@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const ClientSchema = new mongoose.Schema(
+const SupplierSchema = new mongoose.Schema(
   {
-    company: {
+    suppliers: {
       type: String,
       required: true,
       trim: true,
     },
-    contacts: {
+    location: {
       type: String,
       required: true,
       trim: true,
@@ -18,7 +18,7 @@ const ClientSchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
-    city: {
+    contacts: {
       type: String,
       required: true,
       trim: true,
@@ -28,28 +28,28 @@ const ClientSchema = new mongoose.Schema(
 );
 
 // middleware to convert values into lowercase before sending to DB
-ClientSchema.pre("save", function (next) {
-  this.company = this.company.toLowerCase();
-  this.city = this.city.toLowerCase();
+SupplierSchema.pre("save", function (next) {
+  this.suppliers = this.suppliers.toLowerCase();
+  this.location = this.location.toLowerCase();
   next();
 });
 
 // middleware to convert updated values into lowercase
-ClientSchema.pre("findOneAndUpdate", function (next) {
+SupplierSchema.pre("findOneAndUpdate", function (next) {
   // Access the update object
   const update = this.getUpdate();
 
   // Convert the relevant fields to lowercase, if they exist in the update
-  if (update.company) {
-    update.company = update.company.toLowerCase();
+  if (update.suppliers) {
+    update.suppliers = update.suppliers.toLowerCase();
   }
 
-  if (update.city) {
-    update.city = update.city.toLowerCase();
+  if (update.location) {
+    update.location = update.location.toLowerCase();
   }
 
   next();
 });
 
-const Client = mongoose.model("Client", ClientSchema, "clients");
-export default Client;
+const Suppliers = mongoose.model("Supplier", SupplierSchema, "supplier");
+export default Suppliers;

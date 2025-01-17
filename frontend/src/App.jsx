@@ -12,6 +12,9 @@ import {
   Yearly,
   Products,
   Performance,
+  Supplier,
+  Movement,
+  Inventory,
   Admin,
   Signup,
   Login,
@@ -46,6 +49,10 @@ const App = () => {
         <Route path="/general/products" element={<Products />} />
         <Route path="/general/transactions" element={<Transactions />} />
         <Route path="/general/admin" element={<Admin />} />
+
+        <Route path="/inventory/suppliers" element={<Supplier />} />
+        <Route path="/inventory/movement" element={<Movement />} />
+        <Route path="/inventory/inventory" element={<Inventory />} />
 
         <Route path="/analytics/performance" element={<Performance />} />
         <Route path="/analytics/daily" element={<Daily />} />

@@ -7,36 +7,39 @@ import Button from "./Button";
 
 // API SLICE
 import {
-  useCreateClientMutation,
-  useUpdateClientMutation,
-} from "../api/generalApi/clientApi";
-import { clientData, cleanData } from "../features/formState/clientSlice";
+  useCreateSupplierMutation,
+  useUpdateSupplierMutation,
+} from "../api/inventoryApi/supplierApi";
+import {
+  supplierData,
+  cleanSupplier,
+} from "../features/formState/supplierSlice";
 
-const Form = ({ handleOpen, items }) => {
+const SupplierForm = ({ handleOpen, items }) => {
   const dispatch = useDispatch();
-  const clientState = useSelector((state) => state.clientForm);
+  const supplierState = useSelector((state) => state.supplierForm);
 
-  const [clientForm, setClientForm] = useState({
-    company: clientState.company || "",
-    contacts: clientState.contacts || "",
-    email: clientState.email || "",
-    city: clientState.city || "",
+  const [supplierForm, setSupplierForm] = useState({
+    suppliers: supplierState.suppliers || "",
+    email: supplierState.email || "",
+    contacts: supplierState.contacts || "",
+    location: supplierState.location || "",
   });
   const [error, setError] = useState("");
   const [emptyFields, setEmptyFields] = useState([]);
 
-  const [createClient] = useCreateClientMutation();
-  const [updateClient] = useUpdateClientMutation();
+  const [createSupplier] = useCreateSupplierMutation();
+  const [updateSupplier] = useUpdateSupplierMutation();
 
   // Sync form state with client data when client prop changes
   // checks if the data is not empty and if its not give the corresponding items to the form
   useEffect(() => {
     if (items) {
-      setClientForm({
-        company: items.company || "",
-        contacts: items.contacts || "",
+      setSupplierForm({
+        suppliers: items.suppliers || "",
         email: items.email || "",
-        city: items.city || "",
+        contacts: items.contacts || "",
+        location: items.location || "",
       });
     }
   }, [items]);
@@ -46,36 +49,36 @@ const Form = ({ handleOpen, items }) => {
 
     try {
       const payload = {
-        company: clientForm.company,
-        contacts: clientForm.contacts,
-        email: clientForm.email,
-        city: clientForm.city,
+        suppliers: supplierForm.suppliers,
+        email: supplierForm.email,
+        contacts: supplierForm.contacts,
+        location: supplierForm.location,
       };
 
       let result;
       if (items) {
-        result = await updateClient({
+        result = await updateSupplier({
           id: items._id,
           ...payload,
         });
       } else {
-        result = await createClient(payload).unwrap();
+        result = await createSupplier(payload).unwrap();
       }
 
       if (result.error) {
         throw result.error; // Throw the error if it exists
       }
 
-      setClientForm({
-        company: "",
-        contacts: "",
+      setSupplierForm({
+        suppliers: "",
         email: "",
-        city: "",
+        contacts: "",
+        location: "",
       });
 
-      dispatch(cleanData());
+      dispatch(cleanSupplier());
+
       setError("");
-      setEmptyFields([]);
     } catch (error) {
       const errorMessage = error?.data?.message || "Something went wrong";
       const emptyFieldsMessage =
@@ -84,18 +87,18 @@ const Form = ({ handleOpen, items }) => {
       setError(errorMessage);
       setEmptyFields(emptyFieldsMessage);
 
-      console.log("errorMessage details:", errorMessage); // Log for debugging
-      console.log("emptyFieldsMessage details:", emptyFieldsMessage); // Log for debugging
+      console.log("errorMessage details:", errorMessage);
+      console.log("emptyFieldsMessage details:", emptyFieldsMessage);
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setClientForm((prev) => ({
+    setSupplierForm((prev) => ({
       ...prev,
       [name]: value,
     }));
-    dispatch(clientData({ [e.target.name]: e.target.value }));
+    dispatch(supplierData({ [e.target.name]: e.target.value }));
   };
 
   return (
@@ -105,18 +108,18 @@ const Form = ({ handleOpen, items }) => {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-3 mb-5">
-          <h3>Company Name</h3>
+          <h3>Supplier Name</h3>
           <input
             type="text"
             className={`input ${
-              emptyFields.includes("company")
+              emptyFields.includes("suppliers")
                 ? "border-red-500"
                 : "border-primary-borders dark:border-primary-borders-dark"
             }`}
-            name="company"
-            value={clientForm.company}
+            name="suppliers"
+            value={supplierForm.suppliers}
             onChange={handleChange}
-            placeholder="Enter Company name"
+            placeholder="Enter suppliers name"
           />
 
           <h3>Contacts</h3>
@@ -130,7 +133,7 @@ const Form = ({ handleOpen, items }) => {
             }`}
             name="contacts"
             maxLength="10" // Limit the input to 10 characters
-            value={clientForm.contacts}
+            value={supplierForm.contacts}
             onChange={(e) => {
               const value = e.target.value;
               // Allow only digits and ensure the length doesn't exceed 10
@@ -152,21 +155,21 @@ const Form = ({ handleOpen, items }) => {
                 : "border-primary-borders dark:border-primary-borders-dark "
             }`}
             name="email"
-            value={clientForm.email}
+            value={supplierForm.email}
             onChange={handleChange}
             placeholder="How should we message you?"
           />
 
-          <h3>City</h3>
+          <h3>Location</h3>
           <input
             type="text"
             className={`input ${
-              emptyFields.includes("city")
+              emptyFields.includes("location")
                 ? "border-red-500"
                 : "border-primary-borders dark:border-primary-borders-dark "
             }`}
-            name="city"
-            value={clientForm.city}
+            name="location"
+            value={supplierForm.location}
             onChange={handleChange}
             placeholder="Where you from?"
           />
@@ -198,4 +201,4 @@ const Form = ({ handleOpen, items }) => {
   );
 };
 
-export default Form;
+export default SupplierForm;

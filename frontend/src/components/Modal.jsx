@@ -4,6 +4,8 @@ import Form from "./Form";
 import Button from "./Button";
 import ProductsForm from "./ProductsForm";
 import TransactionForm from "./TransactionForm";
+import SupplierForm from "./SupplierForm";
+import MovementForm from "./MovementForm";
 
 const Modal = memo(
   ({
@@ -41,6 +43,12 @@ const Modal = memo(
               )}
               {formType === "transactions" && (
                 <TransactionForm handleOpen={handleOpen} items={items} />
+              )}
+              {formType === "supplier" && (
+                <SupplierForm handleOpen={handleOpen} items={items} />
+              )}
+              {formType === "movement" && (
+                <MovementForm handleOpen={handleOpen} items={items} />
               )}
             </>
           ) : (

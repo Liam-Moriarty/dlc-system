@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Client from "../../models/clientsModel.js";
-import { validationResult } from "express-validator";
 
 // SERVER PAGINATE CLIENTS
 export const getPaginatedClients = async (req, res) => {
@@ -59,11 +58,6 @@ export const deleteClient = async (req, res) => {
 export const updateClient = async (req, res) => {
   const { id } = req.params;
 
-  const errors = validationResult(req); // check first for validation before updating
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ error: errors.array() });
-  }
-
   try {
     // check if the id is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -92,18 +86,6 @@ export const addClient = async (req, res) => {
   try {
     const { company, contacts, email, city } = req.body;
 
-    // Email validation
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ message: "Please enter a valid email!!" });
-    }
-
-    // Contacts validation: Ensure it is 10 digits and starts with 9
-    if (!/^9\d{9}$/.test(contacts)) {
-      return res.status(400).json({
-        message: "Contacts must be a 10-digit number starting with 9",
-      });
-    }
-
     const emptyFields = [];
     const fields = ["company", "contacts", "email", "city"];
 
@@ -119,6 +101,18 @@ export const addClient = async (req, res) => {
         .json({ message: "Please fill in all the fields", emptyFields });
     }
 
+    // Email validation
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ message: "Please enter a valid email!!" });
+    }
+
+    // Contacts validation: Ensure it is 10 digits and starts with 9
+    if (!/^9\d{9}$/.test(contacts)) {
+      return res.status(400).json({
+        message: "Contacts must be a 10-digit number starting with 9",
+      });
+    }
+
     const clients = await Client.create({ company, contacts, email, city });
     res.status(200).json(clients);
   } catch (error) {
@@ -126,7 +120,7 @@ export const addClient = async (req, res) => {
       const field = Object.keys(error.keyPattern)[0];
       const value = error.keyValue[field];
       return res.status(400).json({
-        message: `The ${field} "${value}" is already in use. Please use a different ${field}.`,
+        message: `Email is already use try another one`,
       });
     }
     res.status(500).json({ message: error.message });

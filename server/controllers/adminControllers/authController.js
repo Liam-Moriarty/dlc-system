@@ -82,7 +82,7 @@ export const signUp = async (req, res) => {
       const field = Object.keys(error.keyPattern)[0];
       const value = error.keyValue[field];
       return res.status(400).json({
-        message: `The ${field} "${value}" is already in use. Please use a different ${field}.`,
+        message: `Email is already use try another one`,
       });
     }
     res.status(400).json({ message: error.message });

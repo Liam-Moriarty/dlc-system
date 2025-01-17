@@ -21,6 +21,21 @@ export const routeConfig = {
     description: "Manage admins",
   },
 
+  "/inventory/suppliers": {
+    title: "Suppliers",
+    description: "Manage suppliers",
+  },
+
+  "/inventory/movement": {
+    title: "Movement",
+    description: "Manage inventory movements",
+  },
+
+  "/inventory/inventory": {
+    title: "Inventory",
+    description: "Manage inventory",
+  },
+
   "/analytics/performance": {
     title: "Product Performance",
     description: "Performance overview of products",
@@ -40,11 +55,6 @@ export const routeConfig = {
     title: "Months Sales",
     description: "Sales of the Months",
   },
-
-  // "/analytics/year": {
-  //   title: "Year Sales",
-  //   description: "Sales of every Year",
-  // },
 
   "/profile": { title: "Profile", description: "Manage your profile" },
 };

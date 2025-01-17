@@ -176,7 +176,8 @@ const SignupForm = () => {
         <div
           className={`container-signup-login ${
             emptyFields.includes("email") ||
-            error === "Please enter a valid email"
+            error === "Please enter a valid email" ||
+            error == "Email is already use try another one"
               ? "error"
               : "border-b border-primary-borders dark:border-primary-borders-dark"
           }`}

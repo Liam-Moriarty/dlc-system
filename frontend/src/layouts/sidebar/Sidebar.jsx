@@ -107,7 +107,7 @@ const Sidebar = React.memo(() => {
 
             <div className="border-y py-2 border-primary-borders dark:border-primary-borders-dark">
               {Object.keys(menuList).map((deptKey) => (
-                <div key={deptKey} className={`${!isOpen ? "mb-10" : null}`}>
+                <div key={deptKey} className={`${!isOpen ? "" : null}`}>
                   {menuList[deptKey].map((menu, index) => (
                     <Fragment key={index}>
                       {menu.title && (
@@ -172,15 +172,15 @@ const Sidebar = React.memo(() => {
                   rotate: 0,
                 }
               : {
-                  x: -10,
-                  y: -50,
+                  x: 1,
+                  y: 0,
                   rotate: 180,
                 }
           }
           onClick={toggleSidebar}
-          className="absolute z-50 right-2 bottom-20 cursor-pointer"
+          className="flex items-center justify-end cursor-pointer p-2 rounded-full"
         >
-          <IoIosArrowBack size={25} />
+          <IoIosArrowBack size={20} className="text-primary-overlay-txt" />
         </motion.div>
       </motion.div>
 

@@ -145,7 +145,6 @@ const TransactionForm = ({ handleOpen, items }) => {
     <form className="w-full text-primary-txt dark:text-primary-txt-dark p-3">
       <TransactionDropdown
         transactionForm={transactionForm}
-        setTransactionForm={setTransactionForm}
         handleChange={handleChange}
         emptyFields={emptyFields}
       />

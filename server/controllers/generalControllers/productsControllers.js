@@ -146,3 +146,32 @@ export const getProducts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// GET ALL PRODUCTS DATA
+export const getAggregatedProducts = async (req, res) => {
+  try {
+    const product = await Products.aggregate([
+      {
+        $group: {
+          _id: "$product",
+          originalId: { $first: "$_id" },
+        },
+      },
+      {
+        $sort: {
+          _id: 1,
+        },
+      },
+      {
+        $project: {
+          _id: "$originalId",
+          products: "$_id",
+        },
+      },
+    ]);
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

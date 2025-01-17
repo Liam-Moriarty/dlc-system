@@ -3,8 +3,10 @@ import { BsCart2, BsCreditCard2Front } from "react-icons/bs";
 import { MdOutlineToday } from "react-icons/md";
 import { BsCalendar4Week } from "react-icons/bs";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { LuCalendarCheck } from "react-icons/lu";
+import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
+import { LuWarehouse } from "react-icons/lu";
+import { CiExport } from "react-icons/ci";
 
 export const menuList = {
   general: [
@@ -35,6 +37,28 @@ export const menuList = {
     },
   ],
 
+  inventory: [
+    { title: "Inventory" },
+    {
+      category: "inventory",
+      url: "suppliers",
+      name: "Supplier",
+      icon: MdOutlinePhoneInTalk,
+    },
+    {
+      category: "inventory",
+      url: "movement",
+      name: "Movement",
+      icon: CiExport,
+    },
+    {
+      category: "inventory",
+      url: "inventory",
+      name: "Inventory",
+      icon: LuWarehouse,
+    },
+  ],
+
   reports: [
     { title: "Analytics" },
     {
@@ -61,11 +85,5 @@ export const menuList = {
       name: "Months",
       icon: IoCalendarNumberOutline,
     },
-    // {
-    //   category: "analytics",
-    //   url: "year",
-    //   name: "Year",
-    //   icon: LuCalendarCheck,
-    // },
   ],
 };
