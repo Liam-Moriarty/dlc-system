@@ -1,31 +1,35 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import { ClientSchema } from "dlc-shared-schema";
 
-const ClientSchema = new mongoose.Schema(
-  {
-    company: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    contacts: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: true,
-    },
-    city: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-  },
-  { timestamps: true }
-);
+// this is to hash the password in the database and hide/remove
+// the confirm password into the database and response
+ClientSchema.pre("save", function (next) {
+  if (this.isModified("password")) {
+    this.password = bcrypt.hashSync(this.password, 10);
+    this.confirmPassword = undefined;
+  }
+  next();
+});
+
+// this is to hide/remove the password in response
+// when the user get information or when passing the information
+// into the frontend
+ClientSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
+// to check if the password been changed
+ClientSchema.methods.verifyPassword = function (jwtTimestamp) {
+  if (this.passwordChangeDate) {
+    const convertDate = parseInt(this.passwordChangeDate.getTime() / 1000);
+    return convertDate > jwtTimestamp;
+  }
+
+  return false;
+};
 
 // middleware to convert values into lowercase before sending to DB
 ClientSchema.pre("save", function (next) {

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// ROUTES
+// ROUTES IMPORT
 import productRoutes from "./routes/productRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
@@ -23,6 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ROUTES
 app.use("/general", clientRoutes);
 app.use("/general", productRoutes);
 app.use("/general", transactionRoutes);
