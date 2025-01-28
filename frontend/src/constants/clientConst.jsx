@@ -11,13 +11,13 @@ export const clientsHeader = [
   {
     title: "Create",
     sortable: true,
-    accesor: "created",
+    accesor: "createdAt",
     colsHidden: true,
   },
   {
     title: "Update",
     sortable: true,
-    accesor: "updated",
+    accesor: "updatedAt",
     colsHidden: true,
   },
   { title: "", sortable: false, accesor: "", colsHidden: false },
