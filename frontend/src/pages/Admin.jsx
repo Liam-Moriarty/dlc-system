@@ -35,8 +35,6 @@ const Admin = () => {
   const totalPages = data ? data.results.totalPages : [];
   const currentPage = data ? data.results.currentPage : [];
 
-  console.log("Admin Data : ", sortedData);
-
   return (
     <div className="overflow-auto w-full flex-1">
       {!tabletView ? (

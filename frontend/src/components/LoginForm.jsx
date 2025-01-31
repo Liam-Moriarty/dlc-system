@@ -29,8 +29,6 @@ const LoginForm = () => {
 
       const result = await login(payload).unwrap();
 
-      console.log("Login result : ", result);
-
       localStorage.setItem("token", result.result);
       localStorage.setItem("username", result.username);
       localStorage.setItem("profile", result.profilePic);

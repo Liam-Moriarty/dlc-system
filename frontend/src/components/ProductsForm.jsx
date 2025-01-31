@@ -105,9 +105,6 @@ const ProductsForm = ({ handleOpen, items }) => {
 
         setError(errorMessage);
         setEmptyFields(emptyFieldsMessage);
-
-        console.log("errorMessage details:", errorMessage); // Log for debugging
-        console.log("emptyFieldsMessage details:", emptyFieldsMessage); // Log for debugging
       }
     },
     [productForm, imageFile, addProducts, dispatch, items]

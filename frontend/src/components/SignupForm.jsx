@@ -76,8 +76,6 @@ const SignupForm = () => {
       // store the token into local storage
       localStorage.setItem("signup", JSON.stringify(result));
 
-      console.log("User signed up successfully:", result);
-
       setSignUpForm({
         name: "",
         username: "",

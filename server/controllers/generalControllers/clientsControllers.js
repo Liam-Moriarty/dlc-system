@@ -11,7 +11,7 @@ export const getPaginatedClients = async (req, res) => {
     const totalItems = await Client.countDocuments();
 
     // get the clients based on the pagination
-    const clients = await Client.find()
+    const clients = await Client.find({}, { password: 0 })
       .sort({ company: 1 })
       .skip(startIndex) // Skip the items based on the start index
       .limit(limit); // Limit the number of items to return
@@ -134,14 +134,7 @@ export const getClients = async (req, res) => {
   try {
     const clients = await Client.find({}).sort({ company: 1 });
 
-    const client = clients
-      .map((item) => ({
-        ...item.toObject(),
-        company: item.company.toLowerCase(),
-      }))
-      .sort((a, b) => a.company.localeCompare(b.company)); // Case-insensitive sort
-
-    res.status(200).json(client);
+    res.status(200).json(clients);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

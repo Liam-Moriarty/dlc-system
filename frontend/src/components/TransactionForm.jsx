@@ -98,8 +98,6 @@ const TransactionForm = ({ handleOpen, items }) => {
         throw result.error; // Throw the error if it exists
       }
 
-      console.log(payload);
-
       setTransactionForm({
         clientId: "",
         productId: "",
@@ -121,9 +119,6 @@ const TransactionForm = ({ handleOpen, items }) => {
 
       setError(errorMessage);
       setEmptyFields(emptyFieldsMessage);
-
-      console.log("errorMessage details:", errorMessage); // Log for debugging
-      console.log("emptyFieldsMessage details:", emptyFieldsMessage); // Log for debugging
     }
   };
 

@@ -35,8 +35,6 @@ const Movement = () => {
   const totalPages = data ? data.totalPages : [];
   const currentPage = data ? data.currentPage : [];
 
-  console.log("inventory : ", sortedData);
-
   return (
     <div className="overflow-auto w-full flex-1">
       {!tabletView ? (

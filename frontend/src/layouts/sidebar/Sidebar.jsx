@@ -29,8 +29,6 @@ const Sidebar = React.memo(() => {
 
   const username = window.localStorage.getItem("username");
 
-  console.log(username);
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
@@ -152,6 +150,7 @@ const Sidebar = React.memo(() => {
                 <MdLogout size={23} className="min-w-max" />
                 Logout
               </NavLink>
+
               <Tooltips
                 anchorSelect="#logout"
                 content="Logout"

@@ -54,8 +54,6 @@ const Settings = () => {
 
       const result = await updateProfile(payload).unwrap();
 
-      console.log(result);
-
       setProfile({
         name: "",
         username: "",
@@ -79,8 +77,6 @@ const Settings = () => {
       const payload = { currentPassword, password, confirmPassword };
       const result = await changePassword(payload).unwrap();
 
-      console.log(result);
-
       setPasswordChange({
         currentPassword: "",
         password: "",
@@ -89,7 +85,6 @@ const Settings = () => {
       setErrorPassword("");
     } catch (error) {
       const errorMessage = error?.data.message || "Something went wrong";
-      console.log(error);
 
       setErrorPassword(errorMessage);
     }

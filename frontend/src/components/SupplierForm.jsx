@@ -86,9 +86,6 @@ const SupplierForm = ({ handleOpen, items }) => {
 
       setError(errorMessage);
       setEmptyFields(emptyFieldsMessage);
-
-      console.log("errorMessage details:", errorMessage);
-      console.log("emptyFieldsMessage details:", emptyFieldsMessage);
     }
   };
 

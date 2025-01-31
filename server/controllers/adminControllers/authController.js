@@ -93,7 +93,6 @@ export const signUp = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(username, password);
 
     // Validation to check if the input is empty or not
     if (!username || !password) {
@@ -131,7 +130,7 @@ export const login = async (req, res) => {
 
 // Protect Data
 export const protectData = async (req, res, next) => {
-  // checking if the
+  // check if the client is authorized to see the data
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -151,7 +150,7 @@ export const protectData = async (req, res, next) => {
           .json({ status: "Failed", message: "Invalid Token" });
       }
 
-      console.log("decoded token", decodedToken);
+      console.log("decoded token", decodedToken.iat);
 
       const admin = await Admin.findById(decodedToken.id);
 

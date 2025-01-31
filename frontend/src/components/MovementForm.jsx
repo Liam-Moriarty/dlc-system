@@ -96,8 +96,6 @@ const MovementForm = ({ handleOpen, items }) => {
         throw result.error; // Throw the error if it exists
       }
 
-      console.log(payload);
-
       setMovementForm({
         suppliersId: "",
         productDetails: "",
