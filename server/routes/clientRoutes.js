@@ -15,7 +15,7 @@ const router = express();
 // CLIENT ROUTES
 router.get("/paginatedClients", getPaginatedClients);
 
-router.post("/paginatedClients", addClient); // Validation applied here
+router.post("/paginatedClients", addClient);
 
 router.delete("/paginatedClients/:id", deleteClient);
 

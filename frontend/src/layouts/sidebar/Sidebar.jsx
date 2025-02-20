@@ -179,7 +179,10 @@ const Sidebar = React.memo(() => {
           onClick={toggleSidebar}
           className="flex items-center justify-end cursor-pointer p-2 rounded-full"
         >
-          <IoIosArrowBack size={20} className="text-primary-overlay-txt" />
+          <IoIosArrowBack
+            size={20}
+            className="dark:text-primary-overlay-txt text-primary-txt"
+          />
         </motion.div>
       </motion.div>
 

@@ -42,6 +42,8 @@ const Settings = () => {
   const submitProfile = async (e) => {
     e.preventDefault();
     try {
+      // this will remove key value pairs that is empty to avoid sending
+      // empty fields in the database
       const payload = Object.fromEntries(
         Object.entries(profile).filter(([key, value]) => value.trim() !== "")
       );

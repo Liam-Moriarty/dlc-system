@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Client from "../../models/clientsModel.js";
+import bcrypt from "bcryptjs";
 
 // SERVER PAGINATE CLIENTS
 export const getPaginatedClients = async (req, res) => {
@@ -84,10 +85,18 @@ export const updateClient = async (req, res) => {
 // CREATE CLIENTS
 export const addClient = async (req, res) => {
   try {
-    const { company, contacts, email, city } = req.body;
+    const { company, contacts, email, city, password, confirmPassword } =
+      req.body;
 
     const emptyFields = [];
-    const fields = ["company", "contacts", "email", "city"];
+    const fields = [
+      "company",
+      "contacts",
+      "email",
+      "city",
+      "password",
+      "confirmPassword",
+    ];
 
     fields.forEach((field) => {
       if (!req.body[field]) {
@@ -113,7 +122,20 @@ export const addClient = async (req, res) => {
       });
     }
 
-    const clients = await Client.create({ company, contacts, email, city });
+    if (password !== confirmPassword) {
+      return res.status(400).json({
+        message: "Password not match",
+      });
+    }
+
+    const clients = await Client.create({
+      company,
+      contacts,
+      email,
+      city,
+      password,
+      confirmPassword,
+    });
     res.status(200).json(clients);
   } catch (error) {
     if (error.code === 11000) {

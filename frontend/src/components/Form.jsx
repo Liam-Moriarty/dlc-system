@@ -19,6 +19,8 @@ const Form = ({ handleOpen, items }) => {
   const [clientForm, setClientForm] = useState({
     company: clientState.company || "",
     contacts: clientState.contacts || "",
+    password: clientState.password || "",
+    confirmPassword: clientState.confirmPassword || "",
     email: clientState.email || "",
     city: clientState.city || "",
   });
@@ -48,6 +50,8 @@ const Form = ({ handleOpen, items }) => {
       const payload = {
         company: clientForm.company,
         contacts: clientForm.contacts,
+        password: clientForm.password,
+        confirmPassword: clientForm.confirmPassword,
         email: clientForm.email,
         city: clientForm.city,
       };
@@ -69,6 +73,8 @@ const Form = ({ handleOpen, items }) => {
       setClientForm({
         company: "",
         contacts: "",
+        password: "",
+        confirmPassword: "",
         email: "",
         city: "",
       });
@@ -152,6 +158,35 @@ const Form = ({ handleOpen, items }) => {
             value={clientForm.email}
             onChange={handleChange}
             placeholder="How should we message you?"
+          />
+
+          <h3>Password</h3>
+          <input
+            type="password"
+            className={`input ${
+              emptyFields.includes("password") || error === "Password not match"
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
+            name="password"
+            value={clientForm.password}
+            onChange={handleChange}
+            placeholder="Enter Strong password"
+          />
+
+          <h3>Confirm Password</h3>
+          <input
+            type="password"
+            className={`input ${
+              emptyFields.includes("confirmPassword") ||
+              error === "Password not match"
+                ? "border-red-500"
+                : "border-primary-borders dark:border-primary-borders-dark "
+            }`}
+            name="confirmPassword"
+            value={clientForm.confirmPassword}
+            onChange={handleChange}
+            placeholder="Confirm your Password"
           />
 
           <h3>City</h3>

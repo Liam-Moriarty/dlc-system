@@ -1,48 +1,5 @@
 import mongoose from "mongoose";
-
-export const TransactionSchema = new mongoose.Schema(
-  {
-    clientId: {
-      type: mongoose.Types.ObjectId,
-      ref: "Client",
-      required: true,
-    },
-    productId: {
-      type: mongoose.Types.ObjectId,
-      ref: "Products",
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-    priceAtSale: {
-      type: String,
-    },
-    total: {
-      type: Number,
-      required: true,
-    },
-    paymentMethod: {
-      type: String,
-      enum: ["cod", "g-cash", "card"],
-      min: 0,
-    },
-    statusOrder: {
-      type: String,
-      enum: ["pending", "completed", "cancelled", "returned"],
-    },
-    saleDate: {
-      type: Date,
-      default: Date.now(),
-    },
-  },
-  { timestamps: true }
-);
+import { TransactionSchema } from "dlc-shared-schema";
 
 // middleware to convert values into lowercase before sending to DB
 TransactionSchema.pre("save", function (next) {
