@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const supplierApi = createApi({
   reducerPath: "supplierApi",
   tagTypes: ["Supplier"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/inventory/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/inventory/`,
+  }),
   endpoints: (builder) => ({
     getPaginatedSupplier: builder.query({
       query: ({ page, limit }) =>

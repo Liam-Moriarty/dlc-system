@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const movementApi = createApi({
   reducerPath: "movementApi",
   tagTypes: ["Movement"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/inventory/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/inventory/`,
+  }),
   endpoints: (builder) => ({
     getPaginatedMovement: builder.query({
       query: ({ page, limit }) =>

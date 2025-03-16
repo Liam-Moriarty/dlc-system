@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const transactionApi = createApi({
   reducerPath: "transaction",
   tagTypes: ["Transactions"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/general/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/general/`,
+  }),
   endpoints: (builder) => ({
     getPaginatedTransaction: builder.query({
       query: ({ page, limit }) =>

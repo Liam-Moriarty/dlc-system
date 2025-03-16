@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const analyticsApi = createApi({
   reducerPath: "analyticsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/analytics/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/analytics/`,
+  }),
   endpoints: (builder) => ({
     getTopPerformingProducts: builder.query({
       query: () => "top-products",
