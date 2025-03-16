@@ -20,8 +20,15 @@ dotenv.config();
 const app = express();
 
 // MIDDLEWARES
-app.use(cors());
+app.use(
+  cors({
+    origin: `${process.env.FRONTEND_URL}`, // Frontend URL
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true, // Use this if your app uses cookies/auth
+  })
+);
 app.use(express.json());
+app.options("*", cors());
 
 // ROUTES
 app.use("/general", clientRoutes);
