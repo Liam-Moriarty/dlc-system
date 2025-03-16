@@ -20,15 +20,34 @@ dotenv.config();
 const app = express();
 
 // MIDDLEWARES
+const allowedOrigins = [
+  "https://dlc-system-dyba.vercel.app",
+  "https://dlc-system-dyba-git-master-fernando-ordiales-projects.vercel.app",
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // Frontend URL
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error("Not allowed by CORS")); // Block the request
+      }
+    },
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    credentials: true, // Use this if your app uses cookies/auth
+    credentials: true,
   })
 );
+app.options("*", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PATCH,DELETE,OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.status(200).end();
+});
 app.use(express.json());
-app.options("*", cors());
 
 // ROUTES
 app.use("/general", clientRoutes);
