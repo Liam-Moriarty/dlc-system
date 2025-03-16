@@ -22,7 +22,7 @@ const app = express();
 // MIDDLEWARES
 app.use(
   cors({
-    origin: `${process.env.FRONTEND_URL}`, // Frontend URL
+    origin: process.env.FRONTEND_URL, // Frontend URL
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     credentials: true, // Use this if your app uses cookies/auth
   })
