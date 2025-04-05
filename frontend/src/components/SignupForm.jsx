@@ -193,7 +193,9 @@ const SignupForm = () => {
         <div
           className={`container-signup-login ${
             emptyFields.includes("password") ||
-            error === "password didn't match"
+            error === "password didn't match" ||
+            error ===
+              "password must have at least 6 characters, include special character, uppercase letter, and number."
               ? "error"
               : "border-b border-primary-borders dark:border-primary-borders-dark"
           }`}
@@ -211,7 +213,9 @@ const SignupForm = () => {
         <div
           className={`container-signup-login ${
             emptyFields.includes("confirmPassword") ||
-            error === "password didn't match"
+            error === "password didn't match" ||
+            error ===
+              "password must have at least 6 characters, include special character, uppercase letter, and number."
               ? "error"
               : "border-b border-primary-borders dark:border-primary-borders-dark"
           }`}

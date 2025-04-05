@@ -60,4 +60,16 @@ export const productsCategory = [
   "other equipments",
 ];
 
-export const productsStatus = ["active", "inactive"];
+export const productsStatus = [
+  "defective",
+  "repair",
+  "discontinued",
+  "functional",
+  "expired",
+];
+
+// Defective: The product has a fault or issue.
+// Under Repair: The product is currently being fixed.
+// Discontinued: No longer produced or supported.
+// Functional: Product is working as intended.
+// Expired: No longer usable or valid (e.g., food or license).

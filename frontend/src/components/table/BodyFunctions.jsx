@@ -25,9 +25,18 @@ const getIndicators = (column, items) => {
   }
 
   if (column === "status") {
-    return items.status === "active"
-      ? `${defaultIndicatorStyle} bg-green-500`
-      : `${defaultIndicatorStyle} bg-red-500`;
+    switch (items.status) {
+      case "functional":
+        return `${defaultIndicatorStyle} bg-green-500`;
+      case "defective":
+        return `${defaultIndicatorStyle} bg-red-500`;
+      case "repair":
+        return `${defaultIndicatorStyle} bg-orange-500`;
+      case "discontinued":
+        return `${defaultIndicatorStyle} bg-gray-500`;
+      case "expired":
+        return `${defaultIndicatorStyle} bg-purple-500`;
+    }
   }
 
   if (column === "type") {

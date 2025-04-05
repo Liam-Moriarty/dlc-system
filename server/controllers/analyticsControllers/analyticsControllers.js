@@ -113,7 +113,7 @@ export const getWeekSales = async (req, res) => {
         },
       },
       {
-        $sort: { saleDate: -1 }, // Sort by the week in descending order
+        $sort: { saleDate: 1 }, // Sort by the week in descending order
       },
       {
         $limit: 7, // Limit to the last 7 weeks
@@ -167,7 +167,7 @@ export const getDailySales = async (req, res) => {
       },
       {
         $sort: {
-          _id: -1,
+          _id: 1,
         },
       },
       {

@@ -55,7 +55,7 @@ const Movement = () => {
             tableHead={movementHeader}
             tableBody={movementBody}
             deleteApi={deleteMovement}
-            label="Update Existing Shipnments"
+            label="Update Existing Shipments"
             modalDesc="Submit the form below to update Shipments"
             formtype="movement"
           />

@@ -3,10 +3,11 @@ import {
   signUp,
   login,
 } from "../controllers/adminControllers/authController.js";
+import validatePassword from "../middlewares/validatePassword.js";
 
 const router = express();
 
-router.post("/admin-signup", signUp);
+router.post("/admin-signup", validatePassword, signUp);
 
 router.post("/admin-login", login);
 
