@@ -60,20 +60,49 @@ export const getMonthSales = async (req, res) => {
   }
 };
 
-// Aggregation Call to get sales in last 7 weeks
+// Aggregation Call to get sales for November-December 2024 with fixed return values
 export const getWeekSales = async (req, res) => {
   try {
-    const today = new Date();
-    const firstDayOfCurrentWeek = new Date(
-      today.setDate(today.getDate() - today.getDay() + 1)
-    ); // Start of this week
-    const sevenWeeksAgo = new Date(firstDayOfCurrentWeek);
-    sevenWeeksAgo.setDate(sevenWeeksAgo.getDate() - 7 * 7); // Go back 7 weeks
+    // Fixed date range: November 1, 2024 - December 31, 2024
+    const startDate = new Date("2024-11-01T00:00:00.000Z");
+    const endDate = new Date("2024-12-31T23:59:59.999Z");
 
+    // Generate fixed weeks for Nov-Dec 2024
+    const generateFixedWeeks = () => {
+      const weeks = [];
+
+      // Manually define the weeks for Nov-Dec 2024 using ISO week format
+      const novDecWeeks = [
+        "2024-44", // Week starting Oct 28 (includes Nov 1-3)
+        "2024-45", // Week starting Nov 4
+        "2024-46", // Week starting Nov 11
+        "2024-47", // Week starting Nov 18
+        "2024-48", // Week starting Nov 25
+        "2024-49", // Week starting Dec 2
+        "2024-50", // Week starting Dec 9
+        "2024-51", // Week starting Dec 16
+        "2024-52", // Week starting Dec 23 (includes Dec 29-31)
+      ];
+
+      novDecWeeks.forEach((weekString) => {
+        weeks.push({
+          saleDate: weekString,
+          totalWeeklyCompletedSales: 0,
+          totalWeeklyCancelledSales: 0,
+        });
+      });
+
+      return weeks;
+    };
+
+    // Get actual sales data for Nov-Dec 2024
     const weekStats = await Transaction.aggregate([
       {
         $match: {
-          saleDate: { $gte: sevenWeeksAgo },
+          saleDate: {
+            $gte: startDate,
+            $lte: endDate,
+          },
           statusOrder: { $in: ["completed", "cancelled"] },
         },
       },
@@ -91,7 +120,7 @@ export const getWeekSales = async (req, res) => {
       },
       {
         $group: {
-          _id: "$week", // Group by week instead of the raw date
+          _id: "$week", // Group by week
           totalWeeklyCompletedSales: {
             $sum: {
               $cond: [{ $eq: ["$statusOrder", "completed"] }, "$total", 0],
@@ -112,15 +141,20 @@ export const getWeekSales = async (req, res) => {
           totalWeeklyCancelledSales: 1,
         },
       },
-      {
-        $sort: { saleDate: 1 }, // Sort by the week in descending order
-      },
-      {
-        $limit: 7, // Limit to the last 7 weeks
-      },
     ]);
 
-    res.status(200).json(weekStats);
+    // Create fixed weeks structure for Nov-Dec 2024
+    const fixedWeeks = generateFixedWeeks();
+
+    // Merge actual data with fixed structure
+    const finalResult = fixedWeeks.map((fixedWeek) => {
+      const actualWeek = weekStats.find(
+        (week) => week.saleDate === fixedWeek.saleDate
+      );
+      return actualWeek || fixedWeek; // Use actual data if exists, otherwise use default
+    });
+
+    res.status(200).json(finalResult);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
