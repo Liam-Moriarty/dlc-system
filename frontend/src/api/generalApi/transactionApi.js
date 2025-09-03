@@ -4,7 +4,7 @@ export const transactionApi = createApi({
   reducerPath: "transaction",
   tagTypes: ["Transactions"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/general/`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/general/`,
   }),
   endpoints: (builder) => ({
     getPaginatedTransaction: builder.query({

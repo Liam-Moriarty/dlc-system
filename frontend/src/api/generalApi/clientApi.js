@@ -4,7 +4,7 @@ export const clientApi = createApi({
   reducerPath: "clientApi",
   tagTypes: ["Clients"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/general/`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/general/`,
   }),
   endpoints: (builder) => ({
     getPaginatedClients: builder.query({

@@ -4,7 +4,7 @@ export const movementApi = createApi({
   reducerPath: "movementApi",
   tagTypes: ["Movement"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/inventory/`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/inventory/`,
   }),
   endpoints: (builder) => ({
     getPaginatedMovement: builder.query({

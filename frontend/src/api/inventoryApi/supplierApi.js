@@ -4,7 +4,7 @@ export const supplierApi = createApi({
   reducerPath: "supplierApi",
   tagTypes: ["Supplier"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/inventory/`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/inventory/`,
   }),
   endpoints: (builder) => ({
     getPaginatedSupplier: builder.query({

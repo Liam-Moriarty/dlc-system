@@ -4,7 +4,7 @@ export const productsApi = createApi({
   reducerPath: "products",
   tagTypes: ["Products", "Unique Products", "Unique Clients"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/general/`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/general/`,
   }),
   endpoints: (builder) => ({
     getPaginatedProduct: builder.query({
